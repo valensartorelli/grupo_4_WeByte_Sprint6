@@ -14,8 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsTo(models.Address);
       // belongsTo
       User.belongsTo(models.Avatar);
-      // belongsTo
-      User.belongsTo(models.Order);
+
+     // hasMany
+      User.hasMany(models.Order, {
+        foreignKey: 'userId',
+        as: "orders"
+      });
     }
   };
   User.init({

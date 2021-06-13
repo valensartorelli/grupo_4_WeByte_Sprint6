@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // belongsTo
-      Avatar.belongsTo(models.User);
+      // hasOne - de uno a uno pero con FK
+      Avatar.hasOne(models.User, {
+        foreignKey: 'avatarId',
+        as: "users"
+      });
     }
   };
   Avatar.init({

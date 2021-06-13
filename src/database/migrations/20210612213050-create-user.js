@@ -23,11 +23,19 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      adressId: {
-        type: Sequelize.INTEGER
+      addressId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'addresses',
+          key: 'id'
+        }
       },
       avatarId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'avatars',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

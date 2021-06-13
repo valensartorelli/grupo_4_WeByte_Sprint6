@@ -1,0 +1,479 @@
+
+Crear la base de datos en workbench (schema): db-webyte
+
+Crear un proyecto
+npm init -y
+
+Dependencias a instalar:
+npm i express
+npm i dotenv
+npm i sequelize mysql2
+npm i --save -dev nodemon
+
+Dependencias a instalar de Desarrollo:
+npm i sequelize-cli --D
+
+Crear en la raíz del proyecto los siguientes archivos:
+.gitignore ( para ignorar los archivos de Git). 
+.env (Para declarar las variables de entorno)
+.sequelizerc 
+
+Abrir el archivo.gitignore y en su interior agregar:
+/node_modules/
+
+Abrir el archivo.env y en su interior agregar:
+
+DB_USERNAME= root
+DB_PASSWORD=
+DB_HOST= localhost
+DB_DATABASE=asequelize
+DB_PORT=3306
+DB_DIALECT=mysql
+
+
+Abrir el archivo.app.js y en su interior
+const express = require('express');
+const app = express();
+const path = require('path');
+
+const PORT = process.env.PORT || 3000
+
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+app.use(express.json())
+//URL encode  - Para que nos pueda llegar la información desde el formulario al req.body
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/', (req, res) => res.json({ clave: "con el server" }));
+
+app.listen(PORT, () => {
+    console.log('Servidor corriendo en el puerto' + PORT)
+}
+
+);
+
+
+Abrir el archivo -sequelizerc y en su interior agregar:
+const path = require('path')
+module.exports = {
+config: path.resolve('./src/database/config', 'config.js'),
+'models-path': path.resolve('./src/database/models'),
+'seeders-path': path.resolve('./src/database/seeders'),
+'migrations-path': path.resolve('./src/database/migrations'),
+}
+
+
+Crear la carpeta en la raiz:
+public
+src
+
+Dentro de la carpeta src:
+crear el archivo app.js
+crear las carpetas routes y controller
+
+Ejecutar sequelize-cli init para crear las carpetas que menciona .sequelize
+
+
+Ingresar a src - config y en el interior del archivo config.js reemplazar todo por
+// Para tomar lo parametros del env
+require('dotenv').config()
+
+module.exports =
+
+{
+
+    "username": process.env.DB_USERNAME,
+    "password": process.env.DB_PASSWORD,
+    "database": process.env.DB_DATABASE,
+    "host": process.env.DB_HOST,
+    "port": process.env.DB_PORT,
+    "dialect": process.env.DB_DIALECT,
+
+    seederStorage: "sequelize",
+    seederStorageTableName: "seeds",
+
+    migrationStorage: "sequelize",
+    migrationStorageTableName: "migrations"
+
+}
+
+
+Crear todos los modelos intervinientes
+IMPORTANTE VERIFICAR EL ORDEN DE EJECUCION  ///  PRIMERO SE GENERAN LAS QUE NO TIENEN FORINKEY SIN DEPENDENCIAS
+
+-------------- PRODUCTO sueltos
+
+sequelize model:generate --name Brand --attributes name:string
+
+sequelize model:generate --name Color --attributes name:string
+
+sequelize model:generate --name Category --attributes name:string
+
+sequelize model:generate --name Size --attributes name:string
+
+sequelize model:generate --name Visibility --attributes name:string
+
+-------------- ORDEN sueltos
+
+sequelize model:generate --name Payment --attributes name:string
+
+sequelize model:generate --name Status --attributes name:string
+
+sequelize model:generate --name Avatar --attributes name:string
+
+sequelize model:generate --name Address --attributes street:string,number:integer,city:string,state:string,floor:integer,apartment:string,cp:string,phone_number:integer
+
+-------------- PRODUCTOS
+
+sequelize model:generate --name Product --attributes name:string,stock:integer,stock_min:integer,stock_max:integer,description:string,price:decimal,brandId:integer,categoryId:integer,sizeId:integer,colorId:integer,visibilityId:integer,home:integer,extended_description:string
+
+sequelize model:generate --name Image --attributes name:string,productId:integer
+
+
+-------------- USERS
+
+sequelize model:generate --name User --attributes firstName:string,lastName:string,userName:string,email:string,password:string,adressId:integer,avatarId:integer
+
+-------------- ORDERS
+
+sequelize model:generate --name Order --attributes number:integer,date:dateonly,total:decimal,paymentId:integer,userId:integer,userAdressId:integer,statusId:integer
+
+-------------- SHIPPING
+
+sequelize model:generate --name Shipping --attributes street:string,number:integer,city:string,state:string,floor:integer,apartment:string,cp:string,phone_number:integer,price:integer,orderId:integer,orderPaymentId:integer
+
+-------------- ORDER DETAILS
+
+sequelize model:generate --name OrderDetail --attributes quantity:decimal,subtotal:decimal,orderId:integer,productId:integer
+
+
+
+Crear todas las relaciones correpondientes
+
+Modelo ADRESS
+
+static associate(models) {   
+      // hasOne - de uno a uno pero con FK
+      Address.hasOne(models.User, {
+        foreignKey: 'addresId',
+        as: "users"
+      });
+    }
+
+Modelo AVATAR
+
+static associate(models) {
+     // hasOne - de uno a uno pero con FK
+      Avatar.hasOne(models.User, {
+        foreignKey: 'avatarId',
+        as: "users"
+      });
+    }
+
+Modelo BRAND
+
+static associate(models) {
+     // hasMany
+      Brand.hasMany(models.Product, {
+        foreignKey: 'brandId',
+        as: "products"
+      });
+
+    }
+
+Modelo CATEGORY
+
+static associate(models) {
+       // hasMany
+      Category.hasMany(models.Product, {
+        foreignKey: 'categoryId',
+        as: "products"
+      });
+    }
+
+Modelo COLOR
+
+static associate(models) {
+     // hasMany
+      Color.hasMany(models.Product, {
+        foreignKey: 'colorId',
+        as: "products"
+      });
+    }
+
+Modelo IMAGE
+
+ static associate(models) {
+     // belongsTo
+      Image.belongsTo(models.Product);
+    }
+
+Modelo ORDER
+
+static associate(models) {
+      // belongsTo
+      Order.belongsTo(models.Status);
+      // belongsTo
+      Order.belongsTo(models.Payment);
+      // belongsTo
+      Order.belongsTo(models.User);
+
+      // hasOne
+      Order.hasOne(models.Shipping, {
+        foreignKey: 'orderId',
+        as: "shippings"
+      });
+     // hasOne 
+      Order.hasOne(models.Shipping, {
+        foreignKey: 'orderPaymentId',
+        as: "orderPayments"
+      });
+      // hasMany
+      Order.hasMany(models.OrderDetail, {
+        foreignKey: 'orderId',
+        as: "orderDetails"
+      });
+    }
+
+Modelo ORDERDETAIL
+
+static associate(models) {
+      // belongsTo
+      OrderDetail.belongsTo(models.Product);
+
+      // belongsTo
+      OrderDetail.belongsTo(models.Order);
+    }
+
+Modelo PAYMENT
+
+static associate(models) {
+      // hasOne - de uno a uno pero con FK
+      Payment.hasOne(models.Order, {
+        foreignKey: 'paymentId',
+        as: "orders"
+      });
+    }
+
+Modelo PRODUCT
+
+static associate(models) {
+     // hasMany
+      Product.hasMany(models.Image, {
+        foreignKey: 'productId',
+        as: "images"
+      });
+
+      // belongsTo
+      Product.belongsTo(models.Brand);
+      // belongsTo
+      Product.belongsTo(models.Category);
+      // belongsTo
+      Product.belongsTo(models.Size);
+      // belongsTo
+      Product.belongsTo(models.Visibility);
+      // belongsTo
+      Product.belongsTo(models.Color);
+
+      // hasMany
+      Product.hasOne(models.OrderDetail, {
+        foreignKey: 'productId',
+        as: "orderDetails"
+      });
+    }
+
+Modelo SHIPPING
+
+static associate(models) {
+      // belongsTo
+      Shipping.belongsTo(models.Order);
+    }
+
+Modelo SIZE
+
+static associate(models) {
+      // hasMany
+      Size.hasMany(models.Product, {
+        foreignKey: 'sizeId',
+        as: "products"
+      });
+    }
+
+Modelo STATUS
+
+static associate(models) {
+     // hasOne - de uno a uno pero con FK
+      Status.hasOne(models.Order, {
+        foreignKey: 'statusId',
+        as: "orders"
+      });
+    }
+
+Modelo USER
+
+static associate(models) {
+      // belongsTo
+      User.belongsTo(models.Address);
+      // belongsTo
+      User.belongsTo(models.Avatar);
+
+     // hasMany
+      User.hasMany(models.Order, {
+        foreignKey: 'userId',
+        as: "orders"
+      });
+    }
+
+Modelo VISIBILITY
+
+static associate(models) {
+      // hasMany
+      Visibility.hasMany(models.Product, {
+        foreignKey: 'visibilityId',
+        as: "products"
+      });
+    }
+
+
+
+AHORA HAY QUE AGREGAR LAS CLAVES FORANEAS A LAS  MIGRACIONES
+
+MIGRACION PRODUCT
+       brandId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'brands',
+          key: 'id'
+        }
+      },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'categories',
+          key: 'id'
+        }
+      },
+      sizeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'sizes',
+          key: 'id'
+        }
+      },
+      colorId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'colors',
+          key: 'id'
+        }
+      },
+      visibilitiesId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'colors',
+          key: 'id'
+        }
+      },
+
+MIGRACION IMAGE
+
+      productId: { 
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'products',
+          key: 'id'
+        }
+      },
+
+
+MIGRACION ORDERDETAIL
+
+       productId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'products',
+          key: 'id'
+        }
+      },
+      orderId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
+      },
+
+
+
+MIGRACION SHIPPING
+
+       	orderId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
+      },
+      orderPaymentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
+      },
+
+
+MIGRACION ORDER
+
+       paymentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'payments',
+          key: 'id'
+        }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      userAddressId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      statusId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'statuses',
+          key: 'id'
+        }
+      },
+
+MIGRACION USER
+
+       	addressId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'addresses',
+          key: 'id'
+        }
+      },
+      avatarId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'avatars',
+          key: 'id'
+        }
+      },
+
+
+
+CREAR LA MIGRACION Y CREACION DE LAS TABLAS
+sequelize db:migrate   // opcion 1
+"node_modules/.bin/sequelize" db:migrate // opcion 2
+

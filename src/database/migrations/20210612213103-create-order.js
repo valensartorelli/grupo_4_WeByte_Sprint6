@@ -18,16 +18,32 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       paymentId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'payments',
+          key: 'id'
+        }
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
-      userAdressId: {
-        type: Sequelize.INTEGER
+      userAddressId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
       statusId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'statuses',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

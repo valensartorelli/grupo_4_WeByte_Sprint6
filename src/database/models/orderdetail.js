@@ -13,11 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // belongsTo
       OrderDetail.belongsTo(models.Product);
 
-      // hasMany
-      OrderDetail.hasMany(models.User, {
-        foreignKey: 'orderDetailId',
-        as: "users"
-      })
+      // belongsTo
+      OrderDetail.belongsTo(models.Order);
     }
   };
   OrderDetail.init({

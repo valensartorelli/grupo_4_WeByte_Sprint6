@@ -23,6 +23,32 @@ module.exports = {
       floor: {
         type: Sequelize.INTEGER
       },
+      apartment: {
+        type: Sequelize.STRING
+      },
+      cp: {
+        type: Sequelize.STRING
+      },
+      phone_number: {
+        type: Sequelize.INTEGER
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
+      orderId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
+      },
+      orderPaymentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

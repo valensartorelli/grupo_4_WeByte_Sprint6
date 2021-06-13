@@ -10,37 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // hasMany
+      Product.hasMany(models.Image, {
+        foreignKey: 'productId',
+        as: "images"
+      });
+
       // belongsTo
-      Product.belongsTo(models.Image);
+      Product.belongsTo(models.Brand);
+      // belongsTo
+      Product.belongsTo(models.Category);
+      // belongsTo
+      Product.belongsTo(models.Size);
+      // belongsTo
+      Product.belongsTo(models.Visibility);
+      // belongsTo
+      Product.belongsTo(models.Color);
 
       // hasMany
-      Product.hasMany(models.Brand, {
+      Product.hasOne(models.OrderDetail, {
         foreignKey: 'productId',
-        as: "brands"
+        as: "orderDetails"
       });
-      // hasMany
-      Product.hasMany(models.Category, {
-        foreignKey: 'productId',
-        as: "categories"
-      });
-      // hasMany
-      Product.hasMany(models.Size, {
-        foreignKey: 'productId',
-        as: "sizes"
-      });
-      // hasMany
-      Product.hasMany(models.Visibility, {
-        foreignKey: 'productId',
-        as: "visibilities"
-      });
-      // hasMany
-      Product.hasMany(models.Color, {
-        foreignKey: 'productId',
-        as: "colors"
-      });
-      
-      // belongsTo
-      Product.belongsTo(models.orderDetail);
     }
   };
   Product.init({

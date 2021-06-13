@@ -1,0 +1,302 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema ecom
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ecom
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ecom` DEFAULT CHARACTER SET utf8 ;
+USE `ecom` ;
+
+-- -----------------------------------------------------
+-- Table `ecom`.`payments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`payments` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`addresses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`addresses` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `street` VARCHAR(45) NULL,
+  `number` INT NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `floor` INT NULL,
+  `apartment` VARCHAR(45) NULL,
+  `cp` VARCHAR(20) NULL,
+  `phone_number` INT(10) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`avatars`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`avatars` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `username` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `addresses_id` INT NOT NULL,
+  `avatar_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `addresses_id`, `avatar_id`),
+  INDEX `fk_users_addresses1_idx` (`addresses_id` ASC),
+  INDEX `fk_users_avatar1_idx` (`avatar_id` ASC),
+  CONSTRAINT `fk_users_addresses1`
+    FOREIGN KEY (`addresses_id`)
+    REFERENCES `ecom`.`addresses` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_avatar1`
+    FOREIGN KEY (`avatar_id`)
+    REFERENCES `ecom`.`avatars` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`statuses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`statuses` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`orders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` INT NULL,
+  `date` DATE NULL,
+  `total` DECIMAL NULL,
+  `payments_id` INT UNSIGNED NOT NULL,
+  `users_id` INT UNSIGNED NOT NULL,
+  `users_addresses_id` INT NOT NULL,
+  `statuses_id` INT UNSIGNED NOT NULL,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  PRIMARY KEY (`id`, `payments_id`, `users_id`, `users_addresses_id`, `statuses_id`),
+  INDEX `fk_orders_payments1_idx` (`payments_id` ASC),
+  INDEX `fk_orders_users1_idx` (`users_id` ASC, `users_addresses_id` ASC),
+  INDEX `fk_orders_states1_idx` (`statuses_id` ASC),
+  CONSTRAINT `fk_orders_payments1`
+    FOREIGN KEY (`payments_id`)
+    REFERENCES `ecom`.`payments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_users1`
+    FOREIGN KEY (`users_id` , `users_addresses_id`)
+    REFERENCES `ecom`.`users` (`id` , `addresses_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_states1`
+    FOREIGN KEY (`statuses_id`)
+    REFERENCES `ecom`.`statuses` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`brands`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`brands` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`categories`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`categories` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`sizes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`sizes` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`colors`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`colors` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`visibilities`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`visibilities` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`products`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`products` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `price` DECIMAL NULL,
+  `stock` INT NULL,
+  `stock_min` INT NULL,
+  `stock_max` INT NULL,
+  `brands_id` INT UNSIGNED NOT NULL,
+  `categories_id` INT UNSIGNED NOT NULL,
+  `sizes_id` INT UNSIGNED NOT NULL,
+  `colors_id` INT UNSIGNED NOT NULL,
+  `visibilities_id` INT UNSIGNED NOT NULL,
+  `description` VARCHAR(255) NULL,
+  `home` TINYINT(1) NULL,
+  `extended_description` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`, `brands_id`, `categories_id`, `sizes_id`, `colors_id`, `visibilities_id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_products_brands1_idx` (`brands_id` ASC),
+  INDEX `fk_products_categories1_idx` (`categories_id` ASC),
+  INDEX `fk_products_sizes1_idx` (`sizes_id` ASC),
+  INDEX `fk_products_genders1_idx` (`colors_id` ASC),
+  INDEX `fk_products_status1_idx` (`visibilities_id` ASC),
+  CONSTRAINT `fk_products_brands1`
+    FOREIGN KEY (`brands_id`)
+    REFERENCES `ecom`.`brands` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_categories1`
+    FOREIGN KEY (`categories_id`)
+    REFERENCES `ecom`.`categories` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_sizes1`
+    FOREIGN KEY (`sizes_id`)
+    REFERENCES `ecom`.`sizes` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_genders1`
+    FOREIGN KEY (`colors_id`)
+    REFERENCES `ecom`.`colors` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_status1`
+    FOREIGN KEY (`visibilities_id`)
+    REFERENCES `ecom`.`visibilities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`orderDetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`orderDetails` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `quantity` DECIMAL NULL,
+  `subtotal` DECIMAL NULL,
+  `orders_id` INT NOT NULL,
+  `products_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `orders_id`, `products_id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_orderDetails_orders1_idx` (`orders_id` ASC),
+  INDEX `fk_orderDetails_products1_idx` (`products_id` ASC),
+  CONSTRAINT `fk_orderDetails_orders1`
+    FOREIGN KEY (`orders_id`)
+    REFERENCES `ecom`.`orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orderDetails_products1`
+    FOREIGN KEY (`products_id`)
+    REFERENCES `ecom`.`products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`shippings`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`shippings` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `street` VARCHAR(45) NULL,
+  `number` INT NULL,
+  `price` VARCHAR(45) NULL,
+  `orders_id` INT NOT NULL,
+  `orders_payments_id` INT UNSIGNED NOT NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `floor` INT NULL,
+  `apartment` VARCHAR(45) NULL,
+  `cp` VARCHAR(20) NULL,
+  `phone_number` INT(10) NULL,
+  PRIMARY KEY (`id`, `orders_id`, `orders_payments_id`),
+  INDEX `fk_Shipmment_orders1_idx` (`orders_id` ASC, `orders_payments_id` ASC),
+  CONSTRAINT `fk_Shipmment_orders1`
+    FOREIGN KEY (`orders_id` , `orders_payments_id`)
+    REFERENCES `ecom`.`orders` (`id` , `payments_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom`.`images`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom`.`images` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `products_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_images_products1_idx` (`products_id` ASC),
+  CONSTRAINT `fk_images_products1`
+    FOREIGN KEY (`products_id`)
+    REFERENCES `ecom`.`products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

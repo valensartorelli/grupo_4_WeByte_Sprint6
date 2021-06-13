@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // belongsTo
-      Payment.belongsTo(models.Order);
+      // hasOne - de uno a uno pero con FK
+      Payment.hasOne(models.Order, {
+        foreignKey: 'paymentId',
+        as: "orders"
+      });
     }
   };
   Payment.init({

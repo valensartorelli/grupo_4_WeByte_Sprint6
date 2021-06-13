@@ -27,19 +27,39 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       brandId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'brands',
+          key: 'id'
+        }
       },
       categoryId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'categories',
+          key: 'id'
+        }
       },
       sizeId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'sizes',
+          key: 'id'
+        }
       },
       colorId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'colors',
+          key: 'id'
+        }
       },
-      visibilityId: {
-        type: Sequelize.INTEGER
+      visibilitiesId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'colors',
+          key: 'id'
+        }
       },
       home: {
         type: Sequelize.INTEGER
