@@ -19,9 +19,10 @@ USE `ecom` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`payments` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -29,17 +30,18 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`addresses` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(45) NULL,
-  `number` INT NULL,
-  `city` VARCHAR(45) NULL,
-  `state` VARCHAR(45) NULL,
+  `street` VARCHAR(45) NOT NULL,
+  `number` INT NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `state` VARCHAR(45) NOT NULL,
   `floor` INT NULL,
   `apartment` VARCHAR(45) NULL,
-  `cp` VARCHAR(20) NULL,
-  `phone_number` INT(10) NULL,
+  `cp` VARCHAR(20) NOT NULL,
+  `phone_number` INT(10) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -47,9 +49,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`avatars` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -57,11 +60,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NULL,
-  `last_name` VARCHAR(45) NULL,
-  `username` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `password` VARCHAR(45) NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `addresses_id` INT NOT NULL,
   `avatar_id` INT NOT NULL,
   PRIMARY KEY (`id`, `addresses_id`, `avatar_id`),
@@ -77,7 +80,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`users` (
     REFERENCES `ecom`.`avatars` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -85,9 +89,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`statuses` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -95,9 +100,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `number` INT NULL,
+  `number` INT NOT NULL,
   `date` DATE NULL,
-  `total` DECIMAL NULL,
+  `total` DECIMAL NOT NULL,
   `payments_id` INT UNSIGNED NOT NULL,
   `users_id` INT UNSIGNED NOT NULL,
   `users_addresses_id` INT NOT NULL,
@@ -122,7 +127,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`orders` (
     REFERENCES `ecom`.`statuses` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -130,9 +136,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`brands` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -140,9 +147,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`categories` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -150,9 +158,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`sizes` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -160,9 +169,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`colors` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -170,9 +180,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`visibilities` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -180,8 +191,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`products` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `price` DECIMAL NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `price` DECIMAL NOT NULL,
   `stock` INT NULL,
   `stock_min` INT NULL,
   `stock_max` INT NULL,
@@ -190,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `ecom`.`products` (
   `sizes_id` INT UNSIGNED NOT NULL,
   `colors_id` INT UNSIGNED NOT NULL,
   `visibilities_id` INT UNSIGNED NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `description` VARCHAR(255) NOT NULL,
   `home` TINYINT(1) NULL,
   `extended_description` VARCHAR(255) NULL,
   PRIMARY KEY (`id`, `brands_id`, `categories_id`, `sizes_id`, `colors_id`, `visibilities_id`),
@@ -225,7 +236,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`products` (
     REFERENCES `ecom`.`visibilities` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -233,7 +245,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`orderDetails` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `quantity` DECIMAL NULL,
+  `quantity` DECIMAL NOT NULL,
   `subtotal` DECIMAL NULL,
   `orders_id` INT NOT NULL,
   `products_id` INT NOT NULL,
@@ -251,7 +263,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`orderDetails` (
     REFERENCES `ecom`.`products` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -259,17 +272,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`shippings` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(45) NULL,
-  `number` INT NULL,
+  `street` VARCHAR(45) NOT NULL,
+  `number` INT NOT NULL,
   `price` VARCHAR(45) NULL,
   `orders_id` INT NOT NULL,
   `orders_payments_id` INT UNSIGNED NOT NULL,
-  `city` VARCHAR(45) NULL,
-  `state` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `state` VARCHAR(45) NOT NULL,
   `floor` INT NULL,
   `apartment` VARCHAR(45) NULL,
-  `cp` VARCHAR(20) NULL,
-  `phone_number` INT(10) NULL,
+  `cp` VARCHAR(20) NOT NULL,
+  `phone_number` INT(10) NOT NULL,
   PRIMARY KEY (`id`, `orders_id`, `orders_payments_id`),
   INDEX `fk_Shipmment_orders1_idx` (`orders_id` ASC, `orders_payments_id` ASC),
   CONSTRAINT `fk_Shipmment_orders1`
@@ -277,7 +290,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`shippings` (
     REFERENCES `ecom`.`orders` (`id` , `payments_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -285,7 +299,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecom`.`images` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   `products_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_images_products1_idx` (`products_id` ASC),
@@ -294,7 +308,8 @@ CREATE TABLE IF NOT EXISTS `ecom`.`images` (
     REFERENCES `ecom`.`products` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
