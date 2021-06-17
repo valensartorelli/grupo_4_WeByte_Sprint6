@@ -9,15 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       street: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       number: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       city: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       state: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       floor: {
@@ -27,12 +31,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       cp: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       phone_number: {
-        type: Sequelize.INTEGER
-      },
-      price: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

@@ -9,21 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       lastName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       userName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       addressId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'addresses',
@@ -31,6 +37,7 @@ module.exports = {
         }
       },
       avatarId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'avatars',

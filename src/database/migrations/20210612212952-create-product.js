@@ -9,9 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       stock: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       stock_min: {
@@ -21,12 +23,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       price: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       brandId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'brands',
@@ -34,6 +39,7 @@ module.exports = {
         }
       },
       categoryId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'categories',
@@ -41,6 +47,7 @@ module.exports = {
         }
       },
       sizeId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'sizes',
@@ -48,6 +55,7 @@ module.exports = {
         }
       },
       colorId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'colors',
@@ -55,6 +63,7 @@ module.exports = {
         }
       },
       visibilitiesId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'colors',
@@ -65,6 +74,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       extended_description: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

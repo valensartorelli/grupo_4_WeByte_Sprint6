@@ -9,15 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       street: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       number: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       city: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       state: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       floor: {
@@ -27,15 +31,19 @@ module.exports = {
         type: Sequelize.STRING
       },
       cp: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       phone_number: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       price: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       orderId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'orders',
@@ -43,6 +51,7 @@ module.exports = {
         }
       },
       orderPaymentId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'orders',

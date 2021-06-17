@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       quantity: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       subtotal: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       orderId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'orders',
@@ -22,6 +25,7 @@ module.exports = {
         }
       },
       productId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'products',

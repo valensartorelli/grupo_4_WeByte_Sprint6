@@ -9,15 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       number: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       date: {
+        allowNull: false,
         type: Sequelize.DATEONLY
       },
       total: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       paymentId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'payments',
@@ -25,6 +29,7 @@ module.exports = {
         }
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -32,6 +37,7 @@ module.exports = {
         }
       },
       userAddressId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -39,6 +45,7 @@ module.exports = {
         }
       },
       statusId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'statuses',
