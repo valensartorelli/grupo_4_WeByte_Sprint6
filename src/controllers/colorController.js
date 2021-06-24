@@ -39,8 +39,6 @@ const colorController = {
             return res.redirect('/color')})            
         .catch(error => res.send(error))
     },
-    
-
     edit: (req, res) =>{
         let colorId = req.params.id;
         Color         
@@ -50,12 +48,27 @@ const colorController = {
         .catch(error => res.send(error))
     },
     update: (req, res) =>{
-
+        let colorId = req.params.id;
+        Color.update(
+            {
+                name: req.body.name
+            },
+            {
+                where: {id: colorId}
+            }
+        )
+        .then(()=> {
+        return res.redirect('/color')})    
+        .catch(error => res.send(error))
     },
 
-    delete: (req, res) =>{},
+    //delete: (req, res) =>{},
     destroy: (req, res) =>{
-    
+        let colorId = req.params.id;
+        Color.destroy({where: {id: colorId}, force: true}) // force: true es para asegurar que se ejecute la acción
+        .then(()=>{
+            return res.redirect('/color')})
+        .catch(error => res.send(error)) 
     },
 
     // END CRUD

@@ -13,7 +13,7 @@ router.post('/create', colorController.create);
 router.get('/edit/:id', colorController.edit);
 router.put('/update/:id', colorController.update);
 
-router.get('/delete/:id', colorController.delete);
-router.delete('/delete/:id', colorController.destroy);
+//router.get('/delete/:id', colorController.delete);
+router.delete('/destroy/:id', colorController.destroy);
 
 module.exports = router;
