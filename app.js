@@ -4,16 +4,35 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000
 
+// view engine setup
+app.set('views', path.resolve(__dirname, './src/views'));
+app.set('view engine', 'ejs'); 
+
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.use(express.json())
 //URL encode  - Para que nos pueda llegar la información desde el formulario al req.body
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', (req, res) => res.json({ clave: "con el server" }));
+
+// llamo al router
+const indexRoutes = require('./src/routes/indexRoutes');
+const productRoutes = require('./src/routes/productRoutes');
+const colorRoutes = require('./src/routes/colorRoutes');
+//const userRoutes = require('./src/routes/userRoutes');
+
+
+// ruteo
+app.use('/', indexRoutes);
+app.use('/product', productRoutes);
+app.use('/color', colorRoutes);
+//app.use('/users', userRoutes);
+
+
+//app.use('/', (req, res) => res.json({ clave: "con el server" }));
 
 app.listen(PORT, () => {
-    console.log('Servidor corriendo en el puerto' + PORT)
+    console.log('Servidor corriendo en el puerto'  +  PORT)
 }
 
 );

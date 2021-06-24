@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="/product/create" method="POST" enctype="multipart/form-data">
+        <div class="fr_nombre">
+            <label for="categoryId" class="fr_lbltexto"> Categoria </label>
+            <select name="categoryId" id="" required>
+                <option value="0" disabled selected>- Seleccione una categoria - </option>
+                <% allCategories.forEach(category => { %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="fr_nombre">
+            <label for="brandId" class="fr_lbltexto"> Marca </label>
+            <select name="brandId" id="" required>
+                <option value="0" disabled selected>- Seleccione una marca - </option>
+                <% allBrands.forEach(brand => { %>
+                <option value="<%= brand.id %>"><%= brand.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto">Nombre</label>
+            <input type="text" name="name" id="" required>
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Descripción </label>
+            <input type="textarea" name="description" id="" required>
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Descripción ampliada</label>
+            <textarea name="extended_description" id="" required></textarea>
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Precio </label>
+            <input type="text" name="price" id="" required>
+        </div>
+        <div class="fr_email check-talles">
+            <label for="colordId" class="fr_lbltexto"> Color </label>
+            <select name="colordId" id="" required>
+                <option value="0" disabled selected>- Seleccione un color- </option>
+                <% allColors.forEach(color => { %>
+                <option value="<%= color.id %>"><%= color.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        
+        <div class="fr_email check-talles">
+            <label for="sizeId" class="fr_lbltexto"> Talle </label>
+            <select name="sizeId" id="" required>
+                <option value="0" disabled selected>- Seleccione un talle- </option>
+                <% allSizes.forEach(size => { %>
+                <option value="<%= size.id %>"><%= size.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Stock</label>
+            <input type="text" name="stock" id="" required>
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Stock Minimo</label>
+            <input type="text" name="stock_min" id="">
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Stock Maximo</label>
+            <input type="text" name="stock_max" id="">
+        </div>
+        <div class="fr_email">
+            <label class="fr_lbltexto"> Imagen de producto </label>
+            <input type="file" name="image" id=""  accept=".jpg, .png">
+        </div>
+        
+        <div class="fr_email check-x">
+            <label for="news" class="fr_lbltexto"> Destacado Home </label> 
+              <input type="checkbox" name="home" id="" value="true" >
+    </div>
+    <div class="fr_email check-talles">
+        <label for="visibilitiesId" class="fr_lbltexto"> Visibilidad </label>
+        <select name="visibilitiesId" id="">
+            <option value="0" disabled selected>- Seleccione Visibilidad del producto- </option>
+            <% allVisibilities.forEach(visibility => { %>
+            <option value="<%= visibility.id %>"><%= visibility.name %></option>
+            <% }); %>
+        </select>
+    </div>
+        <!--</div>-->
+        <br>
+        <div class="fr_registro">
+            <div class="fr_registro-left">
+                <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                    <span class="pd_gl-cta__content">
+                        Crear
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form> 
+</div>
+</body>
+</html>
