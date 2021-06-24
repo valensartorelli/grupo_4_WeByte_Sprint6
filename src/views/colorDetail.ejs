@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>Color: <%= color.name %> </p>
+    <br>
+    <form action="/color/update/<%= color.id %>?_method=PUT" method="POST">
+        <label for="title">Color</label>
+        <p><input type="text" name="name" id="" value="<%= color.name %>" required></p>
+        <button class="botonBorrar" type="submit">Editar el color</button>
+            <br><br>
+    </form>
+    <form action="/color/delete/<%= color.id %>?_method=PUT" method="POST">
+        <button class="botonBorrar" type="submit">Eliminar el color</button>
+            <br><br>
+    </form>
+    <br><br>
+    <a  class="botonVolver" href="/color">Listado de Colores</a>
 </body>
 </html>

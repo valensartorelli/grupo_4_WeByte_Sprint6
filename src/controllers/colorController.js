@@ -42,12 +42,21 @@ const colorController = {
     
 
     edit: (req, res) =>{
-        let ColorId = req.params.id;
+        let colorId = req.params.id;
+        Color         
+        .findByPk(colorId)
+        .then(Color => {
+            return res.render(path.resolve(__dirname, '..', 'views',  'colorDelete'), {Color})})
+        .catch(error => res.send(error))
     },
-    update: (req, res) =>{},
+    update: (req, res) =>{
+
+    },
 
     delete: (req, res) =>{},
-    destroy: (req, res) =>{},
+    destroy: (req, res) =>{
+    
+    },
 
     // END CRUD
 

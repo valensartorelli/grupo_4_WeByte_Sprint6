@@ -18,7 +18,15 @@
                 <% }); %>
             </select>
         </div>
-       
+        <div class="fr_nombre">
+            <label for="brandId" class="fr_lbltexto"> Marca </label>
+            <select name="brandId" id="" required>
+                <option value="0" disabled selected>- Seleccione una marca - </option>
+                <% allBrands.forEach(brand => { %>
+                <option value="<%= brand.id %>"><%= brand.name %></option>
+                <% }); %>
+            </select>
+        </div>
         <div class="fr_nombre">
             <label class="fr_lbltexto">Nombre</label>
             <input type="text" name="name" id="" required>
