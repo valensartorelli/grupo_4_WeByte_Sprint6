@@ -13,10 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // belongsTo
-      Product.belongsTo(models.Brand, {
-        foreignKey: 'brandId',
-        as: 'Brand'
-      });
+      Product.belongsTo(models.Brand);
       // belongsTo
       Product.belongsTo(models.Category);
       // belongsTo

@@ -367,10 +367,10 @@ MIGRACION PRODUCT
           key: 'id'
         }
       },
-      visibilitiesId: {
+      visibilityId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'colors',
+          model: 'visibilities',
           key: 'id'
         }
       },

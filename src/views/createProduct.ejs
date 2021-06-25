@@ -8,11 +8,11 @@
 </head>
 <body>
     <div>
-        <form action="/product/create" method="POST" enctype="multipart/form-data">
+        <form action="/product/create" method="POST">
         <div class="fr_nombre">
             <label for="categoryId" class="fr_lbltexto"> Categoria </label>
-            <select name="categoryId" id="" required>
-                <option value="0" disabled selected>- Seleccione una categoria - </option>
+            <select name="categoryId" id="">
+                <option value="" disabled selected>- Seleccione una categoria - </option>
                 <% allCategories.forEach(category => { %>
                 <option value="<%= category.id %>"><%= category.name %></option>
                 <% }); %>
@@ -20,33 +20,33 @@
         </div>
         <div class="fr_nombre">
             <label for="brandId" class="fr_lbltexto"> Marca </label>
-            <select name="brandId" id="" required>
-                <option value="0" disabled selected>- Seleccione una marca - </option>
+            <select name="brandId" id="" >
+                <option value="" disabled selected>- Seleccione una marca - </option>
                 <% allBrands.forEach(brand => { %>
                 <option value="<%= brand.id %>"><%= brand.name %></option>
                 <% }); %>
             </select>
         </div>
         <div class="fr_nombre">
-            <label class="fr_lbltexto">Nombre</label>
-            <input type="text" name="name" id="" required>
+            <label class="fr_lbltexto" for="name">Nombre</label>
+            <input type="text" name="name" id="" >
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Descripción </label>
-            <input type="textarea" name="description" id="" required>
+            <label class="fr_lbltexto" for="description"> Descripción </label>
+            <input type="textarea" name="description" id="" >
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Descripción ampliada</label>
-            <textarea name="extended_description" id="" required></textarea>
+            <label class="fr_lbltexto" for="extended"> Descripción ampliada</label>
+            <textarea name="extended" id="" ></textarea>
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Precio </label>
-            <input type="text" name="price" id="" required>
+            <label class="fr_lbltexto" for="price"> Precio </label>
+            <input type="text" name="price" id="" >
         </div>
         <div class="fr_email check-talles">
-            <label for="colordId" class="fr_lbltexto"> Color </label>
-            <select name="colordId" id="" required>
-                <option value="0" disabled selected>- Seleccione un color- </option>
+            <label for="colorId" class="fr_lbltexto"> Color </label>
+            <select name="colorId" id="" >
+                <option value="" disabled selected>- Seleccione un color- </option>
                 <% allColors.forEach(color => { %>
                 <option value="<%= color.id %>"><%= color.name %></option>
                 <% }); %>
@@ -55,38 +55,38 @@
         
         <div class="fr_email check-talles">
             <label for="sizeId" class="fr_lbltexto"> Talle </label>
-            <select name="sizeId" id="" required>
-                <option value="0" disabled selected>- Seleccione un talle- </option>
+            <select name="sizeId" id="" >
+                <option value="" disabled selected>- Seleccione un talle- </option>
                 <% allSizes.forEach(size => { %>
                 <option value="<%= size.id %>"><%= size.name %></option>
                 <% }); %>
             </select>
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Stock</label>
-            <input type="text" name="stock" id="" required>
+            <label class="fr_lbltexto" for="stock"> Stock</label>
+            <input type="text" name="stock" id="" >
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Stock Minimo</label>
+            <label class="fr_lbltexto" for="stock_min"> Stock Minimo</label>
             <input type="text" name="stock_min" id="">
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Stock Maximo</label>
+            <label class="fr_lbltexto" for="stock_max"> Stock Maximo</label>
             <input type="text" name="stock_max" id="">
         </div>
         <div class="fr_email">
-            <label class="fr_lbltexto"> Imagen de producto </label>
+            <label class="fr_lbltexto" for="image"> Imagen de producto </label>
             <input type="file" name="image" id=""  accept=".jpg, .png">
         </div>
         
         <div class="fr_email check-x">
-            <label for="news" class="fr_lbltexto"> Destacado Home </label> 
-              <input type="checkbox" name="home" id="" value="true" >
+            <label for="home" class="fr_lbltexto"> Destacado Home </label> 
+              <input type="checkbox" name="home" id="" >
     </div>
     <div class="fr_email check-talles">
-        <label for="visibilitiesId" class="fr_lbltexto"> Visibilidad </label>
-        <select name="visibilitiesId" id="">
-            <option value="0" disabled selected>- Seleccione Visibilidad del producto- </option>
+        <label for="visibilityId" class="fr_lbltexto"> Visibilidad </label>
+        <select name="visibilityId" id="">
+            <option value="" disabled selected>- Seleccione Visibilidad del producto- </option>
             <% allVisibilities.forEach(visibility => { %>
             <option value="<%= visibility.id %>"><%= visibility.name %></option>
             <% }); %>

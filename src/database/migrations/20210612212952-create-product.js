@@ -62,11 +62,11 @@ module.exports = {
           key: 'id'
         }
       },
-      visibilitiesId: {
+      visibilityId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'colors',
+          model: 'visibilities',
           key: 'id'
         }
       },
