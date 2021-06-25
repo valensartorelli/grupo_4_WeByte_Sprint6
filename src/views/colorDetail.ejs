@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Color: <%= color.name %> </p>
-    <br>
+    <p style="display: none;">Color: <%= color.name %> </p>
+
     <form action="/color/update/<%= color.id %>?_method=PUT" method="POST">
         <label for="title">Color</label>
         <p><input type="text" name="name" id="" value="<%= color.name %>" required></p>
