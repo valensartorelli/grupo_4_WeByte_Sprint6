@@ -86,21 +86,26 @@ const productController = {
         console.log('entre en Edit product')
         console.log('----------------------------')
         console.log(req.params.id);
+        console.log(path.resolve(__dirname, '..', 'views',  'productEdit'))
+        
+        let productId = req.params.id;
+        let promProduct = Product.findByPk(productId,{include: ['category','brand', 'color', 'size', 'visibility']});
+        let promCategories = Category.findAll();
+        let promBrands = Brand.findAll();
+        let promColors = Color.findAll();
+        let promSizes = Size.findAll();
+        let promVisibilities = Visibility.findAll();
+        
+        Promise
+        .all([promProduct, promCategories, promBrands, promColors, promSizes, promVisibilities])
+        .then(([Product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
+            
+            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {Product, allCategories, allBrands, allColors, allSizes, allVisibilities})})
+        .catch(error => res.send(error))
+      
 
-      let productId = req.params.id;
-      let promProducts = Product.findByPk(productId,{include: ['category','brand', 'color', 'size', 'visibility']});
-      let promCategories = Category.findAll();
-      let promBrands = Brand.findAll();
-      let promColors = Color.findAll();
-      let promSizes = Size.findAll();
-      let promVisibilities = Visibility.findAll();
-      Promise
-      .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities])
-      .then(([Product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-          Product.release_date = moment(Product.release_date).format('L');
-          return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {Product, allCategories, allBrands, allColors, allSizes, allVisibilities})})
-      .catch(error => res.send(error))
     },
+
     update: (req, res) =>{},
 
     delete: (req, res) =>{},
