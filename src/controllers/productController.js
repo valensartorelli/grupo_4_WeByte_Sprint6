@@ -2,6 +2,7 @@ const path = require('path');
 let db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
+const moment = require('moment');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Product = db.Product;
@@ -11,11 +12,15 @@ const Color = db.Color;
 const Size = db.Size;
 const Visibility = db.Visibility;
 
+//const { Product, Brand, Category, Color, Size, Visibility } = require('../database/models');
 
 const productController = {
 
     list: (req, res) => {
-         res.render('products.ejs')
+        db.Product.findAll()
+            .then(products => {
+                res.render('products.ejs', {products})
+            })
     },
     detail: (req, res) =>{},
 
@@ -72,12 +77,30 @@ const productController = {
         )
         .then(()=> {
             
-            return res.redirect('/products')})            
+            return res.redirect('/product')})            
         .catch(error => res.send(error))
     },
     
 
-    edit: (req, res) =>{},
+    edit: (req, res) =>{
+        console.log('entre en Edit product')
+        console.log('----------------------------')
+        console.log(req.params.id);
+
+      let productId = req.params.id;
+      let promProducts = Product.findByPk(productId,{include: ['category','brand', 'color', 'size', 'visibility']});
+      let promCategories = Category.findAll();
+      let promBrands = Brand.findAll();
+      let promColors = Color.findAll();
+      let promSizes = Size.findAll();
+      let promVisibilities = Visibility.findAll();
+      Promise
+      .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities])
+      .then(([Product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
+          Product.release_date = moment(Product.release_date).format('L');
+          return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {Product, allCategories, allBrands, allColors, allSizes, allVisibilities})})
+      .catch(error => res.send(error))
+    },
     update: (req, res) =>{},
 
     delete: (req, res) =>{},

@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     sizeId: DataTypes.INTEGER,
     colorId: DataTypes.INTEGER,
     visibilityId: DataTypes.INTEGER,
-    home: DataTypes.INTEGER,
+    home: DataTypes.TINYINT,
     extended_description: DataTypes.STRING
   }, {
     sequelize,

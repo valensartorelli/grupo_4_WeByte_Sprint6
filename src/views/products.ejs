@@ -8,5 +8,14 @@
 </head>
 <body>
     <h1>listado productos</h1>
+    <a href="product/add">Alta de productos</a>
+    <ul>
+        <% for( let i = 0; i < products.length; i++ ) { %>
+        <li>
+            <a href="/product/edit/<%= products[i].id %>"><%= products[i].name %></a>
+        </li>
+        <% } %>
+
+    </ul>
 </body>
 </html>
