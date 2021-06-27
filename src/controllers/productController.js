@@ -86,10 +86,11 @@ const productController = {
         console.log('entre en Edit product')
         console.log('----------------------------')
         console.log(req.params.id);
-        console.log(path.resolve(__dirname, '..', 'views',  'productEdit'))
-        
+    
         let productId = req.params.id;
-        let promProduct = Product.findByPk(productId,{include: ['category','brand', 'color', 'size', 'visibility']});
+        let promProducts = Product.findByPk(productId, {
+            include: ['Category','Brand', 'Color', 'Size', 'Visibility']
+          });
         let promCategories = Category.findAll();
         let promBrands = Brand.findAll();
         let promColors = Color.findAll();
@@ -97,13 +98,12 @@ const productController = {
         let promVisibilities = Visibility.findAll();
         
         Promise
-        .all([promProduct, promCategories, promBrands, promColors, promSizes, promVisibilities])
-        .then(([Product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-            
-            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {Product, allCategories, allBrands, allColors, allSizes, allVisibilities})})
+        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities])
+        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
+            //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities)
+            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities})
+          })
         .catch(error => res.send(error))
-      
-
     },
 
     update: (req, res) =>{},
