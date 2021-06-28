@@ -24,7 +24,7 @@ const categoryController = {
     detail: (req, res) =>{
     Category.findByPk(req.params.id)
     .then(categories => {
-        res.render('colorDetail.ejs', {categories});
+        res.render('categoryDetail.ejs', {categories});
       });
     },
     search: (req, res) =>{},

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // hasOne - de uno a uno pero con FK
       Address.hasOne(models.User, {
-        foreignKey: 'addresId',
+        foreignKey: 'addressId',
         as: "users"
       });
     }

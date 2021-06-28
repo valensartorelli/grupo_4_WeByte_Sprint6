@@ -22,14 +22,16 @@ app.use(methodOverride('_method'));
 const indexRoutes = require('./src/routes/indexRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const colorRoutes = require('./src/routes/colorRoutes');
-//const userRoutes = require('./src/routes/userRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const categoryRoutes = require('./src/routes/categoryRoutes');
 
 
 // ruteo
 app.use('/', indexRoutes);
 app.use('/product', productRoutes);
 app.use('/color', colorRoutes);
-//app.use('/users', userRoutes);
+app.use('/users', userRoutes);
+app.use('/category', categoryRoutes);
 
 
 //app.use('/', (req, res) => res.json({ clave: "con el server" }));
