@@ -9,7 +9,7 @@ router.post('/buscar', productController.search);
 
 // CRUD 
 router.get('/add', productController.add);
-router.post('/create', productController.create);
+router.post('/create', upload.single('image'), productController.create);
 
 router.get('/edit/:id', productController.edit);
 router.put('/update/:id', productController.update);
