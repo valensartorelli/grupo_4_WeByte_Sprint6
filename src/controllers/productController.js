@@ -36,7 +36,20 @@ const productController = {
             });
     },
 
-    search: (req, res) =>{},
+    search: (req, res) =>{
+        Product
+            .findAll({
+                where: {
+                    name: { [Op.like] : '%' + req.query.keyword + '%' }
+                }
+            })
+            .then(products => {
+                if(products.length > 0) {
+                    return res.json(products)
+                }
+                return res.status(200).json('El producto que busca no ha sido encontrado')
+            })
+    },
     
     //CRUD
     add: (req, res) =>{

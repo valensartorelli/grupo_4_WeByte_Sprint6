@@ -9,13 +9,19 @@
 <body>
     <h1>listado productos</h1>
     <a href="product/add">Alta de productos</a>
+    <p>SEARCH</p>
+    <div class="buscar-titulo">
+        <form action="/product/search" method="get">
+            <input type="text" name="keyword" id="keyword">
+            <button class="boton-buscar" type="submit">Buscar una Producto</button>
+        </form>
+    </div>
     <ul>
         <% for( let i = 0; i < products.length; i++ ) { %>
         <li>
             <a href="/product/edit/<%= products[i].id %>"><%= products[i].name %></a>
         </li>
         <% } %>
-
     </ul>
 </body>
 </html>
