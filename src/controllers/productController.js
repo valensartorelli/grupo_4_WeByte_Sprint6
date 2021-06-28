@@ -141,10 +141,14 @@ const productController = {
                     where: {id: productId}
                 }
             );
-            // const movie = await Movies.findByPk(movieId);
-            // const movieActors = await movie.getActors();
-            // await movie.setActors([1]);
-            // await movie.addActors([2]);
+            //const product = await Product.findByPk(productId);
+            // permite ver la relacion de la tabla product con color por ej
+            //const productColor = await product.getColor();
+            //console.log(productColor);
+            // para setear de cero tabla intermedia de muchos a muchos - el 1 es de product
+            // await product.setImage([1]);
+            // para agrega a tabla - el 1 es de product nombre del modelo en plural si la relacion es a muchos
+            // await product.addImage([2]);
             // const movieActorsSetted = await movie.getActors();
             // console.log(movieActorsSetted);
             return res.redirect('/product')            
