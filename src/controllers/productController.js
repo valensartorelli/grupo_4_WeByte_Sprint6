@@ -22,7 +22,19 @@ const productController = {
                 res.render('products.ejs', {products})
             })
     },
-    detail: (req, res) =>{},
+    detail: (req, res) =>{
+        console.log('entre a Detail product')
+        console.log('----------------------------')
+        let productId = req.params.id;
+        Product.findByPk(productId,
+            {
+                include : ['Category','Brand', 'Color', 'Size', 'Visibility']
+            })
+            .then(product => {
+               // res.json(product)
+                res.render('productDetail', {product});
+            });
+    },
 
     search: (req, res) =>{},
     
@@ -106,7 +118,40 @@ const productController = {
         .catch(error => res.send(error))
     },
 
-    update: (req, res) =>{},
+    update: async (req, res) =>{
+        let productId = req.params.id;
+        try {
+            const response = await Product.update(
+                {
+                name: req.body.name,
+                stock: req.body.stock,
+                stock_min: req.body.stock_min,
+                stock_max: req.body.stock_max,
+                description: req.body.description,
+                price: req.body.price,
+                brandId: req.body.brandId,
+                categoryId: req.body.categoryId,
+                sizeId: req.body.sizeId,     
+                colorId: req.body.colorId,          
+                visibilityId: req.body.visibilityId,
+                home: req.body.home,
+                extended_description: req.body.extended
+                },
+                {
+                    where: {id: productId}
+                }
+            );
+            // const movie = await Movies.findByPk(movieId);
+            // const movieActors = await movie.getActors();
+            // await movie.setActors([1]);
+            // await movie.addActors([2]);
+            // const movieActorsSetted = await movie.getActors();
+            // console.log(movieActorsSetted);
+            return res.redirect('/product')            
+        } catch (error) {
+            res.send(error)
+        }
+    },
 
     delete: (req, res) =>{},
     destroy: (req, res) =>{},

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>DETALLE DE PRODUCTO</h1>
+   <div>  
+    <p>Categoria: <%= product.categoryId %> </p>
+    <p>Marca: <%= product.brandId %> </p>
+    <p>Nombre: <%= product.name %> </p>
+    <p>Descripcion: <%= product.description %> </p>
+    <p>Descripcion Ampliada: <%= product.extended %> </p>
+    <p>Precio: <%= product.price %> </p>
+    <p>Color: <%= product.colorId %> </p>
+    <p>Talle: <%= product.sizeId %> </p>
+    <p>Stock: <%= product.stock %> </p>
+    <p>Stock Min: <%= product.stockMin %> </p>
+    <p>Stock Max: <%= product.stockMax  %> </p>
+    <p>Imagen: <%= product.image %> </p>
+    <p>Destacado Home: <%= product.home %> </p>
+    <p>Visibilidad: <%= product.visibilityId %> </p>
+    <br>
+    <section>
+        <a class="botonModificar" href="/product/edit/<%= product.id %>">Modificar</a>
+        <a class="botonBorrar" href="/product/delete/<%= product.id  %>">Borrar</a>
+        <a class="botonVolver" href="/product">Listado de Productos</a>
+    </section></div>
+</body>
+</html>
