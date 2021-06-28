@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrado de Producto</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Estas seguro de querer borrar este producto: <%= Producto.title %>???</h1>
+    <p>
+        <form action="/product/delete/<%= product.id %>?_method=PUT" method="POST">
+            <br>
+            <p> <button class="botonBorrar" type="submit">Borrar el Producto</button>
+            
+            <a  class="botonVolver" href="/products">Listado de Productos</a></p>
+
+        </form>
+    </p>
+    
+</body>
+
+</html>

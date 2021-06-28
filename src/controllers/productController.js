@@ -170,8 +170,23 @@ const productController = {
         }
     },
 
-    delete: (req, res) =>{},
-    destroy: (req, res) =>{},
+    delete: function (req,res) {
+        let productId = req.params.id;
+        Product
+        .findByPk(productId)
+        .then(Product => {
+        return res.render(path.resolve(__dirname, '..', 'views',  'productDelete'), {Product})})
+        .catch(error => res.send(error))
+    },
+
+    destroy: function (req,res) {
+        let productId = req.params.id;
+        Product
+        .destroy({where: {id: productId}, force: true}) // force: true es para asegurar que se ejecute la acción
+        .then(()=>{
+        return res.redirect('/products')})
+        .catch(error => res.send(error)) 
+}
 
     // END CRUD
 
