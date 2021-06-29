@@ -1,7 +1,7 @@
 {
   "name": "grupo_4_webyte_sprint6",
   "version": "1.0.0",
-  "description": "",
+  "description": "Repositorio que responde al Sprint 6 para el grupo 4 WeByte!\r Contribuidores: Valentina Sartorelli, Gabriela Mangoni, Claudio Kornfeld, Hernan Arismendi.",
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js"
@@ -23,5 +23,13 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valensartorelli/grupo_4_WeByte_Sprint6.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valensartorelli/grupo_4_WeByte_Sprint6/issues"
+  },
+  "homepage": "https://github.com/valensartorelli/grupo_4_WeByte_Sprint6#readme"
 }

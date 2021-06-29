@@ -5,6 +5,7 @@ const upload = require('../middlewares/multerMiddleware');
 
 router.get('/', productController.list);
 router.get('/detail/:id', productController.detail);
+router.get('/search', productController.search);
 router.post('/buscar', productController.search);
 
 // CRUD 
