@@ -28,19 +28,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      addressId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'addresses',
-          key: 'id'
-        }
+      avatar: {
+        type: Sequelize.STRING
       },
-      avatarId: {
+      rolId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'avatars',
+          model: 'roles',
           key: 'id'
         }
       },

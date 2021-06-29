@@ -3,21 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Avatar extends Model {
+  class Rol extends Model {
    
     static associate(models) {
       // hasOne - de uno a uno pero con FK
-      Avatar.hasOne(models.User, {
-        foreignKey: 'avatarId',
+      Rol.hasOne(models.User, {
+        foreignKey: 'rolId',
         as: "users"
       });
     }
   };
-  Avatar.init({
+  Rol.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Avatar',
+    modelName: 'Rol',
   });
-  return Avatar;
+  return Rol;
 };

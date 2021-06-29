@@ -6,9 +6,9 @@ const { Op } = require("sequelize");
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const User = db.User;
 const Address = db.Address;
-const Avatar = db.Avatar;
 
-//const { User, Address, Avatar } = require('../database/models');
+
+//const { User, Address } = require('../database/models');
 
 const userController = {
 
@@ -26,11 +26,6 @@ const userController = {
         console.log('entre en el Create user')
         console.log('----------------------------')
         
-        Avatar.create(
-            {
-                name: req.body.avatar
-            }
-        )
         User.create(
             {
                 firstName: req.body.firstName,
@@ -38,7 +33,7 @@ const userController = {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: req.body.password,
-                
+                avatar: req.file.filename
             }
         )
         .then(()=> {

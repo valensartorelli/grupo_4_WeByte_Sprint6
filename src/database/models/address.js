@@ -6,11 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Address extends Model {
    
     static associate(models) {
-      // hasOne - de uno a uno pero con FK
-      Address.hasOne(models.User, {
-        foreignKey: 'addressId',
-        as: "users"
-      });
+      // belongsTo
+      Address.belongsTo(models.User);
+
+      
     }
   };
   Address.init({
@@ -21,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     floor: DataTypes.INTEGER,
     apartment: DataTypes.STRING,
     cp: DataTypes.STRING,
-    phone_number: DataTypes.INTEGER
+    phone_number: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Address',

@@ -6,10 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
    
     static associate(models) {
+      
       // belongsTo
-      User.belongsTo(models.Address);
-      // belongsTo
-      User.belongsTo(models.Avatar);
+      User.belongsTo(models.Rol);
+
+      // hasOne - de uno a uno pero con FK
+      User.hasOne(models.Address, {
+        foreignKey: 'userId',
+        as: "addresses"
+      });
 
      // hasMany
       User.hasMany(models.Order, {
@@ -24,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     userName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    addressId: DataTypes.INTEGER,
-    avatarId: DataTypes.INTEGER
+    rolId: DataTypes.INTEGER,
+    avatar: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
