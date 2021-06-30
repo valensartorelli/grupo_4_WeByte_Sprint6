@@ -11,6 +11,7 @@ const Category = db.Category;
 const Color = db.Color;
 const Size = db.Size;
 const Visibility = db.Visibility;
+const Image = db.Image;
 
 //const { Product, Brand, Category, Color, Size, Visibility } = require('../database/models');
 
@@ -28,7 +29,7 @@ const productController = {
         let productId = req.params.id;
         Product.findByPk(productId,
             {
-                include : ['Category','Brand', 'Color', 'Size', 'Visibility']
+                include : ['images','Category','Brand', 'Color', 'Size', 'Visibility', ]
             })
             .then(product => {
                // res.json(product)
@@ -65,7 +66,7 @@ const productController = {
             return res.render(path.resolve(__dirname, '..', 'views',  'createProduct'), {allCategories, allBrands, allColors, allSizes, allVisibilities})})
         .catch(error => res.send(error))
     },
-    create:(req, res) =>{
+    create: async (req, res) =>{
         console.log('entre en el Create product')
         console.log('----------------------------')
         console.log(req.body.name);
@@ -81,9 +82,9 @@ const productController = {
         console.log(req.body.visibilityId);
         console.log(req.body.home);
         console.log(req.body.extended);
-
-        Product.create(
-            {
+       // primero crea el producto
+        try{
+        let productCreated = await Product.create({
                 name: req.body.name,
                 stock: req.body.stock,
                 stock_min: req.body.stock_min,
@@ -96,14 +97,32 @@ const productController = {
                 colorId: req.body.colorId,          
                 visibilityId: req.body.visibilityId,
                 home: req.body.home,
-                extended_description: req.body.extended
-            }
-            
-        )
-        .then(()=> {
-            
-            return res.redirect('/product')})            
-        .catch(error => res.send(error))
+                extended_description: req.body.extended,
+            });
+            // VER PARA CREAR IMAGEN EN ARRAY
+            // const product = req.body;
+            // // pregunta si vienen datos de la imagen body, en caso de false devuelve un array vacio
+            // product.image = product.image ? product.image : [];
+
+            // // Convierte en array los datos en el caso que venga 1 solo dato del body
+            // if (typeof product.image === 'string') {
+            //     product.image = [product.image];
+            // };
+            // luego asocia la imagen
+            let imagesCreated = await Image.create (
+                {
+                name: req.file.filename,
+                productId: productCreated.id
+                
+            })
+             
+            console.log(imagesCreated);
+            return res.redirect('/product');
+
+        } catch (error) {
+            res.send(error)
+        }
+
     },
     
 
@@ -114,7 +133,7 @@ const productController = {
     
         let productId = req.params.id;
         let promProducts = Product.findByPk(productId, {
-            include: ['Category','Brand', 'Color', 'Size', 'Visibility']
+            include: ['Category','Brand', 'Color', 'Size', 'Visibility', ]
           });
         let promCategories = Category.findAll();
         let promBrands = Brand.findAll();
@@ -123,7 +142,7 @@ const productController = {
         let promVisibilities = Visibility.findAll();
         
         Promise
-        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities])
+        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities ])
         .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
             //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities)
             return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities})
@@ -174,8 +193,8 @@ const productController = {
         let productId = req.params.id;
         Product
         .findByPk(productId)
-        .then(Product => {
-        return res.render(path.resolve(__dirname, '..', 'views',  'productDelete'), {Product})})
+        .then(product => {
+        return res.render(path.resolve(__dirname, '..', 'views',  'productDelete'), {product})})
         .catch(error => res.send(error))
     },
 
@@ -184,7 +203,7 @@ const productController = {
         Product
         .destroy({where: {id: productId}, force: true}) // force: true es para asegurar que se ejecute la acción
         .then(()=>{
-        return res.redirect('/products')})
+        return res.redirect('/product')})
         .catch(error => res.send(error)) 
 }
 

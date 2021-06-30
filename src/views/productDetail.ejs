@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>DETALLE DE PRODUCTO</h1>
-   <div>  
+   <div>
+    <div><img src="/images/<%= product.images[0].name %>" alt="<%= product.name %> "></div>
     <p>Categoria: <%= product.categoryId %> </p>
     <p>Marca: <%= product.brandId %> </p>
     <p>Nombre: <%= product.name %> </p>
@@ -20,7 +21,6 @@
     <p>Stock: <%= product.stock %> </p>
     <p>Stock Min: <%= product.stockMin %> </p>
     <p>Stock Max: <%= product.stockMax  %> </p>
-    <p>Imagen: <%= product.image %> </p>
     <p>Destacado Home: <%= product.home %> </p>
     <p>Visibilidad: <%= product.visibilityId %> </p>
     <br>
@@ -28,6 +28,7 @@
         <a class="botonModificar" href="/product/edit/<%= product.id %>">Modificar</a>
         <a class="botonBorrar" href="/product/delete/<%= product.id  %>">Borrar</a>
         <a class="botonVolver" href="/product">Listado de Productos</a>
-    </section></div>
+    </section>
+</div>
 </body>
 </html>

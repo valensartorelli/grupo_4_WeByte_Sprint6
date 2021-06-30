@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <h1>Estas seguro de querer borrar este producto: <%= Producto.title %>???</h1>
+    <h1>Estas seguro de querer borrar este producto: <%= product.name %>???</h1>
     <p>
-        <form action="/product/delete/<%= product.id %>?_method=PUT" method="POST">
+        <form action="/product/delete/<%= product.id %>?_method=DELETE" method="POST">
             <br>
             <p> <button class="botonBorrar" type="submit">Borrar el Producto</button>
             
