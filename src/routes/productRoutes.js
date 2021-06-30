@@ -10,10 +10,9 @@ router.get('/search', productController.search);
 // CRUD 
 router.get('/add', productController.add);
 router.post('/create', upload.single('image'), productController.create);
-//router.post('/create', upload.array('image', 4), productController.create);
 
 router.get('/edit/:id', productController.edit);
-router.put('/update/:id', productController.update);
+router.put('/update/:id', upload.single('image'), productController.update);
 
 router.get('/delete/:id', productController.delete);
 router.delete('/delete/:id', productController.destroy);
