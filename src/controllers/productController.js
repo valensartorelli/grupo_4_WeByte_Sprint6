@@ -29,7 +29,7 @@ const productController = {
         let productId = req.params.id;
         Product.findByPk(productId,
             {
-                include : ['images','Category','Brand', 'Color', 'Size', 'Visibility', ]
+                include : ['images','category','brand', 'color', 'size', 'visibility', ]
             })
             .then(product => {
                // res.json(product)
@@ -124,7 +124,7 @@ const productController = {
     
         let productId = req.params.id;
         let promProducts = Product.findByPk(productId, {
-            include: ['images', 'Category','Brand', 'Color', 'Size', 'Visibility', ]
+            include : ['images','category','brand', 'color', 'size', 'visibility', ]
           });
         let promCategories = Category.findAll();
         let promBrands = Brand.findAll();
