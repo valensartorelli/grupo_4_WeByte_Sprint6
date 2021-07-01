@@ -22,6 +22,9 @@ app.use(methodOverride('_method'));
 const indexRoutes = require('./src/routes/indexRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const colorRoutes = require('./src/routes/colorRoutes');
+const brandRoutes = require('./src/routes/brandRoutes');
+const sizeRoutes = require('./src/routes/sizeRoutes');
+const visibilityRoutes = require('./src/routes/visibilityRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const categoryRoutes = require('./src/routes/categoryRoutes');
 
@@ -30,6 +33,9 @@ const categoryRoutes = require('./src/routes/categoryRoutes');
 app.use('/', indexRoutes);
 app.use('/product', productRoutes);
 app.use('/color', colorRoutes);
+app.use('/brand', brandRoutes);
+app.use('/size', sizeRoutes);
+app.use('/visibility', visibilityRoutes);
 app.use('/users', userRoutes);
 app.use('/category', categoryRoutes);
 
