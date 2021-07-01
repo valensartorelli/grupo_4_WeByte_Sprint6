@@ -9,7 +9,7 @@
 <body>
     <h1>EDITAR PRODUCTO</h1>
     <div>
-        <form action="/product/update/<%= product.id %>?_method=PUT" method="POST">
+        <form action="/product/update/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="fr_nombre">
             <label for="categoryId" class="fr_lbltexto"> Categoria </label>
             <select name="categoryId" id="" required>
@@ -38,7 +38,7 @@
         </div>
         <div class="fr_email">
             <label class="fr_lbltexto" for="extended"> Descripción ampliada</label>
-            <textarea name="extended" id="" ><%= product.extended %></textarea>
+            <textarea name="extended_description" id=""><%= product.extended_description %></textarea>
         </div>
         <div class="fr_email">
             <label class="fr_lbltexto" for="price"> Precio </label>
@@ -77,7 +77,8 @@
         </div>
         <div class="fr_email">
             <label class="fr_lbltexto" for="image"> Imagen de producto </label>
-            <input type="file" name="image" id="image"  accept=".jpg, .png">
+            <input type="file" name="image" id="image"  accept=".jpg, .png" value="<%= product.image %>">
+            <input type="hidden" name="oldImagen" value="<%= productImages.name %>">
         </div>
         
         <div class="fr_email check-x">

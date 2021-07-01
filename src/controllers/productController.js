@@ -81,7 +81,7 @@ const productController = {
         console.log(req.body.colorId);
         console.log(req.body.visibilityId);
         console.log(req.body.home);
-        console.log(req.body.extended);
+        console.log(req.body.extended_description);
        // primero crea el producto
         try{
         let productCreated = await Product.create({
@@ -97,18 +97,9 @@ const productController = {
                 colorId: req.body.colorId,          
                 visibilityId: req.body.visibilityId,
                 home: req.body.home,
-                extended_description: req.body.extended,
+                extended_description: req.body.extended_description,
             });
-            // VER PARA CREAR IMAGEN EN ARRAY
-            // const product = req.body;
-            // // pregunta si vienen datos de la imagen body, en caso de false devuelve un array vacio
-            // product.image = product.image ? product.image : [];
 
-            // // Convierte en array los datos en el caso que venga 1 solo dato del body
-            // if (typeof product.image === 'string') {
-            //     product.image = [product.image];
-            // };
-            // luego asocia la imagen
             let imagesCreated = await Image.create (
                 {
                 name: req.file.filename,
@@ -133,27 +124,43 @@ const productController = {
     
         let productId = req.params.id;
         let promProducts = Product.findByPk(productId, {
-            include: ['Category','Brand', 'Color', 'Size', 'Visibility', ]
+            include: ['images', 'Category','Brand', 'Color', 'Size', 'Visibility', ]
           });
         let promCategories = Category.findAll();
         let promBrands = Brand.findAll();
         let promColors = Color.findAll();
         let promSizes = Size.findAll();
         let promVisibilities = Visibility.findAll();
+        let promImage = Image.findOne();
         
         Promise
-        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities ])
-        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-            //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities)
-            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities})
+        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
+        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages]) => {
+            //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
+            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages})
           })
         .catch(error => res.send(error))
     },
 
     update: async (req, res) =>{
-        let productId = req.params.id;
         try {
-            const response = await Product.update(
+        let product = req.body;
+        console.log(' soy la nueva: ' + req.body.image)
+        console.log('soy la vieja '+ req.body.oldImage)
+        product.image = req.file ? req.file.filename : req.body.oldImagen;
+        if (req.file===undefined) {
+            product.image = req.body.oldImage
+        } else {
+            // Actualizaron la foto, saco su nombre del proceso
+            product.image = req.file.filename 
+        }
+        console.log('.......MOSTRAR LA IMAGEN.......')
+        console.log(product.image)
+        console.log(product)  
+        delete product.oldImagen;
+
+        let productId = req.params.id;
+        const productUpdate = await Product.update(
                 {
                 name: req.body.name,
                 stock: req.body.stock,
@@ -167,29 +174,31 @@ const productController = {
                 colorId: req.body.colorId,          
                 visibilityId: req.body.visibilityId,
                 home: req.body.home,
-                extended_description: req.body.extended
+                extended_description: req.body.extended_description
                 },
                 {
                     where: {id: productId}
                 }
             );
-            //const product = await Product.findByPk(productId);
-            // permite ver la relacion de la tabla product con color por ej
-            //const productColor = await product.getColor();
-            //console.log(productColor);
-            // para setear de cero tabla intermedia de muchos a muchos - el 1 es de product
-            // await product.setImage([1]);
-            // para agrega a tabla - el 1 es de product nombre del modelo en plural si la relacion es a muchos
-            // await product.addImage([2]);
-            // const movieActorsSetted = await movie.getActors();
-            // console.log(movieActorsSetted);
-            return res.redirect('/product')            
+            console.log('------------------muestra datos del req.body');
+            console.log(productUpdate);
+
+            let productImages = await Image.update({
+                name: product.image
+                
+            },
+
+                {where: {productId: productId}});
+
+            console.log('------------------muestra datos del la imagen');
+            console.log(productImages);
+            return res.redirect('/product');         
         } catch (error) {
             res.send(error)
         }
     },
 
-    delete: function (req,res) {
+    delete: (req,res) => {
         let productId = req.params.id;
         Product
         .findByPk(productId)
@@ -198,12 +207,11 @@ const productController = {
         .catch(error => res.send(error))
     },
 
-    destroy: function (req,res) {
+    destroy: async function (req, res) { 
         let productId = req.params.id;
-        Product
-        .destroy({where: {id: productId}, force: true}) // force: true es para asegurar que se ejecute la acción
-        .then(()=>{
-        return res.redirect('/product')})
+        await Image.destroy({ where: { productId: productId }, force: true });
+        await Product.destroy({ where: { id: productId }, force: true });
+        return res.redirect('/product')
         .catch(error => res.send(error)) 
 }
 

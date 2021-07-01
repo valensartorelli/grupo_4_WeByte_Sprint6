@@ -14,13 +14,13 @@
     <p>Marca: <%= product.brandId %> </p>
     <p>Nombre: <%= product.name %> </p>
     <p>Descripcion: <%= product.description %> </p>
-    <p>Descripcion Ampliada: <%= product.extended %> </p>
+    <p>Descripcion Ampliada: <%= product.extended_description %> </p>
     <p>Precio: <%= product.price %> </p>
     <p>Color: <%= product.colorId %> </p>
     <p>Talle: <%= product.sizeId %> </p>
     <p>Stock: <%= product.stock %> </p>
-    <p>Stock Min: <%= product.stockMin %> </p>
-    <p>Stock Max: <%= product.stockMax  %> </p>
+    <p>Stock Min: <%= product.stock_min %> </p>
+    <p>Stock Max: <%= product.stock_max  %> </p>
     <p>Destacado Home: <%= product.home %> </p>
     <p>Visibilidad: <%= product.visibilityId %> </p>
     <br>
@@ -28,6 +28,11 @@
         <a class="botonModificar" href="/product/edit/<%= product.id %>">Modificar</a>
         <a class="botonBorrar" href="/product/delete/<%= product.id  %>">Borrar</a>
         <a class="botonVolver" href="/product">Listado de Productos</a>
+        <form action="/product/delete/<%= product.id %>?_method=DELETE" method="POST">
+            <br>
+            <p> <button class="botonBorrar" type="submit">Eliminar el Producto</button></p>
+
+        </form>
     </section>
 </div>
 </body>
