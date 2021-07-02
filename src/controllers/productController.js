@@ -28,13 +28,13 @@ const productController = {
         console.log('----------------------------')
         let productId = req.params.id;
         Product.findByPk(productId,
-            {
-                include : ['images','category','brand', 'color', 'size', 'visibility', ]
-            })
-            .then(product => {
-               // res.json(product)
-                res.render('productDetail', {product});
-            });
+        {
+            include : ['images','category','brand', 'color', 'size', 'visibility', ]
+        })
+        .then(product => {
+            // res.json(product)
+            res.render('productDetail', {product});
+        });
     },
 
     search: (req, res) =>{
