@@ -27,6 +27,7 @@ const sizeRoutes = require('./src/routes/sizeRoutes');
 const visibilityRoutes = require('./src/routes/visibilityRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const categoryRoutes = require('./src/routes/categoryRoutes');
+const rolRoutes = require('./src/routes/rolRoutes');
 
 
 // ruteo
@@ -38,6 +39,7 @@ app.use('/size', sizeRoutes);
 app.use('/visibility', visibilityRoutes);
 app.use('/users', userRoutes);
 app.use('/category', categoryRoutes);
+app.use('/rol', rolRoutes);
 
 
 //app.use('/', (req, res) => res.json({ clave: "con el server" }));

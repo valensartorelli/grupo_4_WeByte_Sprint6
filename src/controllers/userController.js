@@ -2,10 +2,12 @@ const path = require('path');
 let db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
+const moment = require('moment');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const User = db.User;
 const Address = db.Address;
+const Rol = db.Rol;
 
 
 //const { User, Address } = require('../database/models');
@@ -22,25 +24,25 @@ const userController = {
     add: (req, res) => {
         res.render('userAdd.ejs')
     },
-    create: (req, res) => {
+    create: async (req, res) =>{
         console.log('entre en el Create user')
         console.log('----------------------------')
         
-        User.create(
-            {
+        try{
+            let userCreated = await User.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 userName: req.body.userName,
                 email: req.body.email,
                 password: req.body.password,
                 avatar: req.file.filename
-            }
-        )
-        .then(()=> {
-            //res.json(product)
-            return res.redirect('/users')
-        })            
-        .catch(error => res.send(error))
+            })
+
+            return res.redirect('/users');
+
+        } catch(error) {
+            res.send(error)
+        }
     },
 
     edit: (req, res) => {

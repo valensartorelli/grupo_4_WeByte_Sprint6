@@ -26,7 +26,15 @@
         <br>
         
         <label for="avatar">Avatar</label>
-        <input type="file" name="avatar" id="avatar" >
+        <input type="file" name="avatar" id="avatar" accept=".jpg, .png">
+
+        <label for="rol">Rol</label>
+        <select name="rolId" id="rol">
+            <% allRoles.forEach(rol => { %>
+            <option value="<%= rol.id %>" ><%= rol.name %></option>
+            <% }); %>
+        </select>
+
         <br>
         <button class="createUser" type="submit">Crear</button>
             <br><br>
