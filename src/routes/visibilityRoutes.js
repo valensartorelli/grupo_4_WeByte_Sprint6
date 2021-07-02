@@ -13,7 +13,7 @@ router.post('/create', visibilityController.create);
 router.get('/edit/:id', visibilityController.edit);
 router.put('/update/:id', visibilityController.update);
 
-//router.get('/delete/:id', brandController.delete);
+//router.get('/delete/:id', visibilityController.delete);
 router.delete('/destroy/:id', visibilityController.destroy);
 
 module.exports = router;
