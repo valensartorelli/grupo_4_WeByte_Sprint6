@@ -10,7 +10,7 @@
 <body>
     
 
-    <form action="/users/update/<%= users.id %>?_method=PUT" method="POST">
+    <form action="/users/update/<%= users.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <label for="firstName">Nombre</label>
         <input type="text" name="firstName" id="firstName" value="<%= users.firstName %>" required>
         <br>
@@ -27,7 +27,16 @@
         <input type="password" name="password" id="password" required>
         <br>
         <label for="avatar">Avatar</label>
-        <input type="file" name="avatar" id="avatar" value="">
+        <input type="file" name="avatar" id="avatar" accept=".jpg, .png" value="<%= users.avatar %>">
+        <input type="hidden" name="oldAvatar" value="<%= users.avatar %>">
+        <br>
+        <label for="rol">Rol</label>
+        <select name="rolId" id="rol">
+            <% roles.forEach(rol => { %>
+                <option value="<%= rol.id %>" <% if (users.rolId == rol.id) { %> <%= 'selected' %><% }; %> ><%= rol.name %></option>
+            <% }); %>
+        </select>
+        <br>
         <br>
         <button class="createUser" type="submit">Editar</button>
     </form>

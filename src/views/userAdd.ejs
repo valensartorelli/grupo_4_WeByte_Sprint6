@@ -27,11 +27,12 @@
         
         <label for="avatar">Avatar</label>
         <input type="file" name="avatar" id="avatar" accept=".jpg, .png">
+        <br>
 
         <label for="rol">Rol</label>
         <select name="rolId" id="rol">
-            <% allRoles.forEach(rol => { %>
-            <option value="<%= rol.id %>" ><%= rol.name %></option>
+            <% roles.forEach(rol => { %>
+                <option value="<%= rol.id %>" ><%= rol.name %></option>
             <% }); %>
         </select>
 
