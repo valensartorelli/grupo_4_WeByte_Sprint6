@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta direccion</title>
+</head>
+<body>
+    <h1>Alta direccion</h1>
+    <form action="/address/create" method="POST">
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="street">Calle</label>
+            <input type="text" name="street" id="street" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="number">Numero</label>
+            <input type="text" name="number" id="number" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="floor">Piso</label>
+            <input type="text" name="floor" id="floor" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="apartment">Departamento</label>
+            <input type="text" name="apartment" id="apartment" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="city">Ciudad</label>
+            <input type="text" name="city" id="city" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="state">Provincia</label>
+            <input type="text" name="state" id="state" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="cp">Codigo postal</label>
+            <input type="text" name="cp" id="cp" required>
+        </div>
+        <br>
+        <div class="fr_nombre">
+            <label class="fr_lbltexto" for="phone_number">Telefono</label>
+            <input type="text" name="phone_number" id="phone_number" required>
+        </div>
+        <br>
+        <div class="fr_registro">
+            <div class="fr_registro-left">
+                <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                    <span class="pd_gl-cta__content">
+                        Crear
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
