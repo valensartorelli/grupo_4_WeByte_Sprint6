@@ -1,0 +1,110 @@
+<header>
+    <div class="color-top">
+        <div class="container d-flex">
+            <div class="copy-header"><MARQUEE SCROLLDELAY =200>6 cuotas sin interes - Envios gratis a partir de $5000</MARQUEE></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Ayuda </a></li>
+                    <% if (!locals.isLogged) { %>
+                    <li>|</li>
+                    <li><a href="/users/login"> Iniciar Sesión </a></li>
+                    <% } %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="header-top-bar">
+        <!--<div class="burguer-menu"><i class="fa fa-bars burguer"></i></div> borrar-->
+        <nav role="navigation">
+            <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+                <a href="/"><li><img src="/images/logo-weByte.png" alt="" style="width: 55px; text-align: left;"></li></a>
+                <a href="/product"><li>Hombres</li></a>
+                <a href="/product"><li>Mujeres</li></a>
+                <a href="/product"><li>Niños</li></a>
+            </ul>
+            </div>
+        </nav>
+            <!-- /burguer-->
+
+        <div class="header-logo"><a href="/"><img src="/images/logo-weByte.png" alt="" class="logo"></a></div>
+    <nav class="main-navbar">
+        <ul>
+            <li ><form action="/product/search" method="get" class="liSearch">
+                <input type="text" name="keyword" id="keyword" class="inputSearch">
+                <button class="boton-buscar" type="submit"><i class="fas fa-search"></i></button>
+
+            </form>
+        </li>
+            <% if (!locals.isLogged) { %>
+            <li><a href="/users/register"><i class="fas fa-user"></i></a></li>
+            <% } %>
+            <li><a href="/product/cart"><i class="fas fa-shopping-bag"></i></a></li>
+            <% if (locals.isLogged) { %>
+            <ul class="nav">
+                <li class="menu"><a href=""><img src="/images/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"></a>
+                  <ul>
+                      <li><a href="/users/profile">Mi perfil</a></li>
+                      <li><a href="/product/add">Alta de productos</a></li>
+                      <li><a href="/users/logout">Logout</a></li>               
+                  </ul>
+              </li>
+          </ul>
+
+            <li><a href="/product/add"><i class="fas fa-folder-plus"></i></a></li>
+            <% } %>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-top-bar-desktop">
+        <div class="container d-flex">
+            <div class="header-logo-desk">
+                <a href="/">
+                    <img src="/images/logo-weByte.png" alt="" class="logo">
+                </a>
+            </div>
+            <nav class="main-navbar-left">
+                <ul>
+                    <li><a href="/product">Hombres</a></li>
+                    <li>|</li>
+                    <li><a href="/product">Mujeres</a></li>
+                    <li>|</li>
+                    <li><a href="/product">Niños</a></li>
+                    <li>|</li>
+                </ul>
+            </nav>
+            <nav class="main-navbar">
+                <ul>
+                <li ><form action="/product/search" method="get" class="liSearch">
+                        <input type="text" name="keyword" id="keyword" class="inputSearch">
+                        <button class="boton-buscar" type="submit"><i class="fas fa-search"></i></button>
+
+                    </form>
+                </li>
+             
+                    <% if (!locals.isLogged) { %>
+                    <li><a href="/users/register"><i class="fas fa-user"></i></a></li>
+                    <% } %>
+                    <li><a href="/product/cart"><i class="fas fa-shopping-bag"></i></a></li>
+                    
+                    <% if (locals.isLogged) { %>
+                    <ul class="nav">
+                          <li class="menu"><a href=""><img src="/images/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"> Hola! <%= locals.userLogged.fullName %></a>
+                            <ul>
+                                <li><a href="/users/profile">Mi perfil</a></li>
+                                <li><a href="/product/create">Alta de productos</a></li>
+                                <li><a href="/users/logout">Logout</a></li>               
+                            </ul>
+                        </li>
+                    </ul>
+                    <li><a href="/product/create"><i class="fas fa-folder-plus"></i></a></li>
+                    <% } %>
+                </ul> 
+            </nav>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,16 @@
+<% for( let i = 0; i < products.length; i++ ) { %>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+        <article>
+            <a href="/product/detail/<%= products[i].id %>">
+            <img src="/images/<%= products.images %>" alt="<%= products[i].name %>" class="pd_img-list">
+            </a>
+            <div class="pd_main-article">
+                <p class="pd_categoria"><%= products.category %> </p>
+                <p class="pd_descripciones">
+                    <a href="/product/detail/<%= products[i].id %>"> <%= products[i].name %></a>
+                </p>
+                <p class="pd_precios">$<%= products[i].price %></p>
+            </div>
+        </article>
+    </div>
+<% } %>

@@ -61,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     extended_description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Product',
+    tableName: 'products',
+    modelName: 'Product'
   });
   return Product;
 };

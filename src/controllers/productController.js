@@ -2,7 +2,8 @@ const path = require('path');
 let db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
-const moment = require('moment');
+
+const {validationResult} = require('express-validator');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Product = db.Product;
@@ -18,10 +19,35 @@ const Image = db.Image;
 const productController = {
 
     list: (req, res) => {
-        db.Product.findAll()
-            .then(products => {
-                res.render('products.ejs', {products})
+        Product.findAll(
+            {
+                include : ['category','brand', 'color', 'size', 'visibility', 'images' ]
             })
+            .then(products => {
+                res.render('products/products', {products})
+            })
+
+
+            // let productId = req.params.id;
+            // let promProducts = Product.findAll(productId, {
+            //     include : ['images','category','brand', 'color', 'size', 'visibility', ]
+            //   });
+            // let promCategories = Category.findAll();
+            // let promBrands = Brand.findAll();
+            // let promColors = Color.findAll();
+            // let promSizes = Size.findAll();
+            // let promVisibilities = Visibility.findAll();
+            // let promImage = Image.findOne();
+            
+            // Promise
+            // .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
+            // .then(([products, allCategories, allBrands, allColors, allSizes, allVisibilities, images]) => {
+            //     //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
+            //     return res.render(path.resolve(__dirname, '..', 'views',  'products/products'), {products, allCategories, allBrands, allColors, allSizes, allVisibilities, images})
+            //   })
+            // .catch(error => res.send(error))
+
+
     },
     detail: (req, res) =>{
         console.log('entre a Detail product')
@@ -29,28 +55,44 @@ const productController = {
         let productId = req.params.id;
         Product.findByPk(productId,
             {
-                include : ['images','category','brand', 'color', 'size', 'visibility', ]
+                include : ['images','category','brand', 'color', 'size', 'visibility' ]
             })
             .then(product => {
                // res.json(product)
-                res.render('productDetail', {product});
+                res.render('products/productDetail', {product});
             });
     },
 
-    search: (req, res) =>{
-        Product
-            .findAll({
+    search: async (req, res) =>{
+        // Product
+        //     .findAll({
+        //         where: {
+        //             name: { [Op.like] : '%' + req.query.keyword + '%' }
+        //         }
+        //     })
+        //     .then(products => {
+        //         if(products.length > 0) {
+        //             //return res.json(products)
+        //             res.render('products/productSearch', {products});
+        //         }
+        //         //return res.status(200).json('El producto que busca no ha sido encontrado')
+        //         return res.render('products/productNoSearch');
+        //     })
+        try {
+            let search= req.query.keyword ;
+            let products = await Product.findAll({
                 where: {
-                    name: { [Op.like] : '%' + req.query.keyword + '%' }
-                }
+                    name: { [Op.like] : '%' + search + '%' }
+                },
+                include : ['category','brand', 'color', 'size', 'visibility','images' ]
             })
-            .then(products => {
-                if(products.length > 0) {
-                    return res.json(products)
-                }
-                return res.status(200).json('El producto que busca no ha sido encontrado')
-            })
+            res.render('products/productSearch', {products})
+        } catch (error) {
+            res.send(error)
+        }
+    
     },
+
     
     //CRUD
     add: (req, res) =>{
@@ -63,9 +105,10 @@ const productController = {
         Promise
         .all([promCategories, promBrands, promColors, promSizes, promVisibilities ])
         .then(([allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'createProduct'), {allCategories, allBrands, allColors, allSizes, allVisibilities})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/createProduct'), {allCategories, allBrands, allColors, allSizes, allVisibilities})})
         .catch(error => res.send(error))
     },
+    
     create: async (req, res) =>{
         console.log('entre en el Create product')
         console.log('----------------------------')
@@ -81,10 +124,30 @@ const productController = {
         console.log(req.body.colorId);
         console.log(req.body.visibilityId);
         console.log(req.body.home);
-        console.log(req.body.extended_description);
+        console.log(req.body.extended_description);   
+        // validacion del create
+    const products = await db.Product.findByPk(req.params.id);
+    let allCategories = await Category.findAll();
+    let allBrands = await Brand.findAll();
+    let allColors = await Color.findAll();
+    let allSizes = await Size.findAll();
+    let allVisibilities = await Visibility.findAll();
+    const errors = validationResult(req);
+    if (errors.errors.length > 0) {
+        return res.render('products/createProduct', {
+        errors: errors.mapped(),
+        oldData: req.body, //Esto es para que no se vaya borrando lo que uno escribe
+        products,
+        allCategories,
+        allBrands,
+        allColors,
+        allSizes,
+        allVisibilities
+      });
+    }    
        // primero crea el producto
         try{
-        let productCreated = await Product.create({
+          let productCreated = await Product.create({
                 name: req.body.name,
                 stock: req.body.stock,
                 stock_min: req.body.stock_min,
@@ -109,7 +172,8 @@ const productController = {
              
             console.log(imagesCreated);
             return res.redirect('/product');
-
+        
+//hasta aca try
         } catch (error) {
             res.send(error)
         }
@@ -137,7 +201,7 @@ const productController = {
         .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
         .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages]) => {
             //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
-            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages})
           })
         .catch(error => res.send(error))
     },
@@ -203,7 +267,7 @@ const productController = {
         Product
         .findByPk(productId)
         .then(product => {
-        return res.render(path.resolve(__dirname, '..', 'views',  'productDelete'), {product})})
+        return res.render(path.resolve(__dirname, '..', 'views',  'products/productDelete'), {product})})
         .catch(error => res.send(error))
     },
 
@@ -213,10 +277,12 @@ const productController = {
         await Product.destroy({ where: { id: productId }, force: true });
         return res.redirect('/product')
         .catch(error => res.send(error)) 
-}
+    },
 
     // END CRUD
-
+    cart: (req, res) => {
+        res.render('products/productCart');
+    },
 
 
 }

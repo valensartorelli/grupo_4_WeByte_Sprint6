@@ -1,61 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>HOME webyte</h1>
-    <p>SEARCH</p>
-    <div class="buscar-titulo">
-        <form action="/product/search" method="get">
-            <input type="text" name="keyword" id="keyword">
-            <button class="boton-buscar" type="submit">Buscar un Producto</button>
-        </form>
-    </div>
-    <ul>
-        <li>
-            <a href="/product">
-                Productos
-            </a>
-        </li>
-        <li>
-            <a href="/color">
-                Colores
-            </a>
-        </li>
-        <li>
-            <a href="/brand">
-                Marcas
-            </a>
-        </li>
-        <li>
-            <a href="/size">
-                Talles
-            </a>
-        </li>
-        <li>
-            <a href="/visibility">
-                Estados
-            </a>
-        </li>
-        <li>
-            <a href="/category">
-                Categorias
-            </a>
-        </li>
-        <li>
-            <a href="/rol">
-                Roles
-            </a>
-        </li>
-        <li>
-            <a href="/users">
-                Usuarios
-            </a>
-        </li>
-    </ul>
-</body>
+	<%- include('partials/head') %>
+
+    <body>
+        
+        <%- include('partials/header') %>
+
+        <main>
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <!-- IMAGENES VERSION GRANDE -->
+                <div class="carousel-inner d-none d-md-block d-lg-block d-xl-block">
+                  <div class="carousel-item active">
+                    <img src="/images/webyte-ropa-deportiva-1.jpg" class="d-block w-100 img-responsive" alt="WeByte Ropa Deportiva">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="/images/webyte-ropa-deportiva-2.jpg" class="d-block w-100 img-responsive" alt="WeByte Ropa Deportiva">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="/images/webyte-ropa-deportiva-3.jpg" class="d-block w-100 img-responsive" alt="WeByte Ropa Deportiva">
+                  </div>
+                </div>
+
+                <!-- IMAGENES VERSION CHICA -->
+                <div class="carousel-inner d-block d-sm-block d-md-none">
+                  <div class="carousel-item active">
+                    <img src="/images/webyte-ropa-deportiva-1-mobile.jpg" class="d-block w-100" alt="WeByte Ropa Deportiva">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="/images/webyte-ropa-deportiva-2-mobile.jpg" class="d-block w-100" alt="WeByte Ropa Deportiva">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="/images/webyte-ropa-deportiva-3-mobile.jpg" class="d-block w-100" alt="WeByte Ropa Deportiva">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </main>
+
+        <section class="accesos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <a href="/product">
+                            <img src="/images/acceso-hombres.jpg" title="Acceso Hombres WeByte" />
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <a href="/product">
+                            <img src="/images/acceso-mujeres.jpg" title="Acceso Hombres WeByte" />
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <a href="/product">
+                            <img src="/images/acceso-ninios.jpg" title="Acceso Hombres WeByte" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="img-destacada parallax"></div>
+        </section>
+
+
+        
+        <%- include('partials/footer') %>
+
+        <script src="/js/bootstrap.bundle.min.js"></script>
+
+    </body>
 </html>

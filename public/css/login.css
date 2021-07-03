@@ -1,0 +1,128 @@
+    .form_login {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        margin: 0 auto;
+        border: 1px solid black;
+        background-color: #ebebeb;
+        border-radius: 1em;
+    }
+    
+    .form_login label {
+        position: absolute;
+        width: 300px;
+        top: 10px;
+        left: 20px
+    }
+    
+    ul {
+        list-style: none;
+    }
+    
+    .fl_email input {
+        position: absolute;
+        width: 300px;
+        top: 90px;
+        left: 20px;
+    }
+    
+    .fl_password input {
+        position: absolute;
+        width: 300px;
+        top: 150px;
+        left: 20px;
+    }
+    
+    .fl_password label {
+        position: absolute;
+        width: 300px;
+        top: 130px;
+        left: 20px;
+    }
+    
+    .fl_registro button {
+        position: absolute;
+        bottom: 70px;
+        left: 0px;
+        background-color: #000;
+        color: #ebebeb;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .fl_limpiar button {
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        background-color: rgb(155, 154, 154);
+        color: #ebebeb;
+        width: 100%;
+        font-size: 16px;
+        justify-content: center;
+    }
+    
+    .fl_email label {
+        position: absolute;
+        width: 300px;
+        top: 65px;
+        left: 20px;
+    }
+    
+    .fl_olvido label {
+        position: absolute;
+        width: 300px;
+        top: 180px;
+        left: 20px;
+    }
+    
+    .fl_noRegistrado {
+        position: absolute;
+        width: 300px;
+        top: 210px;
+        left: 20px;
+    }
+    .accordion-button:not(.collapsed){
+        color: #000;
+        background-color: #e4ff49;
+    }
+    .accordion-button:not(.collapsed)::after {
+        background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e)!important;
+        transform: rotate(
+    180deg
+    );
+    }
+    .accordion-header button:focus{
+        outline: 0;
+        box-shadow: none;
+    }
+    .formEnvios div.form input,
+    .fr_nombre input, 
+    .fr_email input, 
+    .fr_calle input, 
+    .fr_fechaNac input, 
+    .fr_password1 input, 
+    .fr_password2 input{
+        height: 35px;
+    }
+
+@media (max-width: 380px){
+    .google-logo,
+    .facebook-logo{
+        width: 215px;
+    }
+}
+@media (max-width: 768px){
+    div.formEnvios{
+        flex-direction: column;
+    }
+    .formEnvios div.form{
+        width: 100%;
+    }
+    .formEnvios div.form input{
+        height: 35px;
+    }
+    .fr_nombre input, .fr_email input, .fr_calle input, .fr_fechaNac input, .fr_password1 input, .fr_password2 input{
+        width: 100%;
+        height: 35px;
+    }
+}

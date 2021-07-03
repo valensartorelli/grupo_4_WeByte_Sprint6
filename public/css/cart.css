@@ -1,0 +1,230 @@
+h2.carrito{
+    padding-top: 25px;
+    padding-left: 0px;
+    padding-bottom: 5px;
+}
+p.carrito{
+    padding-left: 0px;
+    padding-bottom: 25px;
+}
+
+.agrupar-carrito {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+section.carro{
+    max-width: 68%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+section.carro button{
+    background-color: black;
+    color: cornsilk;
+    text-align: center;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+}
+
+section.carro button.carro-pagar{
+    width: 50%;
+}
+
+section.carro button:hover {
+    text-decoration: none;
+    color: #e4ff49;
+}
+
+article.producto-en-carro{
+    width: 80%;
+    margin-bottom: 1%;
+}
+
+article.producto-en-carro img{ 
+    width: 80%;
+}
+
+.producto-en-carro input[type=text]{
+    width: 10%;
+    text-align: right;
+}
+
+.pd_label{
+    display: none;
+}
+
+
+div.guias{
+    display: none;
+}
+
+section.carro button.trash{
+    position: absolute;
+    right: 31%;
+}
+section.resumen-ayuda{
+    max-width: 28%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+section.resumen-ayuda button{
+    width: 90%;
+    text-decoration: none;
+    background-color: black;
+    color: cornsilk;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+section.resumen-ayuda button:hover {
+    text-decoration: none;
+    color: #e4ff49;
+}
+
+div.Resumen{
+    width:100%;
+}
+
+div.ayuda{
+    text-align: center;
+    width:100%;
+}
+
+div.pd_prod-rigt3 h2{
+    text-align: center;
+}
+
+div.resumen-pedido{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.resumen-pedido p{
+    width: 45%;
+}
+
+p.Prod{
+    text-align: left;
+}
+
+p.Prec{
+    text-align: right;
+}
+p.Env{
+    text-align: right;
+    text-decoration: line-through;
+}
+
+.codigo-prom{
+    width: 90%;
+}
+
+ul.enlaces-ayuda{
+    text-align: center;
+    list-style: none;
+    text-decoration:none;
+}
+
+div.Opciones{
+    text-align: center;
+}
+
+div.Opciones img{
+    max-width: 22%;
+}
+
+.agrupar-carrito .pd_prod-rigt h1{
+    font-size: 20px;
+}
+.agrupar-carrito .pd_prod-rigt .pd_prod-precio{
+    font-size: 24px;
+}
+
+.right{display: flex; justify-content: end; width: 35%;} 
+.talle-on { background-color: #000; color: #e5fe4a; font-weight: bold;}
+
+@media (max-width: 360px) {
+    section.carro{
+        display: none;
+    }
+    section.resumen-ayuda{
+        max-width: 100%;
+        height: auto;
+    }
+    div.Resumen{
+        width:100%;
+        height: auto;
+        padding-left: 5%;
+    }
+    
+    div.ayuda{
+        text-align: center;
+        width:100%;
+        height: auto;
+    }
+}
+@media (max-width: 991px) {
+    .agrupar-carrito{
+        flex-direction: column;
+    }
+    section.carro{
+        max-width: 100%;
+    }
+    section.resumen-ayuda button{
+        display: none;
+    }
+    section.resumen-ayuda{
+        max-width: 80%;
+        margin-top: 35px;
+    }
+    div.resumen-pedido{
+        width: 100%
+    }
+    div.resumen-pedido h3{
+        display: block;
+    }
+    div.resumen-pedido p{
+        width: 100%;
+    }
+    div.resumen-pedido p.Prod{
+        margin-bottom: 0;
+    }
+    div.resumen-pedido p.Prec{
+        margin-bottom: 25px;
+        font-weight: 700;
+    }
+    div.ayuda,
+    div.Opciones{
+        margin-top: 35px;
+        text-align: left;
+    }
+    ul.enlaces-ayuda,
+    div.pd_prod-rigt3 h2{
+        text-align: left;
+        padding: 0;
+    }
+    .pd_prod-rigt3{
+        padding: 0;
+        margin: 35px 0;
+    }
+}

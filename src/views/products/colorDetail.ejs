@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head') %>
+
+    <body>
+        <%- include('../partials/header') %>
+        
+        <main id="pd_main-container">
+                <div class="container">
+                    <div class="link-ruta">
+                        <nav>
+                            <ul>
+                                <li>></li>
+                                <li><a href="/"><strong>Atras</strong></a></li>
+                                <li>/</li>
+                                <li><a href="/admin">Administrador</a></li>   
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="pd_tit-categoria">Colores </div>
+                </div>
+
+            <section id="pd_listado-products" >
+                <div class="container">
+                    <p style="display: none;">Color: <%= color.name %> </p>
+
+    <form action="/color/update/<%= color.id %>?_method=PUT" method="POST">
+        <label for="title">Modificar Color</label>
+        <p><input type="text" name="name" id="" value="<%= color.name %>" required></p>
+        <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+            <span class="pd_gl-cta__content">
+                Editar Color
+            </span>
+        </button>
+    </form>
+    <br><hr><br>
+    <div class="flex">
+    <form action="/color/destroy/<%= color.id %>?_method=DELETE" method="POST">
+        <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+            <span class="pd_gl-cta__content">
+                Eliminar Color
+            </span>
+        </button>
+    </form>
+    <br><br>
+    <button type="submit" class="pd_gl-cta pd_gl-cta--primary p20">
+        <span class="pd_gl-cta__content">
+            <a  class="botonVolver" href="/color">Listado de Colores</a>
+        </span>
+    </button>
+</div>
+                </div>
+            </section>
+
+            
+        
+            <%- include('../partials/newsletter') %>
+
+            <%- include('../partials/prefooter') %>
+        </main>
+        
+        <%- include('../partials/footer') %>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    </body>
+</html>

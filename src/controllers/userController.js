@@ -16,7 +16,7 @@ const userController = {
     list: (req, res) => {
         User.findAll()
         .then(users => {
-            res.render('users.ejs', {users})
+            res.render('users/users', {users})
         });
     },
     detail: (req, res) =>{
