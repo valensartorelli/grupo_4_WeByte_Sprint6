@@ -21,14 +21,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
 //User
-//const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware');
+const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware');
 app.use(session({
     secret: "Shhh, It's a secret",
     resave: false,
     saveUninitialized: false,
 }));
 app.use(cookies());
-//app.use(userLoggedMiddleware);
+app.use(userLoggedMiddleware);
 
 // llamo al router
 const homeRoutes = require('./src/routes/homeRoutes');

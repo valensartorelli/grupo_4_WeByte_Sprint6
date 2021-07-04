@@ -155,7 +155,7 @@ header {
     color: #222222;
     display: inline-block;
     padding: 0 10px;
-    font-size: 17px;
+    font-size: 14px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
@@ -540,7 +540,7 @@ input{
 
       .liSearch{display: inline-flex; justify-content: space-between; flex-direction: row; flex-wrap: nowrap; padding-top: 10px;}
       .boton-buscar{width: 20px; height: 20px; background-color: #ffffff; border: none; }
-      .inputSearch{background-color: #f3f3f3; border: none; width: 220px;}
+      .inputSearch{background-color: #f3f3f3; border: none; width: 200px;}
   
       .fr_registro button {
           bottom: 50px; 
@@ -630,7 +630,7 @@ input{
     width: 180px; border: #707070 1px solid;  
   }
   .avatar-xs{
-    width: 40px; height: 40px; border: #969696 1px solid; border-radius: 100%; 
+    width: 40px; height: 40px; border: #969696 1px solid; border-radius: 100%;;
   }
   .pl-20{margin-left: 20px;
   
@@ -650,6 +650,7 @@ input{
     text-decoration:none;
     padding:2px 12px;
     display:block;
+    font-size: 12px;
 }
 
 .nav li.menu a:hover {
@@ -696,7 +697,7 @@ input{
     }
     .pd_prod-rigt3 .pd_tit-categoria {font-size: 26px;}
     .fr_registro-rigt{display: block;}
-    .header-top-bar {height: 70px;}
+    .header-top-bar {height: 80px;}
 }
 
 

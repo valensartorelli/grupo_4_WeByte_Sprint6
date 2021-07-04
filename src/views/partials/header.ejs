@@ -21,6 +21,7 @@
             <span></span>
             <span></span>
             <span></span>
+            <!-- / menu burguer-->
             <ul id="menu">
                 <a href="/"><li><img src="/images/logo-weByte.png" alt="" style="width: 55px; text-align: left;"></li></a>
                 <a href="/product/1"><li>Hombres</li></a>
@@ -47,10 +48,10 @@
             <li><a href="/product/cart"><i class="fas fa-shopping-bag"></i></a></li>
             <% if (locals.isLogged) { %>
             <ul class="nav">
-                <li class="menu"><a href=""><img src="/images/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"></a>
+                <li class="menu"><a href=""><img src="/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"></a>
                   <ul>
                       <li><a href="/users/profile">Mi perfil</a></li>
-                      <li><a href="/product/add">Alta de productos</a></li>
+                      <li><a href="/admin">Administrador</a></li>
                       <li><a href="/users/logout">Logout</a></li>               
                   </ul>
               </li>
@@ -96,15 +97,15 @@
                     
                     <% if (locals.isLogged) { %>
                     <ul class="nav">
-                          <li class="menu"><a href=""><img src="/images/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"> Hola! <%= locals.userLogged.fullName %></a>
+                          <li class="menu"><a href=""><img src="/avatars/<%= locals.userLogged.avatar %>" style="border-radius: 100%;" class="avatar-xs"> Hola! <%= locals.userLogged.firstName %></a>
                             <ul>
                                 <li><a href="/users/profile">Mi perfil</a></li>
-                                <li><a href="/product/create">Alta de productos</a></li>
+                                <li><a href="/admin">Administrador</a></li>
                                 <li><a href="/users/logout">Logout</a></li>               
                             </ul>
                         </li>
                     </ul>
-                    <li><a href="/product/create"><i class="fas fa-folder-plus"></i></a></li>
+                    <li><a href="/product/add"><i class="fas fa-folder-plus"></i></a></li>
                     <% } %>
                 </ul> 
             </nav>

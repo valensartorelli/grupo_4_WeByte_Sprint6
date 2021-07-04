@@ -48,12 +48,15 @@
                                     </a>
                                 </div>
                             </div>
+                            <% if (!locals.isLogged) { %>
                             <button type="button" class="pd_gl-cta pd_gl-cta--primary">
                                 <span class="pd_gl-cta__content">
                                     <a href="/product/cart">Agregar al Carrito</a>
                                 </span>
                             </button>
                             <br><br><br>
+                            <% } %>
+                            <% if (locals.isLogged) { %>
                             <section>
                                 <button type="button" class="pd_gl-cta pd_gl-cta--primary">
                                     <span class="pd_gl-cta__content">
@@ -66,6 +69,7 @@
                             </span>
                         </button>
                             </section>
+                            <% } %>
                         </div>
                     </div>
                 </div>
