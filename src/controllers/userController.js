@@ -51,6 +51,7 @@ const userController = {
                 oldData: req.body
             });
         }
+        console.log('---------------------- antes de buscar si existe el mail');
         // aca busca que el mail no exita ya registrado
         let userInDB = await User.findOne({where: {email: req.body.email}});
         if (userInDB) {
@@ -63,6 +64,7 @@ const userController = {
                 oldData: req.body
             });
         }
+        console.log('---------------------- antes de crear el usuario');
         //si paso las validaciones crea el usuario y encripta la contraseña
         try{
             let userCreated = await User.create({
@@ -74,7 +76,7 @@ const userController = {
                 avatar: req.file.filename,
                 rolId: req.body.rolId
             })
-
+console.log(userCreated);
             return res.redirect('/users/login');
 
         } catch(error) {
