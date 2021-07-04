@@ -18,34 +18,25 @@ const Image = db.Image;
 
 const productController = {
 
-    list: (req, res) => {
-        Product.findAll(
-            {
-                include : ['category','brand', 'color', 'size', 'visibility', 'images' ]
-            })
-            .then(products => {
-                res.render('products/products', {products})
-            })
+    list: async (req, res) =>{
+        try{ 
+            let products = await Product.findAll({
+                include: [
+                   "brand", "category", "color", "size", "visibility", "images"
+                ]
+            });
 
-
-            // let productId = req.params.id;
-            // let promProducts = Product.findAll(productId, {
-            //     include : ['images','category','brand', 'color', 'size', 'visibility', ]
-            //   });
-            // let promCategories = Category.findAll();
-            // let promBrands = Brand.findAll();
-            // let promColors = Color.findAll();
-            // let promSizes = Size.findAll();
-            // let promVisibilities = Visibility.findAll();
-            // let promImage = Image.findOne();
+            console.log(products);
+            console.log("URL: " + req.params.category);
             
-            // Promise
-            // .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
-            // .then(([products, allCategories, allBrands, allColors, allSizes, allVisibilities, images]) => {
-            //     //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
-            //     return res.render(path.resolve(__dirname, '..', 'views',  'products/products'), {products, allCategories, allBrands, allColors, allSizes, allVisibilities, images})
-            //   })
-            // .catch(error => res.send(error))
+            
+            const categoria = req.params.category;
+            return res.render('products/products', {products, categoria});
+            
+        }
+        catch(error){
+            console.log(error);
+        }
 
 
     },
@@ -171,7 +162,7 @@ const productController = {
             })
              
             console.log(imagesCreated);
-            return res.redirect('/product');
+            return res.redirect('/product/:category');
         
 //hasta aca try
         } catch (error) {

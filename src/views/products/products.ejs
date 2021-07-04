@@ -19,7 +19,16 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="pd_tit-categoria">Indumentaria</div>
+                    <div class="pd_tit-categoria">
+                        Indumentaria 
+                        <% if (categoria == "men") { %>
+                            para Hombre
+                        <% } else if (categoria == "women") {%>
+                            para Mujer
+                        <% } else if (categoria == "kids") { %>
+                            para Niños
+                        <% } %>
+                    </div>
                 </div>
 
             <section id="pd_listado-products" >

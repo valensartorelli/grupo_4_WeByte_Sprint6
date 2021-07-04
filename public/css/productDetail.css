@@ -285,7 +285,7 @@ transition: all 0.3s ease;
     .pd_icon-service {width: 25%; }
     .pd_newsletter_cont{display: flex; align-items: center; justify-content: space-around; }
     .pd_text-news{font-size: 2em;}
-    .pd_tit-categoria{font-size: 53px;}
+    .pd_tit-categoria{font-size: 53px;margin-bottom: 35px;}
     .prod-info .section {font-size: 14px;}
     .pd_descripciones{font-size: 20px;padding: 0}
     #pd_listado-products article{margin-bottom: 35px}
