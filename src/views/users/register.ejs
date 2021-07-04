@@ -15,85 +15,58 @@
                     <div class="fr_text">Ya estas registrado? <a href="login">Inicia Sesión</a></div>
                     <div class="pd_producto-img">
                         <div class="pd_prod-left">
-                            <form action="/users/register" method="POST" enctype="multipart/form-data">
-                                <div class="fr_nombre">
-                                    <label class="fr_lbltexto"> Tu Nombre </label>
-                                    <input type="text" name="fullName" id="fullName" value="<%= locals.oldData ? oldData.fullName : null %>" class="control <%= locals.errors && errors.fullName ? 'is-invalid' : null %>">
-                                    <% if (locals.errors && errors.fullName) { %>
-                                        <div class="is-invalid"> <%= errors.fullName.msg %></div>
-                                    <% } %>
-                                </div>
-                                <div class="fr_fechaNac">
-                                    <label class="fr_lbltexto"> Fecha de nacimiento </label>
-                                    <input type="date" name="bday" id="bday" value="<%= locals.oldData ? oldData.bday : null %>" class="control <%= locals.errors && errors.bday ? 'is-invalid' : null %>">
-                                    <% if (locals.errors && errors.bday) { %>
-                                        <div class="is-invalid"> <%= errors.bday.msg %></div>
-                                    <% } %>
-                                </div>
-                                <div class="fr_email">
-                                    <label class="fr_lbltexto"> Email </label>
-                                    <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : null %>" class="control <%= locals.errors && errors.email ? 'is-invalid' : null %>">
-                                    <% if (locals.errors && errors.email) { %>
-                                        <div class="is-invalid"> <%= errors.email.msg %></div>
-                                    <% } %>
-                                </div>
-                                <div class="fr_password1">
-                                    <label class="fr_lbltexto"> Contraseña </label>
-                                    <input type="password" name="password" id="password" value="<%= locals.oldData ? oldData.password : null %>" class="control <%= locals.errors && errors.password ? 'is-invalid' : null %>">
-                                    <% if (locals.errors && errors.password) { %>
-                                        <div class="is-invalid"> <%= errors.password.msg %></div>
-                                    <% } %>
-                                </div>
-                                <div class="fr_password1">
-                                    <label class="fr_lbltexto">Categoria</label>
-                                    <select name="category" class="control <%= locals.errors && errors.category ? 'is-invalid' : null %>">
-                                        <option value="">Elegí una categoria</option>
-                                        <%  
-                                       let category = ['Admin', 'User'];
-                                        %>
-                                         <% for (const oneCategory of category) { %>
-                                            <option 
-                                            value="<%= oneCategory %>"
-                                        <%= locals.oldData && (oneCategory === oldData.category) ? 'selected' : null %> 
-                                        > <%= oneCategory %> </option>
-                                        <% } %>
-                                  </select>
-                                    <% if (locals.errors && errors.category) { %>
-                                        <div class="is-invalid"> <%= errors.category.msg %></div>
-                                    <% } %>
-                                </div>
-                                <div class="fr_password1">
-                                    <label class="fr_lbltexto">Foto de usuario</label>
-                                    <input type="file" name="avatar" accept=".jpg, .png" class="control <%= locals.errors && errors.avatar ? 'is-invalid' : null %>">
-                                    <% if (locals.errors && errors.avatar) { %>
-                                        <div class="is-invalid"> <%= errors.avatar.msg %></div>
-                                    <% } %>
-                                </div>
-                                <!--</div>-->
+                            <form action="/users/create" method="POST" enctype="multipart/form-data">
+                                <label for="firstName">Nombre</label>
+                                <input type="text" name="firstName" id="firstName" value="<%= locals.oldData ? oldData.firstName : null %>" class="control <%= locals.errors && errors.firstName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.firstName) { %>
+                                    <div class="is-invalid"> <%= errors.firstName.msg %></div>
+                                <% } %>
                                 <br>
-                                <div class="fr_checkbox">
-                                    <input type="checkbox" name="terminos" id="a"> &nbsp;
-                                    He leído y acepto los Términos y condiciones de WeByte y la Política de privacidad
-                                </div>
-                                <div class="fr_checkbox">
-                                    <input type="checkbox" name="newsletter" id="b"> &nbsp; Quiero recibir newsletters y
-                                    ofertas
-                                </div>
+                                <label for="lastName">Apellido</label>
+                                <input type="text" name="lastName" id="lastName" value="<%= locals.oldData ? oldData.lastName : null %>" class="control <%= locals.errors && errors.lastName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.lastName) { %>
+                                    <div class="is-invalid"> <%= errors.lastName.msg %></div>
+                                <% } %>
                                 <br>
-                                <div class="fr_registro">
-                                    <div class="fr_registro-left">
-                                        <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
-                                            <span class="pd_gl-cta__content">
-                                                <a>Registrarme</a>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <br>
-                                    <div class="fr_registro-right">
-                                        <div class="google-logo"><a href="../product/cart">Google</a></div>
-                                        <div class="facebook-logo"><a href="../product/cart">Facebook</a></div>
-                                    </div>
-                                </div>
+                                <label for="userName">Usuario</label>
+                                <input type="text" name="userName" id="userName" value="<%= locals.oldData ? oldData.userName : null %>" class="control <%= locals.errors && errors.userName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.userName) { %>
+                                    <div class="is-invalid"> <%= errors.userName.msg %></div>
+                                <% } %>
+                                <br>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : null %>" class="control <%= locals.errors && errors.email ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.email) { %>
+                                    <div class="is-invalid"> <%= errors.email.msg %></div>
+                                <% } %>
+                                <br>
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="password" value="<%= locals.oldData ? oldData.password : null %>" class="control <%= locals.errors && errors.password ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.password) { %>
+                                    <div class="is-invalid"> <%= errors.password.msg %></div>
+                                <% } %>
+                                <br>
+                                
+                                <label for="avatar">Avatar</label>
+                                <input type="file" name="avatar" id="avatar" accept=".jpg, .png" class="control <%= locals.errors && errors.avatar ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.avatar) { %>
+                                    <div class="is-invalid"> <%= errors.avatar.msg %></div>
+                                <% } %>
+                                <br>
+                        
+                                <label for="rol">Rol</label>
+                                <select name="rolId" id="rol" required>
+                                    <% roles.forEach(rol => { %>
+                                        <option value="<%= rol.id %>" selected ><%= rol.name %></option>
+                                    <% }); %>
+                                </select>
+                        
+                                <br><br><br>
+                                <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                                    <span class="pd_gl-cta__content">
+                                        Registrate
+                                    </span>
+                                </button>
                             </form>
                         </div>
                         <div class="pd_prod-rigt3">

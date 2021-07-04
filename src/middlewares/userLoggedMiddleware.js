@@ -1,10 +1,12 @@
-const User = require('../model/User');
+let db = require('../database/models');
+const User = db.User;
 
-function userLoggedMiddleware(req, res, next) {
+async function userLoggedMiddleware(req, res, next) {
+	try{
 	res.locals.isLogged = false;
 
 	let emailInCookie = req.cookies.userEmail;
-	let userFromCookie = User.findByField('email', emailInCookie);
+	let userFromCookie = await User.findOne({where: {email: req.body.email}}, emailInCookie);
 
 	if (userFromCookie) {
 		req.session.userLogged = userFromCookie;
@@ -16,6 +18,10 @@ function userLoggedMiddleware(req, res, next) {
 	}
 
 	next();
+}
+catch(error){
+	console.log(error);
+}
 }
 
 module.exports = userLoggedMiddleware;

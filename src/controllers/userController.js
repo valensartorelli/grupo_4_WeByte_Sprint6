@@ -2,7 +2,9 @@ const path = require('path');
 let db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
-const moment = require('moment');
+
+const bcryptjs = require('bcryptjs');
+const {validationResult} = require('express-validator');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const User = db.User;
@@ -29,32 +31,51 @@ const userController = {
             })
             .then(users => {
                // res.json(product)
-                res.render('userDetail', {users});
+                res.render('users/userDetail', {users});
             });
     },
     
     add: (req, res) => {
         Rol.findAll()
         .then(roles => {
-            res.render('userAdd.ejs', {roles})
+            res.render('users/register', {roles})
         });
     },
     create: async (req, res) =>{
         console.log('entre en el Create user')
         console.log('----------------------------')
-        
+        const resultValidation = validationResult(req);
+        if (resultValidation.errors.length > 0) {
+            return res.render('users/register', {
+                errors: resultValidation.mapped(),
+                oldData: req.body
+            });
+        }
+        // aca busca que el mail no exita ya registrado
+        let userInDB = await User.findOne({where: {email: req.body.email}});
+        if (userInDB) {
+            return res.render('users/add', {
+                errors: {
+                    email: {
+                        msg: 'Este email ya está registrado'
+                    }
+                },
+                oldData: req.body
+            });
+        }
+        //si paso las validaciones crea el usuario y encripta la contraseña
         try{
             let userCreated = await User.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 userName: req.body.userName,
                 email: req.body.email,
-                password: req.body.password,
+                password: bcryptjs.hashSync(req.body.password, 10),
                 avatar: req.file.filename,
                 rolId: req.body.rolId
             })
 
-            return res.redirect('/users');
+            return res.redirect('/users/login');
 
         } catch(error) {
             res.send(error)
@@ -74,7 +95,7 @@ const userController = {
         Promise
         .all([promUsers, promRoles])
         .then(([users, roles]) => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'userEdit'), {users, roles})
+            return res.render(path.resolve(__dirname, '..', 'views',  'users/userEdit'), {users, roles})
         })
         .catch(error => res.send(error))
     },
@@ -123,6 +144,56 @@ const userController = {
         .then(()=>{
             return res.redirect('/users')})
         .catch(error => res.send(error)) 
+    },
+    login: (req, res) => {
+        return res.render('users/login');
+    },
+    loginProcess: async (req, res) => {
+        // busca el usuario x email su lo encuentra compara contraseña
+        try{
+        let userToLogin = await User.findOne({where: {email: req.body.email}});
+        console.log(userToLogin);
+        if(userToLogin) {
+            let isOkThePassword = bcryptjs.compareSync(req.body.password, userToLogin.password);
+            if (isOkThePassword) {
+                delete userToLogin.password;
+                req.session.userLogged = userToLogin;
+
+                if(req.body.remember_user) {
+                    res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+                }
+                return res.redirect('/users/profile');
+            } 
+            return res.render('users/login', {
+                errors: {
+                    email: {
+                        msg: 'Las credenciales son inválidas'
+                    }
+                }
+            });
+            
+        }
+        return res.render('users/login', {
+            errors: {
+                email: {
+                    msg: 'No se encuentra este email en nuestra base de datos'
+                }
+            }
+        });
+    }
+    catch(error){
+        console.log(error);
+    }
+    },
+    profile: (req, res) => {
+        return res.render('users/profile', {
+            user: req.session.userLogged
+        });
+    },
+    logout: (req, res) => {
+        res.clearCookie('userEmail');
+        req.session.destroy();
+        return res.redirect('/');
     }
 }
 

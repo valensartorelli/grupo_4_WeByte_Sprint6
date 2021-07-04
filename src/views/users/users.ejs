@@ -23,7 +23,13 @@
                     <div class="pd_tit-categoria">Listado de usuarios</div>
                     <div class="pd_producto-img">
                         <div class="pd_prod-left">
-    <a href="users/add">Alta de usuarios</a>
+                            <button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                <span class="pd_gl-cta__content">
+                                    <a href="users/add" class="botonModificar">Ir Alta de usuarios</a>
+                                </span>
+                            </button>
+                            <br><hr><br>
+                            <label class="fr_lbltexto">Listado de Usuarios</label>
     <ul>
         <% for( let i = 0; i < users.length; i++ ) { %>
             <li>

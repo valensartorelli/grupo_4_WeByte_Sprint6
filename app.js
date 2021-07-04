@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 // configura ruta public
 app.use(express.static(path.resolve(__dirname, './public')));
 
-app.use(express.json())
+app.use(express.json())  
 //URL encode permite req.body
 app.use(express.urlencoded({ extended: false }));
 
@@ -22,13 +22,13 @@ app.use(methodOverride('_method'));
 
 //User
 //const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware');
-// app.use(session({
-//     secret: "Shhh, It's a secret",
-//     resave: false,
-//     saveUninitialized: false,
-// }));
-// app.use(cookies());
-// app.use(userLoggedMiddleware);
+app.use(session({
+    secret: "Shhh, It's a secret",
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(cookies());
+//app.use(userLoggedMiddleware);
 
 // llamo al router
 const homeRoutes = require('./src/routes/homeRoutes');
