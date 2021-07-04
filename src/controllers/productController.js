@@ -54,20 +54,6 @@ const productController = {
     },
 
     search: async (req, res) =>{
-        // Product
-        //     .findAll({
-        //         where: {
-        //             name: { [Op.like] : '%' + req.query.keyword + '%' }
-        //         }
-        //     })
-        //     .then(products => {
-        //         if(products.length > 0) {
-        //             //return res.json(products)
-        //             res.render('products/productSearch', {products});
-        //         }
-        //         //return res.status(200).json('El producto que busca no ha sido encontrado')
-        //         return res.render('products/productNoSearch');
-        //     })
         try {
             let search= req.query.keyword ;
             let products = await Product.findAll({
@@ -76,7 +62,16 @@ const productController = {
                 },
                 include : ['category','brand', 'color', 'size', 'visibility','images' ]
             })
-            res.render('products/productSearch', {products})
+            
+            console.log("RESULTADO: " + products.length);
+
+            if (products.length !== 0) {
+                const categoria = req.params.category;
+                res.render('products/productSearch', {products, categoria})
+            } else {
+                res.render('products/productNoSearch');
+            }
+            
         } catch (error) {
             res.send(error)
         }
