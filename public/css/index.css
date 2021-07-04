@@ -172,7 +172,7 @@ section .img-destacada{
 /* COMPUTADORA */
 @media (min-width: 1280px){
 	.carousel-item {
-	    height: 45rem;
+	    height: 35rem;
 	}
 	#carouselExampleInterval .novedad{
 	    width: 25%;

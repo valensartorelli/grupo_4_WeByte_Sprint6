@@ -29,7 +29,6 @@ const productController = {
             console.log(products);
             console.log("URL: " + req.params.category);
             
-            
             const categoria = req.params.category;
             return res.render('products/products', {products, categoria});
             

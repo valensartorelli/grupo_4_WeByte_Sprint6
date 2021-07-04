@@ -1,5 +1,5 @@
 <% products.forEach(product => { %>
-    <% if (categoria == "men" && product.category.id == 1) { %>
+    <% if (categoria == product.category.id) { %>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <article>
                 <a href="/product/detail/<%= product.id %>">
@@ -14,37 +14,7 @@
                 </div>
             </article>
         </div>
-    <% } else if (categoria == "women" && product.category.id == 2) { %>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <article>
-                <a href="/product/detail/<%= product.id %>">
-                <img src="/images/<%= product.images[0].name %>" alt="<%= product.name %>" class="pd_img-list">
-                </a>
-                <div class="pd_main-article">
-                    <p class="pd_categoria"><%= product.brand.name %> </p>
-                    <p class="pd_descripciones">
-                        <a href="/product/detail/<%= product.id %>"> <%= product.name %></a>
-                    </p>
-                    <p class="pd_precios">$<%= product.price %></p>
-                </div>
-            </article>
-        </div>
-    <% } else if (categoria == "kids" && product.category.id == 3) { %>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <article>
-                <a href="/product/detail/<%= product.id %>">
-                <img src="/images/<%= product.images[0].name %>" alt="<%= product.name %>" class="pd_img-list">
-                </a>
-                <div class="pd_main-article">
-                    <p class="pd_categoria"><%= product.brand.name %> </p>
-                    <p class="pd_descripciones">
-                        <a href="/product/detail/<%= product.id %>"> <%= product.name %></a>
-                    </p>
-                    <p class="pd_precios">$<%= product.price %></p>
-                </div>
-            </article>
-        </div>
-    <% } else { %>
+    <% } else if (categoria == null) {%>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <article>
                 <a href="/product/detail/<%= product.id %>">
