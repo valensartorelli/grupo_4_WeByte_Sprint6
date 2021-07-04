@@ -4,7 +4,7 @@
   "description": "Repositorio que responde al Sprint 6 para el grupo 4 WeByte!\r Contribuidores: Valentina Sartorelli, Gabriela Mangoni, Claudio Kornfeld, Hernan Arismendi.",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

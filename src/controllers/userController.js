@@ -44,26 +44,26 @@ const userController = {
     create: async (req, res) =>{
         console.log('entre en el Create user')
         console.log('----------------------------')
-        const resultValidation = validationResult(req);
-        if (resultValidation.errors.length > 0) {
-            return res.render('users/register', {
-                errors: resultValidation.mapped(),
-                oldData: req.body
-            });
-        }
+        // const resultValidation = validationResult(req);
+        // if (resultValidation.errors.length > 0) {
+        //     return res.render('users/register', {
+        //         errors: resultValidation.mapped(),
+        //         oldData: req.body
+        //     });
+        // }
         console.log('---------------------- antes de buscar si existe el mail');
         // aca busca que el mail no exita ya registrado
-        let userInDB = await User.findOne({where: {email: req.body.email}});
-        if (userInDB) {
-            return res.render('users/add', {
-                errors: {
-                    email: {
-                        msg: 'Este email ya está registrado'
-                    }
-                },
-                oldData: req.body
-            });
-        }
+        // let userInDB = await User.findOne({where: {email: req.body.email}});
+        // if (userInDB) {
+        //     return res.render('users/add', {
+        //         errors: {
+        //             email: {
+        //                 msg: 'Este email ya está registrado'
+        //             }
+        //         },
+        //         oldData: req.body
+        //     });
+        // }
         console.log('---------------------- antes de crear el usuario');
         //si paso las validaciones crea el usuario y encripta la contraseña
         try{
