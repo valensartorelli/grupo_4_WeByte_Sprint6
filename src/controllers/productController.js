@@ -156,7 +156,7 @@ const productController = {
             })
              
             console.log(imagesCreated);
-            return res.redirect('/product/:category');
+            return res.redirect('/product');
         
 //hasta aca try
         } catch (error) {
