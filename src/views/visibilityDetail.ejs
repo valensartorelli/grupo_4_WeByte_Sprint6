@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p style="display: none;">Estado: <%= visibility.name %> </p>
+
+    <form action="/visibility/update/<%= visibility.id %>?_method=PUT" method="POST">
+        <label for="title">Estado</label>
+        <p><input type="text" name="name" id="" value="<%= visibility.name %>" required></p>
+        <button class="botonBorrar" type="submit">Editar el Talle</button>
+            <br><br>
+    </form>
+    <form action="/visibility/destroy/<%= visibility.id %>?_method=DELETE" method="POST">
+        <button class="botonBorrar" type="submit">Eliminar el Talle</button>
+            <br><br>
+    </form>
+    <br><br>
+    <a  class="botonVolver" href="/visibility">Listado de Marcas</a>
+</body>
+</html>
