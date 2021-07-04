@@ -18,20 +18,20 @@ const categoryController = {
     list: (req, res) => {
         Category.findAll()
         .then(categories => {
-            res.render('categoryList.ejs', {categories})
+            res.render('products/categoryList.ejs', {categories})
         });
     },
     detail: (req, res) =>{
     Category.findByPk(req.params.id)
     .then(categories => {
-        res.render('categoryDetail.ejs', {categories});
+        res.render('products/categoryDetail.ejs', {categories});
       });
     },
     search: (req, res) =>{},
     
     //CRUD
     add: (req, res) =>{
-        res.render('categoryAdd.ejs');
+        res.render('products/categoryAdd.ejs');
     },
     create:(req, res) =>{
         Category.create({name: req.body.name})
@@ -44,7 +44,7 @@ const categoryController = {
         Category         
         .findByPk(categoryId)
         .then(Category => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'categoryDelete'), {Category})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/categoryDelete'), {Category})})
         .catch(error => res.send(error))
     },
     update: (req, res) =>{

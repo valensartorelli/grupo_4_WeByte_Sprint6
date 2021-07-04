@@ -18,20 +18,20 @@ const visibilityController = {
     list: (req, res) => {
         Visibility.findAll()
         .then(visibilities => {
-            res.render('visibilityList.ejs', {visibilities})
+            res.render('products/visibilityList.ejs', {visibilities})
         });
     },
     detail: (req, res) =>{
     Visibility.findByPk(req.params.id)
     .then(visibility => {
-        res.render('visibilityDetail.ejs', {visibility});
+        res.render('products/visibilityDetail.ejs', {visibility});
       });
     },
     search: (req, res) =>{},
     
     //CRUD
     add: (req, res) =>{
-        res.render('visibilityAdd.ejs');
+        res.render('products/visibilityAdd.ejs');
     },
     create:(req, res) =>{
          Visibility.create({name: req.body.name})
@@ -44,7 +44,7 @@ const visibilityController = {
         Visibility         
         .findByPk(visibilityId)
         .then(Visibility => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'visibilityDelete'), {Visibility})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/visibilityDelete'), {Visibility})})
         .catch(error => res.send(error))
     },
     update: (req, res) =>{
