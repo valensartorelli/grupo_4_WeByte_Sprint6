@@ -28,6 +28,16 @@
         <label for="avatar">Avatar</label>
         <input type="file" name="avatar" id="avatar" >
         <br>
+
+        <label for="rolId">Rol</label>
+        <select name="rolId" id="" required>
+            <option value="0" disabled>- Seleccione una marca - </option>
+            <% allRoles.forEach(rol => { %>
+            <option value="<%= rol.id %>"<% if (product.rolId == rol.id) { %><%= 'selected' %><% }; %>><%= rol.name %></option>
+            <% }); %>
+        </select>
+        <br>
+
         <button class="createUser" type="submit">Crear</button>
             <br><br>
     </form>
