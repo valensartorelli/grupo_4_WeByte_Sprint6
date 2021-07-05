@@ -17,35 +17,35 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="pd_tit-categoria">Colores </div>
+                    <div class="pd_tit-categoria">Marcas </div>
                 </div>
 
             <section id="pd_listado-products" >
                 <div class="container">
-                    <p style="display: none;">Color: <%= color.name %> </p>
+                    <p style="display: none;">Estado: <%= visibility.name %> </p>
 
-    <form action="/color/update/<%= color.id %>?_method=PUT" method="POST">
-        <label for="title">Modificar Color</label>
-        <p><input type="text" name="name" id="" value="<%= color.name %>" required></p>
+    <form action="/visibility/update/<%= visibility.id %>?_method=PUT" method="POST">
+        <label for="title">Modificar Estado</label>
+        <p><input type="text" name="name" id="" value="<%= visibility.name %>" required></p>
         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
             <span class="pd_gl-cta__content">
-                Editar Color
+                Editar Estado
             </span>
         </button>
     </form>
     <br><hr><br>
     <div class="flex">
-    <form onSubmit="return confirm('¿Estas seguro de querer borrar el color <%= color.name %>?') " action="/color/destroy/<%= color.id %>?_method=DELETE" method="POST">
+    <form onSubmit="return confirm('¿Estas seguro de querer borrar el estado <%= size.name %>?') " action="/visibility/destroy/<%= visibility.id %>?_method=DELETE" method="POST">
         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
             <span class="pd_gl-cta__content">
-                Eliminar Color
+                Eliminar Estado
             </span>
         </button>
     </form>
     <br><br>
     <button type="submit" class="pd_gl-cta pd_gl-cta--primary p20">
         <span class="pd_gl-cta__content">
-            <a  class="botonVolver" href="/color">Listado de Colores</a>
+            <a  class="botonVolver" href="/visibility">Listado de Estados</a>
         </span>
     </button>
 </div>

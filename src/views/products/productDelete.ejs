@@ -22,7 +22,7 @@
                 <div class="container">
                     <h1 class="red">Estas seguro de querer borrar este producto: <%= product.name %>???</h1>
     <p>
-        <form action="/product/delete/<%= product.id %>?_method=DELETE" method="POST">
+        <form onSubmit="return confirm('¿Relmente estas seguro de que querer borrar este producto: <%= product.name %>?') " action="/product/delete/<%= product.id %>?_method=DELETE" method="POST">
             <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
                 <span class="pd_gl-cta__content">Eliminar</span>
     </button>

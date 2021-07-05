@@ -18,20 +18,20 @@ const sizeController = {
     list: (req, res) => {
         Size.findAll()
         .then(sizes => {
-            res.render('sizeList.ejs', {sizes})
+            res.render('products/sizeList.ejs', {sizes})
         });
     },
     detail: (req, res) =>{
     Size.findByPk(req.params.id)
     .then(size => {
-        res.render('sizeDetail.ejs', {size});
+        res.render('products/sizeDetail.ejs', {size});
       });
     },
     search: (req, res) =>{},
     
     //CRUD
     add: (req, res) =>{
-        res.render('sizeAdd.ejs');
+        res.render('products/sizeAdd.ejs');
     },
     create:(req, res) =>{
          Size.create({name: req.body.name})
@@ -44,7 +44,7 @@ const sizeController = {
         Size         
         .findByPk(sizeId)
         .then(Size => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'SizeDelete'), {Size})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/SizeDelete'), {Size})})
         .catch(error => res.send(error))
     },
     update: (req, res) =>{

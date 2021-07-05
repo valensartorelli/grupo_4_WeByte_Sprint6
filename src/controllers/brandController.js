@@ -18,20 +18,20 @@ const brandController = {
     list: (req, res) => {
         Brand.findAll()
         .then(brands => {
-            res.render('brandList.ejs', {brands})
+            res.render('products/brandList.ejs', {brands})
         });
     },
     detail: (req, res) =>{
     Brand.findByPk(req.params.id)
     .then(brand => {
-        res.render('brandDetail.ejs', {brand});
+        res.render('products/brandDetail.ejs', {brand});
       });
     },
     search: (req, res) =>{},
     
     //CRUD
     add: (req, res) =>{
-        res.render('brandAdd.ejs');
+        res.render('products/brandAdd.ejs');
     },
     create:(req, res) =>{
          Brand.create({name: req.body.name})
@@ -44,7 +44,7 @@ const brandController = {
         Brand         
         .findByPk(brandId)
         .then(Brand => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'brandDelete'), {Brand})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/brandDelete'), {Brand})})
         .catch(error => res.send(error))
     },
     update: (req, res) =>{
