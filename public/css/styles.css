@@ -705,6 +705,9 @@ input{
     .header-top-bar nav .add-prod{
         display: none;
     }
+    #pd_main_container .flex{
+        flex-direction: column;
+    }
 }
 
 @media screen and (min-width: 0) and (max-width:548px){
@@ -713,6 +716,34 @@ input{
     }
     .inputSearch{
         width: 100px;
+    }
+    #pd_main-container .flex{
+        flex-direction: column;
+    }
+    #pd_main-container .flex .profile{
+        margin: 20px 0;
+    }
+    #pd_main-container .flex .profile .p20{
+        margin: 5px 0 0;
+    }
+    .header-logo{
+        display: none;
+    }
+    .cont-logo-xs{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px 0 0;
+    }
+    .header-logo-xs{
+        display: block;
+    }
+}
+
+@media screen and (min-width:549px) {
+    .cont-logo-xs{
+        display: none;
     }
 }
 
