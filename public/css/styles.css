@@ -402,6 +402,7 @@ footer p {
 #menu {
     position: absolute;
     width: 250px;
+    height: 107vh;
     margin: -100px 0 0 -50px;
     padding: 50px;
     padding-top: 125px;
@@ -642,6 +643,7 @@ input{
   .nav > li.menu {
     float:left;
     z-index: 10;
+    position: relative;
 }
 
 .nav li.menu a {
@@ -661,6 +663,8 @@ input{
     display:none;
     position:absolute;
     min-width:140px;
+    left: -85px;
+    top: 55px;
 }
 
 .nav li.menu:hover > ul {
@@ -679,7 +683,7 @@ input{
   /* fin menu desplegable */
 /* Estilos Responsive */
 
-@media (max-width: 767px) {
+@media (max-width: 995px) {
     .header-top-bar-desktop {
         display: none;
     }
@@ -698,8 +702,19 @@ input{
     .pd_prod-rigt3 .pd_tit-categoria {font-size: 26px;}
     .fr_registro-rigt{display: block;}
     .header-top-bar {height: 80px;}
+    .header-top-bar nav .add-prod{
+        display: none;
+    }
 }
 
+@media screen and (min-width: 0) and (max-width:548px){
+    .header-top-bar nav .add-prod{
+        display: none;
+    }
+    .inputSearch{
+        width: 100px;
+    }
+}
 
 /* SM -- tablets */
 
@@ -719,13 +734,15 @@ input{
     }
 }
 
-
-/* MD -- Laptops */
-
-@media (min-width: 768px) {
+@media (min-width: 995px) {
     .header-top-bar {
         display: none; 
     }
+}
+
+/* MD -- Laptops */
+@media (min-width: 768px) {
+    
     .header-top-bar-desktop .d-flex {
         align-items: center;
     }
