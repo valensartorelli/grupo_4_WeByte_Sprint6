@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/head') %>
+
+    <body class="productDetails">
+        <%- include('../partials/header') %>
+        
+        <main id="pd_main-container">
+            <section>
+                <div class="container link-ruta">
+                    <nav>
+                        <ul>
+                            <li>></li>
+                            <li><a href="/"><strong>Atras</strong></a></li>
+                            <li>/</li>
+                            <li><a href="/admin">Administrador</a></li>   
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="pd_tit-categoria">Hola! <%= users.firstName %> </div>
+                    <div class="pd_producto-img">
+                        <div class="pd_prod-left">
+                            <form action="/users/update/<%= users.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                                <label for="firstName">Nombre</label>
+                                <input type="text" name="firstName" id="firstName" value="<%= users.firstName %>" required>
+                                <br>
+                                <label for="lastName">Apellido</label>
+                                <input type="text" name="lastName" id="lastName" value="<%= users.lastName %>" required>
+                                <br>
+                                <label for="userName">Usuario</label>
+                                <input type="text" name="userName" id="userName" value="<%= users.userName %>" required>
+                                <br>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" value="<%= users.email %>" required disabled>
+                                <br>
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="password" value="<%= users.password %>" disabled>
+                                <br>
+                                <label for="avatar">Avatar</label>
+                                <input type="file" name="avatar" id="avatar" accept=".jpg, .png" value="<%= users.avatar %>">
+                                <input type="hidden" name="oldAvatar" value="<%= users.avatar %>">
+                                <br>
+                                <label for="rol">Rol</label>
+                                <select name="rolId" id="rol">
+                                    <% roles.forEach(rol => { %>
+                                        <option value="<%= rol.id %>" <% if (users.rolId == rol.id) { %> <%= 'selected' %><% }; %> ><%= rol.name %></option>
+                                    <% }); %>
+                                </select><br><br><br><br>
+                                <section class="flex">
+                                    <div>
+                                <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                                    <span class="pd_gl-cta__content">
+                                        Editar Datos
+                                    </span>
+                                </button>
+                            </form></div>
+                            <div class="p20">
+                            <form onSubmit="return confirm('¿Estas seguro de querer borrar el usuario?') " action="/users/delete/<%= users.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                                    <span class="pd_gl-cta__content">
+                                        Eliminar Usuario
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                    <br><br>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            
+
+        </main>
+
+
+        <%- include('../partials/newsletter') %>
+
+        <%- include('../partials/prefooter') %>
+        
+        <%- include('../partials/footer') %>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    </body>
+</html>

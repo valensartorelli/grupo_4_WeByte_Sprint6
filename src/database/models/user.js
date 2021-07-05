@@ -6,9 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
    
     static associate(models) {
-      
+
       // belongsTo
-      User.belongsTo(models.Rol);
+      User.belongsTo(models.Rol, {
+        foreignKey: 'rolId',
+        as: "rol"
+      });
 
       // hasOne - de uno a uno pero con FK
       User.hasOne(models.Address, {

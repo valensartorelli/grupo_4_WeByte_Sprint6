@@ -113,15 +113,14 @@ sequelize model:generate --name Size --attributes name:string
 
 sequelize model:generate --name Visibility --attributes name:string
 
--------------- ORDEN sueltos
+-------------- USERS / ORDER sueltos
 
 sequelize model:generate --name Payment --attributes name:string
 
 sequelize model:generate --name Status --attributes name:string
 
-sequelize model:generate --name Avatar --attributes name:string
+sequelize model:generate --name Roles --attributes name:string
 
-sequelize model:generate --name Address --attributes street:string,number:integer,city:string,state:string,floor:integer,apartment:string,cp:string,phone_number:integer
 
 -------------- PRODUCTOS
 
@@ -132,7 +131,9 @@ sequelize model:generate --name Image --attributes name:string,productId:integer
 
 -------------- USERS
 
-sequelize model:generate --name User --attributes firstName:string,lastName:string,userName:string,email:string,password:string,adressId:integer,avatarId:integer
+sequelize model:generate --name User --attributes firstName:string,lastName:string,userName:string,email:string,password:string,avatar:integer,rolesId:integer
+
+sequelize model:generate --name Address --attributes street:string,number:integer,city:string,state:string,floor:integer,apartment:string,cp:string,phone_number:integer,userId:integer
 
 -------------- ORDERS
 

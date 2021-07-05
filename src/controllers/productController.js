@@ -2,7 +2,8 @@ const path = require('path');
 let db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
-const moment = require('moment');
+
+const {validationResult} = require('express-validator');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Product = db.Product;
@@ -17,11 +18,26 @@ const Image = db.Image;
 
 const productController = {
 
-    list: (req, res) => {
-        db.Product.findAll()
-            .then(products => {
-                res.render('products.ejs', {products})
-            })
+    list: async (req, res) =>{
+        try{ 
+            let products = await Product.findAll({
+                include: [
+                   "brand", "category", "color", "size", "visibility", "images"
+                ]
+            });
+
+            console.log(products);
+            console.log("URL: " + req.params.category);
+            
+            const categoria = req.params.category;
+            return res.render('products/products', {products, categoria});
+            
+        }
+        catch(error){
+            console.log(error);
+        }
+
+
     },
     detail: (req, res) =>{
         console.log('entre a Detail product')
@@ -29,28 +45,39 @@ const productController = {
         let productId = req.params.id;
         Product.findByPk(productId,
             {
-                include : ['images','Category','Brand', 'Color', 'Size', 'Visibility', ]
+                include : ['images','category','brand', 'color', 'size', 'visibility' ]
             })
             .then(product => {
                // res.json(product)
-                res.render('productDetail', {product});
+                res.render('products/productDetail', {product});
             });
     },
 
-    search: (req, res) =>{
-        Product
-            .findAll({
+    search: async (req, res) =>{
+        try {
+            let search= req.query.keyword ;
+            let products = await Product.findAll({
                 where: {
-                    name: { [Op.like] : '%' + req.query.keyword + '%' }
-                }
+                    name: { [Op.like] : '%' + search + '%' }
+                },
+                include : ['category','brand', 'color', 'size', 'visibility','images' ]
             })
-            .then(products => {
-                if(products.length > 0) {
-                    return res.json(products)
-                }
-                return res.status(200).json('El producto que busca no ha sido encontrado')
-            })
+            
+            console.log("RESULTADO: " + products.length);
+
+            if (products.length !== 0) {
+                const categoria = req.params.category;
+                res.render('products/productSearch', {products, categoria})
+            } else {
+                res.render('products/productNoSearch');
+            }
+            
+        } catch (error) {
+            res.send(error)
+        }
+    
     },
+
     
     //CRUD
     add: (req, res) =>{
@@ -63,9 +90,10 @@ const productController = {
         Promise
         .all([promCategories, promBrands, promColors, promSizes, promVisibilities ])
         .then(([allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'createProduct'), {allCategories, allBrands, allColors, allSizes, allVisibilities})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/createProduct'), {allCategories, allBrands, allColors, allSizes, allVisibilities})})
         .catch(error => res.send(error))
     },
+    
     create: async (req, res) =>{
         console.log('entre en el Create product')
         console.log('----------------------------')
@@ -81,10 +109,30 @@ const productController = {
         console.log(req.body.colorId);
         console.log(req.body.visibilityId);
         console.log(req.body.home);
-        console.log(req.body.extended);
+        console.log(req.body.extended_description);   
+        // validacion del create
+    const products = await db.Product.findByPk(req.params.id);
+    let allCategories = await Category.findAll();
+    let allBrands = await Brand.findAll();
+    let allColors = await Color.findAll();
+    let allSizes = await Size.findAll();
+    let allVisibilities = await Visibility.findAll();
+    const errors = validationResult(req);
+    if (errors.errors.length > 0) {
+        return res.render('products/createProduct', {
+        errors: errors.mapped(),
+        oldData: req.body, //Esto es para que no se vaya borrando lo que uno escribe
+        products,
+        allCategories,
+        allBrands,
+        allColors,
+        allSizes,
+        allVisibilities
+      });
+    }    
        // primero crea el producto
         try{
-        let productCreated = await Product.create({
+          let productCreated = await Product.create({
                 name: req.body.name,
                 stock: req.body.stock,
                 stock_min: req.body.stock_min,
@@ -97,18 +145,9 @@ const productController = {
                 colorId: req.body.colorId,          
                 visibilityId: req.body.visibilityId,
                 home: req.body.home,
-                extended_description: req.body.extended,
+                extended_description: req.body.extended_description,
             });
-            // VER PARA CREAR IMAGEN EN ARRAY
-            // const product = req.body;
-            // // pregunta si vienen datos de la imagen body, en caso de false devuelve un array vacio
-            // product.image = product.image ? product.image : [];
 
-            // // Convierte en array los datos en el caso que venga 1 solo dato del body
-            // if (typeof product.image === 'string') {
-            //     product.image = [product.image];
-            // };
-            // luego asocia la imagen
             let imagesCreated = await Image.create (
                 {
                 name: req.file.filename,
@@ -118,7 +157,8 @@ const productController = {
              
             console.log(imagesCreated);
             return res.redirect('/product');
-
+        
+//hasta aca try
         } catch (error) {
             res.send(error)
         }
@@ -133,27 +173,43 @@ const productController = {
     
         let productId = req.params.id;
         let promProducts = Product.findByPk(productId, {
-            include: ['Category','Brand', 'Color', 'Size', 'Visibility', ]
+            include : ['images','category','brand', 'color', 'size', 'visibility', ]
           });
         let promCategories = Category.findAll();
         let promBrands = Brand.findAll();
         let promColors = Color.findAll();
         let promSizes = Size.findAll();
         let promVisibilities = Visibility.findAll();
+        let promImage = Image.findOne();
         
         Promise
-        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities ])
-        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities]) => {
-            //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities)
-            return res.render(path.resolve(__dirname, '..', 'views',  'productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities})
+        .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
+        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages]) => {
+            //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages})
           })
         .catch(error => res.send(error))
     },
 
     update: async (req, res) =>{
-        let productId = req.params.id;
         try {
-            const response = await Product.update(
+        let product = req.body;
+        console.log(' soy la nueva: ' + req.body.image)
+        console.log('soy la vieja '+ req.body.oldImage)
+        product.image = req.file ? req.file.filename : req.body.oldImagen;
+        if (req.file===undefined) {
+            product.image = req.body.oldImage
+        } else {
+            // Actualizaron la foto, saco su nombre del proceso
+            product.image = req.file.filename 
+        }
+        console.log('.......MOSTRAR LA IMAGEN.......')
+        console.log(product.image)
+        console.log(product)  
+        delete product.oldImagen;
+
+        let productId = req.params.id;
+        const productUpdate = await Product.update(
                 {
                 name: req.body.name,
                 stock: req.body.stock,
@@ -167,48 +223,51 @@ const productController = {
                 colorId: req.body.colorId,          
                 visibilityId: req.body.visibilityId,
                 home: req.body.home,
-                extended_description: req.body.extended
+                extended_description: req.body.extended_description
                 },
                 {
                     where: {id: productId}
                 }
             );
-            //const product = await Product.findByPk(productId);
-            // permite ver la relacion de la tabla product con color por ej
-            //const productColor = await product.getColor();
-            //console.log(productColor);
-            // para setear de cero tabla intermedia de muchos a muchos - el 1 es de product
-            // await product.setImage([1]);
-            // para agrega a tabla - el 1 es de product nombre del modelo en plural si la relacion es a muchos
-            // await product.addImage([2]);
-            // const movieActorsSetted = await movie.getActors();
-            // console.log(movieActorsSetted);
-            return res.redirect('/product')            
+            console.log('------------------muestra datos del req.body');
+            console.log(productUpdate);
+
+            let productImages = await Image.update({
+                name: product.image
+                
+            },
+
+                {where: {productId: productId}});
+
+            console.log('------------------muestra datos del la imagen');
+            console.log(productImages);
+            return res.redirect('/product');         
         } catch (error) {
             res.send(error)
         }
     },
 
-    delete: function (req,res) {
+    delete: (req,res) => {
         let productId = req.params.id;
         Product
         .findByPk(productId)
         .then(product => {
-        return res.render(path.resolve(__dirname, '..', 'views',  'productDelete'), {product})})
+        return res.render(path.resolve(__dirname, '..', 'views',  'products/productDelete'), {product})})
         .catch(error => res.send(error))
     },
 
-    destroy: function (req,res) {
+    destroy: async function (req, res) { 
         let productId = req.params.id;
-        Product
-        .destroy({where: {id: productId}, force: true}) // force: true es para asegurar que se ejecute la acción
-        .then(()=>{
-        return res.redirect('/product')})
+        await Image.destroy({ where: { productId: productId }, force: true });
+        await Product.destroy({ where: { id: productId }, force: true });
+        return res.redirect('/product')
         .catch(error => res.send(error)) 
-}
+    },
 
     // END CRUD
-
+    cart: (req, res) => {
+        res.render('products/productCart');
+    },
 
 
 }

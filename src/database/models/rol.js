@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class Rol extends Model {
    
     static associate(models) {
-      // hasOne - de uno a uno pero con FK
-      Rol.hasOne(models.User, {
+      // hasMany
+      Rol.hasMany(models.User, {
         foreignKey: 'rolId',
         as: "users"
       });

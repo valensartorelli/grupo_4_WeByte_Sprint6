@@ -18,20 +18,20 @@ const colorController = {
     list: (req, res) => {
         Color.findAll()
         .then(colors => {
-            res.render('colorList.ejs', {colors})
+            res.render('products/colorList', {colors})
         });
     },
     detail: (req, res) =>{
     Color.findByPk(req.params.id)
     .then(color => {
-        res.render('colorDetail.ejs', {color});
+        res.render('products/colorDetail', {color});
       });
     },
     search: (req, res) =>{},
     
     //CRUD
     add: (req, res) =>{
-        res.render('colorAdd.ejs');
+        res.render('products/colorAdd');
     },
     create:(req, res) =>{
          Color.create({name: req.body.name})
@@ -44,7 +44,7 @@ const colorController = {
         Color         
         .findByPk(colorId)
         .then(Color => {
-            return res.render(path.resolve(__dirname, '..', 'views',  'colorDelete'), {Color})})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/colorDelete'), {Color})})
         .catch(error => res.send(error))
     },
     update: (req, res) =>{

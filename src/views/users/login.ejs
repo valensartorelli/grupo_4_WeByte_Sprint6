@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/head') %>
+
+    <body>
+
+        <%- include('../partials/header') %>
+
+        <main id="pd_main-container">
+            <section id="pd_main-producto">
+                <div class="container">
+                	<div class="pd_tit-categoria p40"></div>
+                		<div class="accordion-body">
+                   			<div class="accordion" id="accordionExample">
+                        		<div class="accordion-item">
+		                          	<h2 class="accordion-header" id="headingOne">
+		                            	<button class="accordion-button acc-ng" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		                              		Iniciar Sesion
+		                            	</button>
+		                          	</h2>
+                          			<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            		<div class="accordion-body">
+                                		<div class="pd_producto-img">
+                                    		<div class="pd_prod-left p10">      
+                                    			<form action="/users/login" method="POST">
+                                                    <div class="fr_email">
+                                                        <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : null %>" class="control <%= locals.errors && errors.email ? 'is-invalid' : null %>">
+														<% if (locals.errors && errors.email) { %>
+															<div class="is-invalid"> <%= errors.email.msg %></div>
+														<% } %>
+                                                    </div>
+                                            		<div class="fr_password1">
+                                                    	<input type="password" name="password" class="control"> <div class="is-invalid"></div>
+													<label class="fr_lbltexto-xs right"><a href="#"> Olvidaste contraseña?</a></label>
+													
+                                            		</div>
+													<div class="fr_checkbox">
+														<label class="fr_checkbox" id="remember_user">
+															<input type="checkbox" name="remember_user"> Recordar mi usuario
+														</label>
+													</div>
+                                            		<br><br>
+                                    				<div class="fr_registro">
+				                                        <div class="fr_registro-left">
+				                                            <button type="submit" class="pd_gl-cta pd_gl-cta--primary"><span class="pd_gl-cta__content">Iniciar Sesion</span></button>
+				                                        </div>
+                                    					<br>
+                                    					<div class="fr_registro-right">
+                                    						<div class="google-logo">
+                                    							<a href="../product/cart">Google</a>
+                                    						</div>
+                                    						<div class="facebook-logo">
+                                    							<a href="../product/cart">Facebook</a>
+                                    						</div>
+                                						</div>
+                            						</div>
+                                				</form>
+                                			</div>
+                                    		<div class="pd_prod-rigt3">
+                                        		<div class="pd_tit-categoria">
+	                                        		Registrate para una mejor experiencia
+	                                        	</div>
+                                        		<button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                        			<span class="pd_gl-cta__content">
+                                        				<a href="add">Registrate</a>
+                                        			</span>
+                                        		</button>
+                                        		<br><br>
+                                        		<button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                        			<span class="pd_gl-cta__content">
+                                        				<a href="/producto">Ingresa como invitado</a>
+                                        			</span>
+                                        		</button>
+                                            	<p class="fr-destacado"> 
+                                            		✓ Registrate y ahorrá tiempo<br>
+	                                             	✓ Compra de manera fácil y rápida<br>
+	                                             	✓ Acceso fácil a tu historial de pedidos y tu status
+	                                         	</p>                                   
+                                    		</div>
+                                		</div>
+                            		</div>
+                          		</div>
+                        		<div class="accordion-item">
+                          			<h2 class="accordion-header" id="headingTwo">
+                            			<button class="accordion-button collapsed acc-ng" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              				Direccion de Entrega
+                            			</button>
+                          			</h2>
+                          			<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            			<div class="accordion-body">
+			                                <form action="" method="POST">
+			                                    <div class="block">
+			                                        <div class="formEnvios">            
+	                                                    <div class="form">
+	                                                        <input type="text" name="nombreApellido" id="nombreApellido" required placeholder="* Nombre y Apellido">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="date" name="fechaNac" id="fechaNac" required>
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="email" name="emailUsuario" id="emailUsuario" required placeholder="* Correo Electronico">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="calle" id="calle" required placeholder="* Calle">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="numero" id="numero" required placeholder="* Numero">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="piso-dept" id="piso-dept" required placeholder="* Piso / Departamento">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="postal" id="postal" required placeholder="* Codigo Postal">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="provincia" id="provincia" required placeholder="* Provincia">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="localidad" id="localidad" required placeholder="* Localidad">
+	                                                    </div>
+	                                                    <div class="form">
+	                                                        <input type="text" name="telefono" id="telefono" required placeholder="* Telefono">
+	                                                    </div>
+                                    				</div>
+                                    				<br>
+                                    				<div class="block">
+                                    					<div class="doble-boton">
+                                    						<div class="boton-left">
+                                    							<button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                    								<span class="pd_gl-cta__content">
+                                    									<a href="/login">Volver</a>
+                                    								</span>
+                                    							</button>
+                                    							<br><br>
+                                        					</div>
+                                        					<div class="boton-right">
+                                        						<button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                        							<span class="pd_gl-cta__content">
+                                        								<a href="#">Confirmar</a>
+                                        							</span>
+                                        						</button>
+                                        					</div>
+                                        				</div>
+                                    				</div>
+                                    			</div>
+                                			</form>
+                            			</div>
+                          			</div>
+                        		</div>
+
+		                        <div class="accordion-item">
+		                          	<h2 class="accordion-header" id="headingThree">
+		                            	<button class="accordion-button collapsed acc-ng" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+		                              		Metodo de Envio
+		                            	</button>
+		                          	</h2>
+		                          	<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+		                            	<div class="accordion-body">
+		                                	<div class="block">
+		                                    	<div>
+		                                    		<label class="fr_lbltexto2" for="domicilio">
+		                                    			<input type="radio" name="envio" id="domicilio" value="domicilio">
+		                                    			Envio a Domicilio 
+		                                    		</label>
+		                                    	</div>
+		                                    	<div>
+		                                    		<label class="fr_lbltexto2" for="retiro">
+		                                    			<input type="radio" name="envio" id="retiro" value="retiro">Retiro en Tienda 
+		                                    		</label>
+		                                    	</div>        
+		                            		</div>
+		                          		</div>
+		                        	</div>
+		                    	</div>
+
+		                    	<div class="accordion-item">
+		                            <h2 class="accordion-header" id="headingFour">
+		                              	<button class="accordion-button collapsed acc-ng" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+		                                	Metodo de Pago
+		                              	</button>
+		                            </h2>
+		                        	<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+		                          		<div class="accordion-body">
+		                            		<div class="block">
+		                                		<div>
+		                                			<label class="fr_lbltexto2" for="efectivo">
+		                                				<input type="radio" name="pago" id="efectivo" value="efectivo"> 
+		                                				Efectivo  
+		                                			</label>
+		                                		</div>
+		                                		<div>
+		                                			<label class="fr_lbltexto2" for="mepago">
+		                                				<input type="radio" name="pago" id="mepago" value="mpago">Mercado Pago  
+		                                			</label>
+		                                		</div>   
+		                                		<div>
+		                                			<label class="fr_lbltexto2" for="bitcoin">
+		                                				<input type="radio" name="pago" id="bitcoin" value="bitcoin"> Bitcoin  
+		                                			</label>
+		                                		</div>             
+		                        			</div>
+		                          		</div>
+		                    		</div>
+		                      	</div>
+
+		                      	<div class="accordion-item">
+		                        	<h2 class="accordion-header" id="headingFive">
+		                          		<button class="accordion-button collapsed acc-ng" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+		                            		Resumen de Compra
+		                          		</button>
+		                        	</h2>
+		                        	<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+		                          		<div class="accordion-body">
+		                            		<strong>ACA VA EL DETALLE NO EDITABLE DE TODA LA COMPRA</strong>
+		                          		</div>
+		                        	</div>
+		                      	</div>
+		                  	</div>
+		            	</div>
+		            </div>
+	            </div>
+	        </section>
+
+            <section id="pd_detalle"></section>
+
+            <%- include('../partials/newsletter') %>
+
+            <%- include('../partials/prefooter') %>
+        </main>
+        
+        <%- include('../partials/footer') %>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('../partials/head') %>
+
+<body class="register">
+    
+    <%- include('../partials/header') %>
+
+        <main id="pd_main-container">
+            <section id="pd_main-producto_">
+                <div class="container">
+                    <br>
+                    <div class="pd_tit-categoria p40">Alta de producto</div>
+                    
+                    <div class="pd_producto-img">
+                        <div class="pd_prod-left">
+                            <form action="/product/create" method="POST" enctype="multipart/form-data">
+                                <div class="fr_nombre">
+                                    <label for="categoryId" class="fr_lbltexto"> Categoria </label>
+                                    <select name="categoryId" id="category" value="<%= locals.oldData ? oldData.category: null %>">
+                                        <option value="" disabled selected>- Seleccione una categoria - </option>
+                                        <% if(allCategories){ %>
+                                        <% allCategories.forEach(category => { %>
+                                        <option value="<%= category.id %>"><%= category.name %></option>
+                                        <% }); %>
+                                        <% } %>
+                                    </select>
+                                    <% if(locals.errors && errors.category){ %>
+                                        <div class="errorMsg"><%= errors.category.msg %></div>
+                                    <% } %>
+                                </div>
+                                <div class="fr_nombre">
+                                    <label for="brandId" class="fr_lbltexto"> Marca </label>
+                                    <select name="brandId" id="" >
+                                        <option value="" disabled selected>- Seleccione una marca - </option>
+                                        <% allBrands.forEach(brand => { %>
+                                        <option value="<%= brand.id %>"><%= brand.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <div class="fr_nombre">
+                                    <label class="fr_lbltexto" for="name">Nombre</label>
+                                    <input type="text" name="name" id="name" value="<%= locals.oldData ? oldData.name : null %>" class="control <%= locals.errors && errors.name ? 'is-invalid' : null %>">
+                                     <% if (locals.errors && errors.name) { %>
+                                        <div class="is-invalid"> <%= errors.name.msg %></div>
+                                        <% } %>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="description"> Descripción </label>
+                                    <input type="textarea" name="description" id="" value="<%= locals.oldData ? oldData.description : null %>">
+                                    <% if (locals.errors && errors.description) { %>
+                                        <div class="is-invalid"> <%= errors.description.msg %></div>
+                                        <% } %>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="extended"> Descripción ampliada</label>
+                                    <textarea name="extended_description" id="" required></textarea>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="price"> Precio </label>
+                                    <input type="text" name="price" id="" required>
+                                </div>
+                                <div class="fr_email">
+                                    <label for="colorId" class="fr_lbltexto"> Color </label>
+                                    <select name="colorId" id="" required>
+                                        <option value="" disabled selected>- Seleccione un color- </option>
+                                        <% allColors.forEach(color => { %>
+                                        <option value="<%= color.id %>"><%= color.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                
+                                <div class="fr_email">
+                                    <label for="sizeId" class="fr_lbltexto"> Talle </label>
+                                    <select name="sizeId" id="" required>
+                                        <option value="" disabled selected>- Seleccione un talle- </option>
+                                        <% allSizes.forEach(size => { %>
+                                        <option value="<%= size.id %>"><%= size.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock"> Stock</label>
+                                    <input type="text" name="stock" id="" required>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock_min"> Stock Minimo</label>
+                                    <input type="text" name="stock_min" id="">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock_max"> Stock Maximo</label>
+                                    <input type="text" name="stock_max" id="">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image"> Imagen de producto </label>
+                                    <input type="file" name="image" id="image"  accept=".jpg, .png">
+                                </div>
+                                <div class="fr_email check-x">
+                                    <label for="home" class="fr_lbltexto"> Destacado Home </label> 
+                                      <input type="checkbox" name="home" id="" >
+                            </div>
+                            <div class="fr_email">
+                                <label for="visibilityId" class="fr_lbltexto"> Visibilidad </label>
+                                <select name="visibilityId" id="" required>
+                                    <option value="" disabled selected>- Seleccione Visibilidad del producto- </option>
+                                    <% allVisibilities.forEach(visibility => { %>
+                                    <option value="<%= visibility.id %>"><%= visibility.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                                <!--</div>-->
+                                <br><br><br>
+                                <div class="fr_registro">
+                                    <div class="fr_registro-left">
+                                        <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                                            <span class="pd_gl-cta__content">
+                                                Crear
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pd_detalle"></section>
+
+            <%- include('../partials/newsletter') %>
+
+            <%- include('../partials/prefooter') %>
+        </main>
+
+        <%- include('../partials/footer') %>
+
+            <!-- Bootstrap Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+                crossorigin="anonymous"></script>
+
+</body>
+
+</html>

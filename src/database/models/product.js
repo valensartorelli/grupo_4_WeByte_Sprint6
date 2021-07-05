@@ -13,15 +13,30 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // belongsTo
-      Product.belongsTo(models.Brand);
+      Product.belongsTo(models.Brand, {
+        foreignKey: 'brandId',
+        as: "brand"
+      });
       // belongsTo
-      Product.belongsTo(models.Category);
+      Product.belongsTo(models.Category, {
+        foreignKey: 'categoryId',
+        as: "category"
+      });
       // belongsTo
-      Product.belongsTo(models.Size);
+      Product.belongsTo(models.Size, {
+        foreignKey: 'sizeId',
+        as: "size"
+      });
       // belongsTo
-      Product.belongsTo(models.Visibility);
+      Product.belongsTo(models.Visibility, {
+        foreignKey: 'visibilityId',
+        as: "visibility"
+      });
       // belongsTo
-      Product.belongsTo(models.Color);
+      Product.belongsTo(models.Color, {
+        foreignKey: 'colorId',
+        as: "color"
+      });
 
       // hasMany
       Product.hasOne(models.OrderDetail, {
@@ -46,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     extended_description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Product',
+    tableName: 'products',
+    modelName: 'Product'
   });
   return Product;
 };

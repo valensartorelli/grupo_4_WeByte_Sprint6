@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/head') %>
+
+    <body>
+
+        <%- include('../partials/header') %>
+
+                <main id="pd_main-container">
+                    <div class="container">
+                        <div class="tituloSection">
+                            <br><br>
+                            <h2>Hola! <%= user.firstName %> </h2>
+                        </div><div class="flex">
+                        <div> 
+                            <img src="/avatars/<%= user.avatar %>" alt="<%= user.firstName %> " class="avatar">
+                            </div>
+                            <div class="profile"> 
+                            <p>Nombre: <%= user.firstName %> </p>
+                            <p>Apellido: <%= user.lastName %> </p>
+                            <p>Usuario: <%= user.userName %> </p>
+                            <p>Email: <%= user.email %> </p>
+                            <section class="flex">
+                                <div>
+                                <button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                    <span class="pd_gl-cta__content">
+                                        <a class="botonModificar" href="/users/edit/<%= user.id %>">Modificar</a> 
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="p20">
+                                <button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                    <span class="pd_gl-cta__content">
+                                        <a class="botonModificar" href="users/logout">Logout</a> 
+                                    </span>
+                                </button>
+                            </div>
+                    </div><!--aca-->
+                 </div>
+            </section>
+        </main>
+        
+        <%- include('../partials/footer') %>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    </body>
+</html>
