@@ -652,7 +652,7 @@ input{
     text-decoration:none;
     padding:2px 12px;
     display:block;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .nav li.menu a:hover {
@@ -663,8 +663,8 @@ input{
     display:none;
     position:absolute;
     min-width:140px;
-    left: -85px;
-    top: 55px;
+    left: -77px;
+    top: 47px;
 }
 
 .nav li.menu:hover > ul {
@@ -683,9 +683,14 @@ input{
   /* fin menu desplegable */
 /* Estilos Responsive */
 
-@media (max-width: 995px) {
+@media (max-width: 996px) {
     .header-top-bar-desktop {
         display: none;
+    }
+}
+@media (min-width: 996px) {
+    .nav li.menu ul{
+        left: 0;
     }
 }
 
