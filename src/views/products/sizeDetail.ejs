@@ -35,7 +35,7 @@
     </form>
     <br><hr><br>
     <div class="flex">
-    <form action="/size/destroy/<%= size.id %>?_method=DELETE" method="POST">
+    <form onSubmit="return confirm('¿Estas seguro de querer borrar el talle <%= size.name %>?') " action="/size/destroy/<%= size.id %>?_method=DELETE" method="POST">
         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
             <span class="pd_gl-cta__content">
                 Eliminar Talle

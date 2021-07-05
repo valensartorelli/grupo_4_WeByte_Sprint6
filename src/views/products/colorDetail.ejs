@@ -35,7 +35,7 @@
     </form>
     <br><hr><br>
     <div class="flex">
-    <form action="/color/destroy/<%= color.id %>?_method=DELETE" method="POST">
+    <form onSubmit="return confirm('¿Estas seguro de querer borrar el color <%= color.name %>?') " action="/color/destroy/<%= color.id %>?_method=DELETE" method="POST">
         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
             <span class="pd_gl-cta__content">
                 Eliminar Color
