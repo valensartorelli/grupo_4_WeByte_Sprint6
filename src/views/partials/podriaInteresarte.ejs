@@ -1,22 +1,53 @@
 <section>
-    <div class="container novedades">
-      <h2>Podria Interesarte</h2>
-    </div>
-  
+  <div class="container novedades">
+      <h2>Podria interesarte</h2>
+  </div>
 
   <div id="carouselExampleInterval" class="carousel slide multi-item-carousel" data-bs-ride="carousel">
-    <div class="container">
-      <div class="col">
-        <%- include('carousel-interes') %>          
+      <div class="container">
+          <div class="col">
+              <div class="carousel-inner row w-100 mx-auto">
+                <% var first = true; %>
+                <% var contador = 0; %>
+                
+                <% products.forEach(product => { %>
+                  <% if (product.home == 0) { %>
+                    <% if (contador == 0) { %>
+                      <div class="carousel-item <%= first ? 'active' : null %>">
+                    <% } %>
+
+                    <% first = false %>
+
+                    <div class="novedad d-sm-block">
+                      <article>
+                          <a href="/product/detail/<%= product.id%>"> 
+                              <img src="/images/<%= product.images[0].name %>" alt="<%= product.name %>" class="pd_img-list">
+                              <div class="prod-info">
+                                  <p class="section"><%= product.brand.name %></p>
+                                  <h4><%= product.name %></h4>
+                                  <p class="precio">$<%= product.price %></p>
+                              </div>
+                          </a>
+                      </article>
+                    </div>
+
+                    <% contador = contador + 1 %>
+
+                    <% if (contador == 4) { %>
+                      </div>
+                      <% contador = 0 %>
+                    <% } %>
+                  <% } %>
+                <% }); %> 
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
   </div>
 </section>

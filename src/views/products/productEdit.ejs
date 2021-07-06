@@ -89,7 +89,7 @@
                                 
                                 <div class="fr_email check-x">
                                     <label for="home" class="fr_lbltexto"> Destacado Home </label> 
-                                      <input type="checkbox" name="home" id="" value="<%= product.home %>">
+                                      <input type="checkbox" name="home" id="" value="<%= product.home %>" <% if (product.home == 0) { %> checked <% } %>>
                             </div>
                             <div class="fr_email">
                                 <label for="visibilityId" class="fr_lbltexto"> Visibilidad </label>
