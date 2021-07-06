@@ -4,6 +4,7 @@ const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 
 const {validationResult} = require('express-validator');
+const imagesController = require('./imagesController');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Product = db.Product;
@@ -148,15 +149,32 @@ const productController = {
                 extended_description: req.body.extended_description,
             });
 
-            let imagesCreated = await Image.create (
-                {
-                name: req.file.filename,
-                productId: productCreated.id
+            // let imagesCreated = await Image.create (
+            //     {
+            //     name: req.file.filename,
+            //     productId: productCreated.id
                 
-            })
+            // })
              
-            console.log(imagesCreated);
-            return res.redirect('/product');
+            // console.log(imagesCreated);
+            // return res.redirect('/product');
+            let product = req.body;
+            let imagesForProduct = [];                                
+
+            product.image1 = req.files['image1'] ? req.files['image1'][0].filename : '';
+            imagesForProduct.push({ name: req.body.image1 });            
+            product.image2 = req.files['image2'] ? req.files['image2'][0].filename : '';
+            imagesForProduct.push({ name: req.body.image2 });
+            product.image3 = req.files['image3'] ? req.files['image3'][0].filename : '';
+            imagesForProduct.push({ name: req.body.image3 });
+            product.image4 = req.files['image4'] ? req.files['image4'][0].filename : '';
+            imagesForProduct.push({ name: req.body.image4 });
+            product.image5 = req.files['image5'] ? req.files['image5'][0].filename : '';
+            imagesForProduct.push({ name: req.body.image5 });
+            
+            await imagesController.bulkCreate(productCreated.id, imagesForProduct)
+
+            res.redirect('/product');
         
 //hasta aca try
         } catch (error) {
@@ -180,7 +198,7 @@ const productController = {
         let promColors = Color.findAll();
         let promSizes = Size.findAll();
         let promVisibilities = Visibility.findAll();
-        let promImage = Image.findOne();
+        let promImage = Image.findAll();
         
         Promise
         .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
@@ -193,20 +211,23 @@ const productController = {
 
     update: async (req, res) =>{
         try {
-        let product = req.body;
-        console.log(' soy la nueva: ' + req.body.image)
-        console.log('soy la vieja '+ req.body.oldImage)
-        product.image = req.file ? req.file.filename : req.body.oldImagen;
-        if (req.file===undefined) {
-            product.image = req.body.oldImage
-        } else {
-            // Actualizaron la foto, saco su nombre del proceso
-            product.image = req.file.filename 
-        }
-        console.log('.......MOSTRAR LA IMAGEN.......')
-        console.log(product.image)
-        console.log(product)  
-        delete product.oldImagen;
+        //let product = req.body;
+        // console.log(' soy la nueva: ' + req.body.image1)
+        // console.log('soy la vieja '+ req.body.oldImag1)
+        // product.image1 = req.file ? req.file.filename : req.body.oldImage1;
+        // if (req.file===undefined) {
+        //     product.image1 = req.body.oldImage1
+        // }
+        
+        // else {
+        //     // Actualizaron la foto, saco su nombre del proceso
+        //     product.image = req.file.filename
+
+        // }
+        // console.log('.......MOSTRAR LA IMAGEN1.......')
+        // console.log(product.image1)
+        // console.log(product)  
+        // delete product.oldImage1
 
         let productId = req.params.id;
         const productUpdate = await Product.update(
@@ -232,16 +253,61 @@ const productController = {
             console.log('------------------muestra datos del req.body');
             console.log(productUpdate);
 
-            let productImages = await Image.update({
-                name: product.image
+            // let productImages = await Image.update({
+            //     name: product.image
                 
-            },
+            // },
 
-                {where: {productId: productId}});
+            //     {where: {productId: productId}});
 
-            console.log('------------------muestra datos del la imagen');
-            console.log(productImages);
-            return res.redirect('/product');         
+            // console.log('------------------muestra datos del la imagen');
+            // console.log(productImages);
+            let product = req.body;
+            let imagesForProduct = [];                           
+
+            product.image1 = req.files['image1'] ? req.files['image1'][0].filename : req.body.oldImage1;
+            if (req.files['image1']===undefined) {
+                product.image1 = req.body.oldImage1
+                } else {
+                    // Actualizaron la foto, agrego al array   
+            imagesForProduct.push({ name: product.image1 })}; 
+
+            product.image2 = req.files['image2'] ? req.files['image2'][0].filename : req.body.oldImage2;
+            if (req.files['image2']===undefined) {
+                product.image2 = req.body.oldImage2
+                } else {
+                    // Actualizaron la foto, agrego al array   
+            imagesForProduct.push({ name: product.image2 })}; 
+
+
+            product.image3 = req.files['image3'] ? req.files['image3'][0].filename : req.body.oldImage3;
+            if (req.files['image3']===undefined) {
+                product.image3 = req.body.oldImage3
+                } else {
+                    // Actualizaron la foto, agrego al array   
+            imagesForProduct.push({ name: product.image3 })}; 
+
+
+            product.image4 = req.files['image4'] ? req.files['image4'][0].filename : req.body.oldImage4;
+            if (req.files['image4']===undefined) {
+                product.image4 = req.body.oldImage4
+                } else {
+                    // Actualizaron la foto, agrego al array   
+            imagesForProduct.push({ name: product.image4 })}; 
+
+
+            product.image5 = req.files['image5'] ? req.files['image5'][0].filename : req.body.oldImage5;
+            if (req.files['image5']===undefined) {
+                product.image5 = req.body.oldImage5
+                } else {
+                    // Actualizaron la foto, agrego al array   
+            imagesForProduct.push({ name: product.image5 })}; 
+            
+            await imagesController.bulkEdit(productId, imagesForProduct)
+            
+            return res.redirect('/product');
+        
+                     
         } catch (error) {
             res.send(error)
         }

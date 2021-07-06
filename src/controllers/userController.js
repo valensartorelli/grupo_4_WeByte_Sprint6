@@ -104,12 +104,12 @@ console.log(userCreated);
     update: async (req, res) => {
         try {
             let user = req.body;
-            console.log(' soy la nueva: ' + req.body.avatar)
-            console.log('soy la vieja '+ req.body.oldAvatar)
+            console.log('soy la nueva imagen: ' + req.body.avatar + "--------------")
+            console.log('soy la vieja imagen'+ req.body.oldAvatar + "--------------")
 
             user.avatar = req.file ? req.file.filename : req.body.oldAvatar;
             if (req.file===undefined) {
-                user.avatar = req.body.oldImage
+                user.avatar = req.body.oldAvatar
             } else {
                 // Actualizaron la foto, saco su nombre del proceso
                 user.avatar = req.file.filename 

@@ -5,7 +5,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const cookies = require('cookie-parser');
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 // view engine setup
 app.set('views', path.resolve(__dirname, './src/views'));

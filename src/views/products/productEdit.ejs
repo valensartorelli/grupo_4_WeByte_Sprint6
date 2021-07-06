@@ -82,9 +82,29 @@
                                     <input type="text" name="stock_max" id="" value="<%= product.stock_max %>" >
                                 </div>
                                 <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image"> Imagen de producto </label>
-                                    <input type="file" name="image" id="image"  accept=".jpg, .png" value="<%= product.image %>">
-                                    <input type="hidden" name="oldImagen" value="<%= productImages.name %>">
+                                    <label class="fr_lbltexto" for="image1"> Imagen de producto 1 </label>
+                                    <input type="file" name="image1" id="image1"  accept=".jpg, .png">
+                                    <input type="hidden" name="oldImage1" value="<%= product.image1 %>">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image2"> Imagen de producto 2 </label>
+                                    <input type="file" name="image2" id="image2"  accept=".jpg, .png">
+                                    <input type="hidden" name="oldImage2" value="<%= product.image2 %>">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image3"> Imagen de producto 3 </label>
+                                    <input type="file" name="image3" id="image3"  accept=".jpg, .png">
+                                    <input type="hidden" name="oldImage3" value="<%= product.image3 %>">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image4"> Imagen de producto 4 </label>
+                                    <input type="file" name="image4" id="image4"  accept=".jpg, .png">
+                                    <input type="hidden" name="oldImage4" value="<%= product.image4 %>">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image5"> Imagen de producto 5 </label>
+                                    <input type="file" name="image5" id="image5"  accept=".jpg, .png">
+                                    <input type="hidden" name="oldImage5" value="<%= product.image5 %>">
                                 </div>
                                 
                                 <div class="fr_email check-x">
@@ -102,13 +122,20 @@
                             </div>
                                 <!--</div>-->
                                 <br><br><br>
-                                <div class="fr_registro">
-                                    <div class="fr_registro-left">
+                                <div class="flex">
+                                    <div>
                                         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
                                             <span class="pd_gl-cta__content">
                                                 Editar Producto
                                             </span>
                                         </button>
+                                    </div>
+                                    <div class="p20">
+                                        <button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                            <span class="pd_gl-cta__content">
+                                        <a class="botonBorrar" href="/product">Cancelar</a>
+                                    </span>
+                                </button>
                                     </div>
                                 </div>
                             </form> 

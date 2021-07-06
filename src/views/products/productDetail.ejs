@@ -24,7 +24,16 @@
                 <div class="container">
                     <div class="pd_tit-categoria">Indumentaria para <%= product.category.name %> </div>
                     <div class="pd_producto-img">
-                        <div class="pd_prod-left"><img src="/images/<%= product.images[0].name %>" alt="<%= product.name %> "></div>
+                        <div class="pd_prod-left">
+                            <div>
+                            <img src="/images/<%= product.images[0].name %>" alt="<%= product.name %> "></div>
+                        <div>
+                            <% for (let i = 1; i < 5; i++) { %>
+                            <% if (product.images[i].name != '') { %>
+                                <img src="/images/<%= product.images[i].name %>" alt="Foto artículo <%= i+1 %>" class="imageSX">
+                            <% } %>
+                        <% } %></div>
+                    </div>
                         <div class="pd_prod-rigt">
                             <%= product.brand.name %><br>
                             <h1><%= product.name %> </h1>
