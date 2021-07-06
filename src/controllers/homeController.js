@@ -14,28 +14,27 @@ const Visibility = db.Visibility;
 const Image = db.Image;
 
 let homeController = {
-    index: (req, res) => {
-        db.Product.findAll()
-        .then(products => {
-             res.json('index', {products})
-            //res.render('index', {products})
-        })
-    },
-    listar: (req, res) => {
-        db.Product.findAll()
-         .then(products => {
-            let news = [];
-
-            products.forEach((element, i) => {
-                if ( element.news === true) {
-                    if ( news.length < 8 ) {
-                        news.push(element);
-                    } 
-                } 
+    index: async (req, res) =>{
+        try{ 
+            let products = await Product.findAll({
+                include: [
+                   "brand", "category", "color", "size", "visibility", "images"
+                ]
             });
-            return res.json('index', {news})
-        // return res.render('index', { news})
-        })
+
+            console.log(products);
+            console.log("URL: " + req.params.category);
+            
+            const categoria = req.params.category;
+            return res.render('index', {products, categoria});
+            
+        }
+        catch(error){
+            console.log(error);
+        }
+    },
+    admin: (req, res) => {
+        res.render('admin');
     }
 }
 
