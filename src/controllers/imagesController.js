@@ -43,7 +43,7 @@ const imagesController = {
         let numImg = 0;
         let imagesOld = await imagesController.detail(productId);
 
-        imagesForProduct.forEach(image => {
+        images.forEach(image => {
             imagesForProduct.push(imageController.update(imageOld[numImg].id, image.name));
         });
 
