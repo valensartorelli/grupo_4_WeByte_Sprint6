@@ -53,7 +53,6 @@ const imagesController = {
 
 
     bulkEdit: async (productId, images) => {
-<<<<<<< HEAD
         try{
             let imagesCh=[];
             let numImg = 0;
@@ -68,17 +67,6 @@ const imagesController = {
         } catch (error) {
             res.send(error)
         }
-=======
-        let imagesForProduct=[];
-        let numImg = 0;
-        let imagesOld = await imagesController.detail(productId);
-
-        images.forEach(image => {
-            imagesForProduct.push(imageController.update(imageOld[numImg].id, image.name));
-        });
-
-        return imagesForProduct;
->>>>>>> c81d9d4cbc24b7f701e577f98340f37083094672
     }
 };
 
