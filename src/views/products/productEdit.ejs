@@ -82,30 +82,15 @@
                                     <input type="text" name="stock_max" id="" value="<%= product.stock_max %>" >
                                 </div>
                                 <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image1"> Imagen de producto 1 </label>
-                                    <input type="file" name="image1" id="image1"  accept=".jpg, .png">
-                                    <input type="hidden" name="oldImage1" value="<%= product.image1 %>">
+                                    <%i=0%>
+                                    <% product.images.forEach( image => { %>
+                                        <article>
+                                            <img src="/images/<%= image.name %>" alt="" class="avatar">
+                                            <input type="file" name=<%= "image" + ++i%>>
+                                        </article>
+                                    <% }) %>
                                 </div>
-                                <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image2"> Imagen de producto 2 </label>
-                                    <input type="file" name="image2" id="image2"  accept=".jpg, .png">
-                                    <input type="hidden" name="oldImage2" value="<%= product.image2 %>">
-                                </div>
-                                <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image3"> Imagen de producto 3 </label>
-                                    <input type="file" name="image3" id="image3"  accept=".jpg, .png">
-                                    <input type="hidden" name="oldImage3" value="<%= product.image3 %>">
-                                </div>
-                                <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image4"> Imagen de producto 4 </label>
-                                    <input type="file" name="image4" id="image4"  accept=".jpg, .png">
-                                    <input type="hidden" name="oldImage4" value="<%= product.image4 %>">
-                                </div>
-                                <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image5"> Imagen de producto 5 </label>
-                                    <input type="file" name="image5" id="image5"  accept=".jpg, .png">
-                                    <input type="hidden" name="oldImage5" value="<%= product.image5 %>">
-                                </div>
+                                
                                 
                                 <div class="fr_email check-x">
                                     <label for="home" class="fr_lbltexto"> Destacado Home </label> 

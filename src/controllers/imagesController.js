@@ -10,24 +10,35 @@ const imagesController = {
 
     // Función para crear en masa
     bulkCreate: async (id, images) => {
-
-        // Agrego a cada uno de los comentarios el ID de tutorial.
+    try{
+        // Agrego a cada una de las imagenes el ID de producto.
         images.forEach(image => image.productId = id);
     
         // Rafaga de Creates.
         return await Image.bulkCreate(images);
+    } catch (error) {
+        res.send(error)
+    }
     },
 
     detail: async (productId) => {
-        let images = await Image.findAll(
+        try{
+        let imagenes = await Image.findAll(
             {
                 where: {productId: productId}
+            },
+            {
+                order: [['id', 'ASC']]
             }
             );
 
-        return images;
+        return imagenes;
+    } catch (error) {
+        res.send(error)
+    }
     },
     update: async (imageId, imageName) => {
+        try{
         let image = await Image.update({
             name: imageName
             },{
@@ -35,19 +46,27 @@ const imagesController = {
         });
 
         return image;
+    } catch (error) {
+        res.send(error)
+    }
     },
 
 
     bulkEdit: async (productId, images) => {
-        let imagesForProduct=[];
-        let numImg = 0;
-        let imagesOld = await imagesController.detail(productId);
-
-        imagesForProduct.forEach(image => {
-            imagesForProduct.push(imageController.update(imageOld[numImg].id, image.name));
-        });
-
-        return imagesForProduct;
+        try{
+            let imagesCh=[];
+            let numImg = 0;
+            let imagesOld = await imagesController.detail(productId);
+    
+            images.forEach(image => {
+                numImg = image.image_num - 1;
+                imagesCh.push(imagesController.update(imagesOld[numImg].id, image.name));
+            });
+    
+            return imagesCh;
+        } catch (error) {
+            res.send(error)
+        }
     }
 };
 

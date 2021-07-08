@@ -111,24 +111,26 @@ const productController = {
         console.log(req.body.visibilityId);
         console.log(req.body.home);
         console.log(req.body.extended_description);   
-        // validacion del create
+    // validacion trae las relaciones
     const products = await db.Product.findByPk(req.params.id);
     let allCategories = await Category.findAll();
     let allBrands = await Brand.findAll();
     let allColors = await Color.findAll();
     let allSizes = await Size.findAll();
     let allVisibilities = await Visibility.findAll();
+    // validacion del create
     const errors = validationResult(req);
     if (errors.errors.length > 0) {
         return res.render('products/createProduct', {
-        errors: errors.mapped(),
-        oldData: req.body, //Esto es para que no se vaya borrando lo que uno escribe
         products,
         allCategories,
         allBrands,
         allColors,
         allSizes,
-        allVisibilities
+        allVisibilities,
+        errors: errors.mapped(),
+        oldData: req.body, //Esto es para que no se vaya borrando lo que uno escribe
+
       });
     }    
        // primero crea el producto
@@ -148,7 +150,6 @@ const productController = {
                 home: req.body.home,
                 extended_description: req.body.extended_description,
             });
-
             // let imagesCreated = await Image.create (
             //     {
             //     name: req.file.filename,
@@ -158,6 +159,7 @@ const productController = {
              
             // console.log(imagesCreated);
             // return res.redirect('/product');
+            // agrega las imagenes
             let product = req.body;
             let imagesForProduct = [];                                
 
@@ -171,16 +173,14 @@ const productController = {
             imagesForProduct.push({ name: req.body.image4 });
             product.image5 = req.files['image5'] ? req.files['image5'][0].filename : '';
             imagesForProduct.push({ name: req.body.image5 });
-            
+
             await imagesController.bulkCreate(productCreated.id, imagesForProduct)
 
             res.redirect('/product');
-        
 //hasta aca try
         } catch (error) {
             res.send(error)
         }
-
     },
     
 
@@ -202,9 +202,9 @@ const productController = {
         
         Promise
         .all([promProducts, promCategories, promBrands, promColors, promSizes, promVisibilities, promImage ])
-        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages]) => {
+        .then(([product, allCategories, allBrands, allColors, allSizes, allVisibilities, images]) => {
             //res.json(product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages)
-            return res.render(path.resolve(__dirname, '..', 'views',  'products/productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, productImages})
+            return res.render(path.resolve(__dirname, '..', 'views',  'products/productEdit'), {product, allCategories, allBrands, allColors, allSizes, allVisibilities, images})
           })
         .catch(error => res.send(error))
     },
@@ -262,46 +262,14 @@ const productController = {
 
             // console.log('------------------muestra datos del la imagen');
             // console.log(productImages);
-            let product = req.body;
+            
             let imagesForProduct = [];                           
 
-            product.image1 = req.files['image1'] ? req.files['image1'][0].filename : req.body.oldImage1;
-            if (req.files['image1']===undefined) {
-                product.image1 = req.body.oldImage1
-                } else {
-                    // Actualizaron la foto, agrego al array   
-            imagesForProduct.push({ name: product.image1 })}; 
-
-            product.image2 = req.files['image2'] ? req.files['image2'][0].filename : req.body.oldImage2;
-            if (req.files['image2']===undefined) {
-                product.image2 = req.body.oldImage2
-                } else {
-                    // Actualizaron la foto, agrego al array   
-            imagesForProduct.push({ name: product.image2 })}; 
-
-
-            product.image3 = req.files['image3'] ? req.files['image3'][0].filename : req.body.oldImage3;
-            if (req.files['image3']===undefined) {
-                product.image3 = req.body.oldImage3
-                } else {
-                    // Actualizaron la foto, agrego al array   
-            imagesForProduct.push({ name: product.image3 })}; 
-
-
-            product.image4 = req.files['image4'] ? req.files['image4'][0].filename : req.body.oldImage4;
-            if (req.files['image4']===undefined) {
-                product.image4 = req.body.oldImage4
-                } else {
-                    // Actualizaron la foto, agrego al array   
-            imagesForProduct.push({ name: product.image4 })}; 
-
-
-            product.image5 = req.files['image5'] ? req.files['image5'][0].filename : req.body.oldImage5;
-            if (req.files['image5']===undefined) {
-                product.image5 = req.body.oldImage5
-                } else {
-                    // Actualizaron la foto, agrego al array   
-            imagesForProduct.push({ name: product.image5 })}; 
+            if (req.files.image1) imagesForProduct.push({name: req.files.image1[0].filename, image_num:1})
+            if (req.files.image2) imagesForProduct.push({name: req.files.image2[0].filename, image_num:2})
+            if (req.files.image3) imagesForProduct.push({name: req.files.image3[0].filename, image_num:3})
+            if (req.files.image4) imagesForProduct.push({name: req.files.image4[0].filename, image_num:4})
+            if (req.files.image5) imagesForProduct.push({name: req.files.image5[0].filename, image_num:5})
             
             await imagesController.bulkEdit(productId, imagesForProduct)
             
@@ -323,7 +291,11 @@ const productController = {
     },
 
     destroy: async function (req, res) { 
-        let productId = req.params.id;
+         let productId = req.params.id;
+        Product.findByPk(productId,
+            {
+                include : ['images']
+            });
         await Image.destroy({ where: { productId: productId }, force: true });
         await Product.destroy({ where: { id: productId }, force: true });
         return res.redirect('/product')
