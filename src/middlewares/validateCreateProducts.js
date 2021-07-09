@@ -11,8 +11,7 @@ module.exports = [
     body('colorId').notEmpty().withMessage('Tienes que elegir un color'),
 	body('sizeId').notEmpty().withMessage('Tienes que elegir un talle'),
 	body('stock').notEmpty().withMessage('Tienes que escribir una cantidad'),
-	body('visibilityId').notEmpty().withMessage('Tienes que elegir un estado'),
-	// body('image').custom((value, { req }) => {
+	// body('image1').custom((value, { req }) => {
 	// 	let file = req.file;
 	// 	let acceptedExtensions = ['.jpg', '.png', '.gif'];
 		
@@ -26,5 +25,6 @@ module.exports = [
 	// 	}
 
 	// 	return true;
-	// })
+	// }),
+	body('visibilityId').notEmpty().withMessage('Tienes que elegir un estado')
 ]

@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const homeController = require('../controllers/homeController');
 
-//const controladorHome = require('../controller/homeController');
+router.get('/', homeController.index);
+router.get('/admin', homeController.admin);
 
-//router.get('/', controladorHome.listar);
 
-router.get('/', function(req, res, next) {
-    res.render('index');
-  });
-  router.get('/admin', function(req, res, next) {
-    res.render('admin');
-  });
 
 
 module.exports = router;

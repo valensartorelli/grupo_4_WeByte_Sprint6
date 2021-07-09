@@ -57,6 +57,7 @@ header {
 .flex {display: flex; width: 100%;}
 .p20{margin-left: 25px;}
 .profile{ padding: 15px; margin: 0px 20px 20px 20px; background-color: #f5f5f5; border: 1px solid #eeeeee; width: 100%;}
+.imageSX {width: 120px; border: #e6e6e6 1px solid; margin-top: 8px; }
 
 .burguer-menu {
     color: #000000;
@@ -402,6 +403,7 @@ footer p {
 #menu {
     position: absolute;
     width: 250px;
+    height: 107vh;
     margin: -100px 0 0 -50px;
     padding: 50px;
     padding-top: 125px;
@@ -642,6 +644,7 @@ input{
   .nav > li.menu {
     float:left;
     z-index: 10;
+    position: relative;
 }
 
 .nav li.menu a {
@@ -650,7 +653,7 @@ input{
     text-decoration:none;
     padding:2px 12px;
     display:block;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .nav li.menu a:hover {
@@ -661,6 +664,8 @@ input{
     display:none;
     position:absolute;
     min-width:140px;
+    left: -77px;
+    top: 45px;
 }
 
 .nav li.menu:hover > ul {
@@ -679,9 +684,14 @@ input{
   /* fin menu desplegable */
 /* Estilos Responsive */
 
-@media (max-width: 767px) {
+@media (max-width: 996px) {
     .header-top-bar-desktop {
         display: none;
+    }
+}
+@media (min-width: 996px) {
+    .nav li.menu ul{
+        left: 0;
     }
 }
 
@@ -698,8 +708,50 @@ input{
     .pd_prod-rigt3 .pd_tit-categoria {font-size: 26px;}
     .fr_registro-rigt{display: block;}
     .header-top-bar {height: 80px;}
+    .header-top-bar nav .add-prod{
+        display: none;
+    }
+    #pd_main_container .flex{
+        flex-direction: column;
+    }
 }
 
+@media screen and (min-width: 0) and (max-width:548px){
+    .header-top-bar nav .add-prod{
+        display: none;
+    }
+    .inputSearch{
+        width: 100px;
+    }
+    #pd_main-container .flex{
+        flex-direction: column;
+    }
+    #pd_main-container .flex .profile{
+        margin: 20px 0;
+    }
+    #pd_main-container .flex .profile .p20{
+        margin: 5px 0 0;
+    }
+    .header-logo{
+        display: none;
+    }
+    .cont-logo-xs{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px 0 0;
+    }
+    .header-logo-xs{
+        display: block;
+    }
+}
+
+@media screen and (min-width:549px) {
+    .cont-logo-xs{
+        display: none;
+    }
+}
 
 /* SM -- tablets */
 
@@ -719,13 +771,15 @@ input{
     }
 }
 
-
-/* MD -- Laptops */
-
-@media (min-width: 768px) {
+@media (min-width: 995px) {
     .header-top-bar {
         display: none; 
     }
+}
+
+/* MD -- Laptops */
+@media (min-width: 768px) {
+    
     .header-top-bar-desktop .d-flex {
         align-items: center;
     }

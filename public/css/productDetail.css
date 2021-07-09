@@ -243,6 +243,9 @@ transition: all 0.3s ease;
     .pd_prod-rigt3{border-top: 1px solid #333; margin-top: 15px; text-align: left;}
     .fr_registro-left, .fr_registro-rigt{flex: 1 1 100%; align-items: center;}
     .pd_prod-rigt p.pd_prod-precio{font-size:18px;}
+    .pd_prod-rigt .pd_gl-cta.pd_gl-cta--primary{
+      margin-bottom: 5px;
+    }
   }
   
   /* SM -- tablets */

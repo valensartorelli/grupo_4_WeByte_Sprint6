@@ -17,36 +17,59 @@
                         <div class="pd_prod-left">
                             <form action="/users/create" method="POST" enctype="multipart/form-data">
                                 <label for="firstName">Nombre</label>
-                                <input type="text" name="firstName" id="firstName">
-                                
+                                <input type="text" name="firstName" id="firstName" value="<%= locals.oldData ? oldData.firstName : null %>" class="control <%= locals.errors && errors.firstName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.firstName) { %>
+                                    <div class="is-invalid"> <%= errors.firstName.msg %></div>
+                                <% } %>
                                 <br>
                                 <label for="lastName">Apellido</label>
-                                <input type="text" name="lastName" id="lastName">
-                                
+                                <input type="text" name="lastName" id="lastName" value="<%= locals.oldData ? oldData.lastName : null %>" class="control <%= locals.errors && errors.lastName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.lastName) { %>
+                                    <div class="is-invalid"> <%= errors.lastName.msg %></div>
+                                <% } %>
                                 <br>
                                 <label for="userName">Usuario</label>
-                                <input type="text" name="userName" id="userName">
-                               
+                                <input type="text" name="userName" id="userName" value="<%= locals.oldData ? oldData.userName : null %>" class="control <%= locals.errors && errors.userName ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.userName) { %>
+                                    <div class="is-invalid"> <%= errors.userName.msg %></div>
+                                <% } %>
                                 <br>
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email">
+                                <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : null %>" class="control <%= locals.errors && errors.email ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.email) { %>
+                                    <div class="is-invalid"> <%= errors.email.msg %></div>
+                                <% } %>
                                 <br>
                                 <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="password" value="<%= locals.oldData ? oldData.password : null %>" class="control <%= locals.errors && errors.password ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.password) { %>
+                                    <div class="is-invalid"> <%= errors.password.msg %></div>
+                                <% } %>
                                 <br>
                                 
                                 <label for="avatar">Avatar</label>
-                                <input type="file" name="avatar" id="avatar" accept=".jpg, .png">
-                                
+                                <input type="file" name="avatar" id="avatar" accept=".jpg, .png" class="control <%= locals.errors && errors.avatar ? 'is-invalid' : null %>">
+                                <% if (locals.errors && errors.avatar) { %>
+                                    <div class="is-invalid"> <%= errors.avatar.msg %></div>
+                                <% } %>
                                 <br>
                         
-                                <label for="rol">Rol</label>
-                                <select name="rolId" id="rol" required>
-                                    <% roles.forEach(rol => { %>
-                                        <option value="<%= rol.id %>" selected ><%= rol.name %></option>
-                                    <% }); %>
+                               <label for="rol">Rol</label>
+                                <select name="rolId" id="rol" class="control <%= locals.errors && errors.rolId ? 'is-invalid' : null %>">
+                                    <option value="0" disabled selected>- Seleccione tipo de Usuario - </option>
+                                  <% roles.forEach(rol => { %> 
+                                        <option value="<%= rol.id %>" 
+                                            <% if (locals.oldData && oldData.rolId == rol.id) { %>
+                                                selected="selected" 
+                                            <% } %>
+                                        >
+                                            <%= rol.name %>
+                                        </option>
+                                 <% }); %>  
                                 </select>
-                        
+                                <% if (locals.errors && errors.rolId) { %>
+                                    <div class="is-invalid"> <%= errors.rolId.msg %></div>
+                                <% } %>
                                 <br><br><br>
                                 <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
                                     <span class="pd_gl-cta__content">

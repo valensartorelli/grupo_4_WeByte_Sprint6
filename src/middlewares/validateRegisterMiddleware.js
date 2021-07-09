@@ -23,5 +23,6 @@ module.exports = [
 		}
 
 		return true;
-	})
+	}),
+	body('rolId').notEmpty().withMessage('Tienes que elegir un tipo de usuario')
 ]

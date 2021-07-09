@@ -24,7 +24,16 @@
                 <div class="container">
                     <div class="pd_tit-categoria">Indumentaria para <%= product.category.name %> </div>
                     <div class="pd_producto-img">
-                        <div class="pd_prod-left"><img src="/images/<%= product.images[0].name %>" alt="<%= product.name %> "></div>
+                        <div class="pd_prod-left">
+                            <div>
+                            <img src="/images/<%= product.images[0].name %>" alt="<%= product.name %> "></div>
+                        <div>
+                            <% for (let i = 1; i < 5; i++) { %>
+                            <% if (product.images[i].name != '') { %>
+                                <img src="/images/<%= product.images[i].name %>" alt="Foto artículo <%= i+1 %>" class="imageSX">
+                            <% } %>
+                        <% } %></div>
+                    </div>
                         <div class="pd_prod-rigt">
                             <%= product.brand.name %><br>
                             <h1><%= product.name %> </h1>
@@ -57,17 +66,18 @@
                             <br><br><br>
                             <% } %>
                             <% if (locals.isLogged) { %>
-                            <section>
+                            <section class="flex">
                                 <button type="button" class="pd_gl-cta pd_gl-cta--primary">
                                     <span class="pd_gl-cta__content">
                                 <a class="botonModificar" href="/product/edit/<%= product.id %>">Modificar</a>
                             </span>
                         </button>
-                                <button type="button" class="pd_gl-cta pd_gl-cta--primary">
-                                    <span class="pd_gl-cta__content">
-                                <a class="botonBorrar" href="/product/delete/<%= product.id  %>">Eliminar</a>
-                            </span>
-                        </button>
+                                
+                        <form onSubmit="return confirm('¿Estas seguro de querer borrar este producto: <%= product.name %>?') " action="/product/delete/<%= product.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="pd_gl-cta pd_gl-cta--primary p20">
+                                <span class="pd_gl-cta__content">Eliminar</span>
+                    </button>
+                        </form>
                             </section>
                             <% } %>
                         </div>

@@ -35,36 +35,40 @@ const userController = {
             });
     },
     
-    add: (req, res) => {
-        Rol.findAll()
-        .then(roles => {
+    add: async (req, res) =>{
+        let roles = await Rol.findAll();
             res.render('users/register', {roles})
-        });
     },
     create: async (req, res) =>{
+        let roles = await Rol.findAll();
+
         console.log('entre en el Create user')
         console.log('----------------------------')
-        // const resultValidation = validationResult(req);
-        // if (resultValidation.errors.length > 0) {
-        //     return res.render('users/register', {
-        //         errors: resultValidation.mapped(),
-        //         oldData: req.body
-        //     });
-        // }
+        const resultValidation = validationResult(req);
+        if (resultValidation.errors.length > 0) {
+            return res.render('users/register', {
+                roles,
+                errors: resultValidation.mapped(),
+                oldData: req.body,
+                
+            });
+        }
         console.log('---------------------- antes de buscar si existe el mail');
-        // aca busca que el mail no exita ya registrado
-        // let userInDB = await User.findOne({where: {email: req.body.email}});
-        // if (userInDB) {
-        //     return res.render('users/add', {
-        //         errors: {
-        //             email: {
-        //                 msg: 'Este email ya está registrado'
-        //             }
-        //         },
-        //         oldData: req.body
-        //     });
-        // }
+        //aca busca que el mail no exita ya registrado
+        let userInDB = await User.findOne({where: {email: req.body.email}});
+        if (userInDB) {
+            return res.render('users/register', {
+                roles,
+                errors: {
+                    email: {
+                        msg: 'Este email ya está registrado'
+                    }
+                },
+                oldData: req.body
+            });
+        }
         console.log('---------------------- antes de crear el usuario');
+        console.log(req.body.email);
         //si paso las validaciones crea el usuario y encripta la contraseña
         try{
             let userCreated = await User.create({
@@ -75,8 +79,9 @@ const userController = {
                 password: bcryptjs.hashSync(req.body.password, 10),
                 avatar: req.file.filename,
                 rolId: req.body.rolId
-            })
-console.log(userCreated);
+            });
+
+        console.log(userCreated);
             return res.redirect('/users/login');
 
         } catch(error) {
@@ -104,12 +109,12 @@ console.log(userCreated);
     update: async (req, res) => {
         try {
             let user = req.body;
-            console.log(' soy la nueva: ' + req.body.avatar)
-            console.log('soy la vieja '+ req.body.oldAvatar)
+            console.log('soy la nueva imagen: ' + req.body.avatar + "--------------")
+            console.log('soy la vieja imagen'+ req.body.oldAvatar + "--------------")
 
             user.avatar = req.file ? req.file.filename : req.body.oldAvatar;
             if (req.file===undefined) {
-                user.avatar = req.body.oldImage
+                user.avatar = req.body.oldAvatar
             } else {
                 // Actualizaron la foto, saco su nombre del proceso
                 user.avatar = req.file.filename 

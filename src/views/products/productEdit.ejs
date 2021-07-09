@@ -82,14 +82,19 @@
                                     <input type="text" name="stock_max" id="" value="<%= product.stock_max %>" >
                                 </div>
                                 <div class="fr_email">
-                                    <label class="fr_lbltexto" for="image"> Imagen de producto </label>
-                                    <input type="file" name="image" id="image"  accept=".jpg, .png" value="<%= product.image %>">
-                                    <input type="hidden" name="oldImagen" value="<%= productImages.name %>">
+                                    <%i=0%>
+                                    <% product.images.forEach( image => { %>
+                                        <article>
+                                            <img src="/images/<%= image.name %>" alt="" class="avatar">
+                                            <input type="file" name=<%= "image" + ++i%>>
+                                        </article>
+                                    <% }) %>
                                 </div>
+                                
                                 
                                 <div class="fr_email check-x">
                                     <label for="home" class="fr_lbltexto"> Destacado Home </label> 
-                                      <input type="checkbox" name="home" id="" value="<%= product.home %>">
+                                      <input type="checkbox" name="home" id="" value="<%= product.home %>" <% if (product.home == 0) { %> checked <% } %>>
                             </div>
                             <div class="fr_email">
                                 <label for="visibilityId" class="fr_lbltexto"> Visibilidad </label>
@@ -102,13 +107,20 @@
                             </div>
                                 <!--</div>-->
                                 <br><br><br>
-                                <div class="fr_registro">
-                                    <div class="fr_registro-left">
+                                <div class="flex">
+                                    <div>
                                         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
                                             <span class="pd_gl-cta__content">
                                                 Editar Producto
                                             </span>
                                         </button>
+                                    </div>
+                                    <div class="p20">
+                                        <button type="button" class="pd_gl-cta pd_gl-cta--primary">
+                                            <span class="pd_gl-cta__content">
+                                        <a class="botonBorrar" href="/product">Cancelar</a>
+                                    </span>
+                                </button>
                                     </div>
                                 </div>
                             </form> 
